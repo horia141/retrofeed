@@ -1,0 +1,11 @@
+version: '2'
+services:
+  postgres:
+    container_name: retrofeed-postgres
+    image: postgres
+    ports:
+      - 10000:5432
+    environment:
+      - POSTGRES_USER=retrofeed
+      - POSTGRES_PASSWORD=retrofeed
+      - POSTGRES_DB=retrofeed
