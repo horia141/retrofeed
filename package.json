@@ -2,8 +2,9 @@
   "name": "retrofeed",
   "version": "0.0.0",
   "description": "Manage updates for your project's dependencies",
-  "main": "index.js",
+  "author": "Horia Coman horia141@gmail.com",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,10 +15,12 @@
     "dependency",
     "package"
   ],
-  "author": "Horia Coman horia141@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/horia141/retrofeed/issues"
   },
-  "homepage": "https://github.com/horia141/retrofeed#readme"
+  "homepage": "https://github.com/horia141/retrofeed#readme",
+  "devDependencies": {
+    "typescript": "2.9.2"
+  }
 }
