@@ -1,26 +1,43 @@
 {
-  "name": "retrofeed",
-  "version": "0.0.0",
-  "description": "Manage updates for your project's dependencies",
-  "author": "Horia Coman horia141@gmail.com",
-  "scripts": {
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/horia141/retrofeed.git"
-  },
-  "keywords": [
-    "dependency",
-    "package"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/horia141/retrofeed/issues"
-  },
-  "homepage": "https://github.com/horia141/retrofeed#readme",
-  "devDependencies": {
-    "typescript": "2.9.2"
-  }
+    "name": "retrofeed",
+    "version": "0.0.0",
+    "description": "Manage updates for your project's dependencies",
+    "author": "Horia Coman horia141@gmail.com",
+    "license": "MIT",
+    "homepage": "https://github.com/horia141/retrofeed#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/horia141/retrofeed.git"
+    },
+    "bugs": {
+        "url": "https://github.com/horia141/retrofeed/issues"
+    },
+    "keywords": [
+        "dependency",
+        "package"
+    ],
+    "scripts": {
+        "build": "./scripts/build.sh",
+        "build:watch": "./scripts/build-watch.sh",
+        "test": "./scripts/test.sh",
+        "test:watch": "./scripts/test-watch.sh",
+        "test:ci": "./scripts/test-ci.sh",
+        "serve:dev": "./scripts/serve-dev.sh",
+        "serve:prod": "./scripts/serve-prod.sh"
+    },
+    "devDependencies": {
+        "@types/chai": "=4.0.8",
+        "@types/mocha": "=2.2.44",
+        "chai": "=4.1.2",
+        "codecov": "=3.0.0",
+        "coverage-filter": "=1.0.0",
+        "istanbul": "=0.4.5",
+        "mocha": "=4.0.1",
+        "remap-istanbul": "=0.9.5",
+        "tsc-watch": "=1.0.22",
+        "typescript": "=2.9.2"
+    },
+    "dependencies": {
+        "ts-node": "=7.0.0"
+    }
 }

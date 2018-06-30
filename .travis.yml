@@ -1,0 +1,48 @@
+language: node_js
+
+node_js:
+- "node"
+
+cache:
+  directories:
+    - node_modules
+    - "$HOME/google-cloud-sdk"
+
+services:
+  - postgresql
+
+addons:
+  postgresql: "9.6"
+  hosts:
+    - postgres.retrofeed
+
+env:
+  global:
+  - PATH=$PATH:${HOME}/google-cloud-sdk/bin
+  - PGSSLMODE=require
+  - GCP_STAGING_PROJECT=chmsqrt2-retrofeed-staging
+  - GCP_STAGING_ZONE=europe-west1-b
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  - GOOGLE_APPLICATION_CREDENTIALS=config/gcp-ci-builder-key.json
+
+before_install:
+- if [ ! -d ${HOME}/google-cloud-sdk/bin ]; then
+    rm -rf ${HOME}/google-cloud-sdk;
+    curl https://sdk.cloud.google.com | bash /dev/stdin --disable-prompts;
+    ${HOME}/google-cloud-sdk/bin/gcloud -q components update kubectl;
+  fi
+- source ${HOME}/google-cloud-sdk/path.bash.inc
+
+install:
+- npm install --progress=false
+
+before_script:
+- psql -c "create database retrofeed;" -U postgres
+- psql -c "create user retrofeed with password 'retrofeed';" -U postgres
+- psql -c "grant all on database retrofeed to retrofeed;" -U postgres
+
+script:
+- ./scripts/test-ci.sh
+
+after_success:
+- ./scripts/push-coverage-to-codecov.sh
