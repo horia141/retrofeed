@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mocha --require ts-node/register --watch test/**/*.{ts,tsx}
+npx mocha --require ts-node/register --watch test/**/*.{ts,tsx}
