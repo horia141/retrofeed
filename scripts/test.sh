@@ -1,3 +1,8 @@
 #!/bin/sh
 
-npx mocha --require ts-node/register test/**/*.ts
+npx nyc mocha \
+    --nyrc-path tsnyc.json \
+    --require ts-node/register \
+    --require source-map-support/register \
+    --recursive \
+    test/**/*.ts

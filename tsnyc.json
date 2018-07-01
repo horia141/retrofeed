@@ -1,0 +1,15 @@
+{
+    "check-coverage": true,
+    "per-file": true,
+    "include": [
+        "src"
+    ],
+    "extension": [
+        ".ts",
+        ".tsx"
+    ],
+    "reporter": [
+        "text"
+    ],
+    "all": true
+}
