@@ -1,3 +1,3 @@
 #!/bin/sh
 
-npx mocha --require ts-node/register test/**/*.{ts,tsx}
+npx nyc --reporter=text mocha --require ts-node/register --require source-map-support/register --recursive test/**/*.{ts,tsx}

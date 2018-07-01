@@ -1,6 +1,0 @@
-instrumentation:
-  compact: true
-  excludes: ['src/config.ts', 'out/config.js']
-reporting:
-  dir: ./build/coverage
-  reports: [json]
