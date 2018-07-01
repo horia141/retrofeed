@@ -43,8 +43,8 @@ before_script:
 - psql -c "grant all on database retrofeed to retrofeed;" -U postgres
 
 script:
-- ./scripts/lint.sh
-- ./scripts/test.sh
+- yarn lint
+- yarn test
 
-# after_success:
-# - ./scripts/push-coverage-to-codecov.sh
+after_success:
+- ./scripts/send-coverage.sh
