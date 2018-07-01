@@ -4,6 +4,7 @@ node_js:
 - "node"
 
 cache:
+  yarn: true
   directories:
     - node_modules
     - "$HOME/google-cloud-sdk"
@@ -34,7 +35,7 @@ before_install:
 - source ${HOME}/google-cloud-sdk/path.bash.inc
 
 install:
-- npm install --progress=false
+- yarn install
 
 before_script:
 - psql -c "create database retrofeed;" -U postgres
