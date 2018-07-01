@@ -45,5 +45,5 @@ script:
 - ./scripts/lint.sh
 - ./scripts/test.sh
 
-after_success:
-- ./scripts/push-coverage-to-codecov.sh
+# after_success:
+# - ./scripts/push-coverage-to-codecov.sh
