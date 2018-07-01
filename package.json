@@ -17,9 +17,14 @@
         "package"
     ],
     "scripts": {
+        "serve": "./scripts/serve.sh",
+        "serve:watch": "./scripts/serve-watch.sh"
     },
     "devDependencies": {
+        "ts-node-dev": "^1.0.0-pre.26"
     },
     "dependencies": {
+        "ts-node": "^7.0.0",
+        "typescript": "^2.9.2"
     }
 }
