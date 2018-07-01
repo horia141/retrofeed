@@ -42,7 +42,8 @@ before_script:
 - psql -c "grant all on database retrofeed to retrofeed;" -U postgres
 
 script:
-- ./scripts/test-ci.sh
+- ./scripts/lint.sh
+- ./scripts/test.sh
 
 after_success:
 - ./scripts/push-coverage-to-codecov.sh
