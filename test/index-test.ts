@@ -1,8 +1,10 @@
 import 'mocha';
 import { expect } from 'chai';
 
-describe('Test', () => {
-    it('Should work', () => {
-        expect(true).to.be.true;
+import { addTwo } from '../src/index';
+
+describe('addTwo', () => {
+    it('Should add 2', () => {
+        expect(addTwo(10)).to.eql(12);
     });
 });
