@@ -8,9 +8,6 @@
 # NPM packages.
 /node_modules/
 
-# Anything containing .DS_Store
+# Hidden stuff.
 .DS_Store
-
-# Secrets files
-secrets.tar
-config/*
+.nyc_output
