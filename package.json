@@ -17,53 +17,9 @@
         "package"
     ],
     "scripts": {
-        "build": "./scripts/build.sh",
-        "build:watch": "./scripts/build-watch.sh",
-        "test": "./scripts/test.sh",
-        "test:watch": "./scripts/test-watch.sh",
-        "test:ci": "./scripts/test-ci.sh",
-        "serve:dev": "./scripts/serve-dev.sh",
-        "serve:prod": "./scripts/serve-prod.sh"
     },
     "devDependencies": {
-        "@types/chai": "=4.0.8",
-        "@types/mocha": "=2.2.44",
-        "chai": "=4.1.2",
-        "codecov": "=3.0.0",
-        "coverage-filter": "=1.0.0",
-        "istanbul": "=0.4.5",
-        "mocha": "=4.0.1",
-        "remap-istanbul": "=0.10.1",
-        "source-map-support": "^0.5.6",
-        "ts-node-dev": "=1.0.0-pre.26",
-        "typescript": "=2.9.2"
     },
     "dependencies": {
-        "nyc": "^12.0.2",
-        "ts-node": "=7.0.0"
-    },
-    "nyc": {
-        "extension": [
-            ".ts",
-            ".tsx"
-        ],
-        "per-file": true,
-        "reporter": [
-            "text",
-            "lcov"
-        ],
-        "include": [
-            "src/**/*.ts"
-        ],
-        "exclude": [
-            "**/*.d.ts",
-            "out/**/*"
-        ],
-        "cache": true,
-        "report-dir": "./build/coverage",
-        "reporter": [
-            "html"
-        ],
-        "all": true
     }
 }
