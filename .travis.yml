@@ -48,3 +48,11 @@ script:
 
 after_success:
 - ./scripts/send-coverage.sh
+
+deploy:
+  - provider: npm
+    email: horia141@gmail.com
+    api_key:
+    - secure: "ksOVi5wVazRYav6GzWlv9ho4VSV9azGDkRmGj7pimf2qc1prylmq1LDyqwtxxFdnFqmk8uIBTWVCUfenPZ5kUXfWK+C8S7gjTYKXltnRCuvQhhAk0NgXxLFBBk3bZikuiKkhWEUdWzr4nWeoLnCLzn+eteP30VBmMCGE+MNmWR3iGtLR3UccjjTXdL0WTGy+HmLmWY0iXsKWTW7t5QBSENVaZLz8ALboQWYUWIbFX2kC6Ek3TKGPnJocS2voZTirZQVKNQ/mfQIGsdTZXwDW4tgJbwFlZWgWO/6XLR+mleOaIYNxILnDatNokbIQeM3qXp3JWGqJtl0hD1X/4Z8GO3Zx4aTB1ub+Ky/frPO+/vq1ZwzV68w8/PFm/Uh4HYhe+FscVpFq6HcANyGBe9BJRqdRXwYFoGOEJfzpD4JNCbee1k9eJ4bCllxNUwUoO1riCTSP+1yzuaYKZf8oEtrWfF/UT9kH3bLV8noWYzH6EDD3trKHIgncvxKSEd6nlfdUJNUISXSni7bq3oUwkjkBREBeeM93cnPgTJgIDvYUaJRvSEYx6iRTkec701lLMRf5EVv0LQVJg/Npar4583PLltzMJrUE1ItmnbWGXDVWLBqgccu4JMIonRmpYIR5RrBENX/6+fvvIaEANGTMHTJ4NjRs4u80qx6W/xA18vohLpA="
+    on:
+      tags: true
