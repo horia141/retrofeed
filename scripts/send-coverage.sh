@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source scripts/setup-env.sh
+
 npx nyc report \
     --nycrc-path tsnyc.json \
     --reporter text-lcov \

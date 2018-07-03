@@ -1,3 +1,5 @@
 #!/bin/sh
 
-npx ts-node-dev --inspect -- src/index.ts
+source scripts/setup-env.sh
+
+npx ts-node-dev --inspect=${INSPECT_PORT} -- src/index.ts

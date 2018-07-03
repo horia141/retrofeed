@@ -21,7 +21,8 @@
         "serve:watch": "./scripts/serve-watch.sh",
         "test": "./scripts/test.sh",
         "test:watch": "./scripts/test-watch.sh",
-        "lint": "./scripts/lint.sh"
+        "lint": "./scripts/lint.sh",
+        "migrate": "./scripts/migrate.sh"
     },
     "devDependencies": {
         "@types/chai": "^4.1.4",
@@ -39,6 +40,7 @@
         "@nestjs/common": "^5.0.0",
         "@nestjs/core": "^5.0.0",
         "knex": "^0.15.0",
+        "pg": "^7.4.3",
         "reflect-metadata": "^0.1.12",
         "rxjs": "^6.2.1",
         "ts-node": "^7.0.0",

@@ -19,6 +19,7 @@ addons:
 
 env:
   global:
+  - ENV=TEST
   - PATH=$PATH:${HOME}/google-cloud-sdk/bin
   - PGSSLMODE=require
   - GCP_STAGING_PROJECT=chmsqrt2-retrofeed-staging
@@ -41,6 +42,7 @@ before_script:
 - psql -c "create database retrofeed;" -U postgres
 - psql -c "create user retrofeed with password 'retrofeed';" -U postgres
 - psql -c "grant all on database retrofeed to retrofeed;" -U postgres
+- yarn migrate
 
 script:
 - yarn lint

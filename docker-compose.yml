@@ -4,22 +4,24 @@ services:
     container_name: retrofeed-postgres
     image: postgres
     ports:
-      - 10000:5432
+      - ${POSTGRES_PORT}:5432
     environment:
-      - POSTGRES_USER=retrofeed
-      - POSTGRES_PASSWORD=retrofeed
-      - POSTGRES_DB=retrofeed
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
   retrofeed:
     container_name: retrofeed-retrofeed
     image: retrofeed-retrofeed
     build:
       context: .
     ports:
-     - 10001:10001
-     - 9229:9229 # Chrome inspector
+      - ${PORT}:${PORT}
+      - ${INSPECT_PORT}:${INSPECT_PORT} # Chrome inspector
     links:
-     - postgres
+      - postgres
+    env_file:
+      - ./config/env.current
     volumes:
-     - ./src:/retrofeed/src
-     - ./migrations:/retrofeed/migrations
-     - ./node_modules:/retrofeed/node_modules
+      - ./src:/retrofeed/src
+      - ./migrations:/retrofeed/migrations
+      - ./node_modules:/retrofeed/node_modules
