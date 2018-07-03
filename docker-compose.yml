@@ -9,3 +9,17 @@ services:
       - POSTGRES_USER=retrofeed
       - POSTGRES_PASSWORD=retrofeed
       - POSTGRES_DB=retrofeed
+  retrofeed:
+    container_name: retrofeed-retrofeed
+    image: retrofeed-retrofeed
+    build:
+      context: .
+    ports:
+     - 10001:10001
+     - 9229:9229 # Chrome inspector
+    links:
+     - postgres
+    volumes:
+     - ./src:/retrofeed/src
+     - ./migrations:/retrofeed/migrations
+     - ./node_modules:/retrofeed/node_modules
