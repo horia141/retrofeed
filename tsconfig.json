@@ -9,13 +9,15 @@
         "noUnusedParameters": true,
         "inlineSourceMap": true,
         "inlineSources": true,
+        "skipLibCheck": true,
         "declaration": true,
+        "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "outDir": "./out"
     },
     "include": [
-        "./src/**/*",
-        "./test/**/*"
+        "./src/**/*.ts",
+        "./test/**/*.ts"
     ],
     "exclude": [
         "./node_modules",
