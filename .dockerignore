@@ -16,6 +16,5 @@ Dockerfile
 
 # Hidden stuff.
 .env
-config/env.current
 .DS_Store
 .nyc_output
