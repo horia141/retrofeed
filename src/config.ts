@@ -12,10 +12,12 @@ export class ConfigService {
     }
 
     public get env(): Env {
+        // tslint:disable:no-string-literal
         return parseEnv(this.envConfig["ENV"]);
     }
 
     public get port(): number {
+        // tslint:disable:no-string-literal
         return parseInt(this.envConfig["PORT"], 10);
     }
 }
@@ -23,7 +25,7 @@ export class ConfigService {
 @Module({
     providers: [{
         provide: ConfigService,
-        useValue: new ConfigService(".env")
+        useValue: new ConfigService(".env"),
     }],
     exports: [ConfigService],
 })
