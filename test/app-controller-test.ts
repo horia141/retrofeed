@@ -3,10 +3,11 @@ import * as fs from "fs";
 import "mocha";
 import * as sinon from "sinon";
 
+import { AppController } from "../src/app-controller";
 import { AppService } from "../src/app-service";
 import { ConfigService } from "../src/config";
 
-describe("AppService", () => {
+describe("AppController", () => {
     let sandbox: sinon.SinonSandbox;
     let configService: ConfigService;
 
@@ -24,10 +25,14 @@ PORT=10001
     });
 
     describe("root", () => {
-        it("should work", () => {
+        it("should workd", async () => {
             const appService = new AppService(configService);
+            const appController = new AppController(appService);
 
-            expect(appService.root()).to.be.eql("Hello World - TEST");
+            const fake = sinon.fake.returns("Hello World - TEST");
+            sandbox.replace(appService, 'root', fake);
+
+            expect(await appController.root()).to.be.eql("Hello World - TEST");
         });
     });
 });
