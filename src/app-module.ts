@@ -6,7 +6,6 @@ import { ConfigModule } from "./config";
 
 @Module({
     imports: [ConfigModule],
-    exports: [ConfigModule],
     providers: [AppService],
     controllers: [AppController],
 })

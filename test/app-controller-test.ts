@@ -1,36 +1,28 @@
+import { Test, TestingModule } from "@nestjs/testing";
 import { expect } from "chai";
-import * as fs from "fs";
 import "mocha";
 import * as sinon from "sinon";
 
 import { AppController } from "../src/app-controller";
+import { AppModule } from "../src/app-module";
 import { AppService } from "../src/app-service";
-import { ConfigService } from "../src/config";
 
 describe("AppController", () => {
-    let sandbox: sinon.SinonSandbox;
-    let configService: ConfigService;
+    let module: TestingModule;
 
-    beforeEach(() => {
-        sandbox = sinon.createSandbox();
-        sandbox.stub(fs, "readFileSync").returns(`
-ENV=TEST
-PORT=10001
-        `);
-        configService = new ConfigService(".env");
-    });
-
-    afterEach(() => {
-        sandbox.restore();
+    beforeEach(async () => {
+        module = await Test.createTestingModule({
+            imports: [AppModule],
+        }).compile();
     });
 
     describe("root", () => {
-        it("should workd", async () => {
-            const appService = new AppService(configService);
-            const appController = new AppController(appService);
+        it("should work", async () => {
+            const appService = module.get<AppService>(AppService);
+            const appController = module.get<AppController>(AppController);
 
             const fake = sinon.fake.returns("Hello World - TEST");
-            sandbox.replace(appService, 'root', fake);
+            sinon.replace(appService, "root", fake);
 
             expect(await appController.root()).to.be.eql("Hello World - TEST");
         });

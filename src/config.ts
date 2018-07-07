@@ -5,10 +5,16 @@ import * as fs from "fs";
 import { Env, parseEnv } from "./common";
 
 export class ConfigService {
+
+    public static fromFile(filePath: string): ConfigService {
+        const envConfig = dotenv.parse(fs.readFileSync(filePath));
+        return new ConfigService(envConfig);
+    }
+
     private readonly envConfig: {[prop: string]: string};
 
-    constructor(filePath: string) {
-        this.envConfig = dotenv.parse(fs.readFileSync(filePath));
+    constructor(envConfig?: {[prop: string]: string}) {
+        this.envConfig = envConfig || {};
     }
 
     public get env(): Env {
@@ -25,7 +31,7 @@ export class ConfigService {
 @Module({
     providers: [{
         provide: ConfigService,
-        useValue: new ConfigService(".env"),
+        useValue: ConfigService.fromFile(".env"),
     }],
     exports: [ConfigService],
 })

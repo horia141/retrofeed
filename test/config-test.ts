@@ -17,13 +17,13 @@ describe("ConfigService", () => {
         sandbox.restore();
     });
 
-    it("should expose expected values", () => {
+    it("can be constructed from a file", () => {
         sandbox.stub(fs, "readFileSync").returns(`
 ENV=TEST
 PORT=10001
         `);
 
-        const configService = new ConfigService(".env");
+        const configService = ConfigService.fromFile(".env");
 
         expect(configService.env).to.eql(Env.Test);
         expect(configService.port).to.eql(10001);
