@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pwd
+set -e
 
 source scripts/setup-env.sh
 

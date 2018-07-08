@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 rm -f .env
 if [ -z ${ENV+x} ]
 then
