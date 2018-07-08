@@ -14,6 +14,9 @@ services:
 
 addons:
   postgresql: "9.6"
+  apt:
+    packages:
+    - tree
   hosts:
     - postgres.retrofeed
 
@@ -36,6 +39,7 @@ before_install:
 - source ${HOME}/google-cloud-sdk/path.bash.inc
 
 install:
+- tree
 - yarn install
 
 before_script:
@@ -45,6 +49,7 @@ before_script:
 - yarn migrate
 
 script:
+- tree
 - yarn lint
 - yarn test
 
