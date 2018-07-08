@@ -1,4 +1,4 @@
-import { Module, Global } from "@nestjs/common";
+import { Global, Module } from "@nestjs/common";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 
@@ -33,7 +33,11 @@ export class ConfigService {
 
     public get port(): number {
         // tslint:disable:no-string-literal
-        return parseInt(this.envConfig["PORT"], 10);
+        const port = parseInt(this.envConfig["PORT"], 10);
+        if (!Number.isSafeInteger(port)) {
+            throw new Error(`Invalid port value ${this.envConfig["PORT"]}`);
+        }
+        return port;
     }
 }
 

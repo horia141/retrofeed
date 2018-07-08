@@ -32,7 +32,7 @@ PORT=10001
     it("can be constructed for testing", () => {
         const configService = ConfigService.forTesting();
 
-        expect(() => configService.env).to.throw;
-        expect(() => configService.port).to.throw;
+        expect(() => configService.env).to.throw();
+        expect(() => configService.port).to.throw();
     });
 });
