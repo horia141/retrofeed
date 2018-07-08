@@ -6,14 +6,14 @@ import * as sinon from "sinon";
 import { AppModule } from "../src/app-module";
 import { AppService } from "../src/app-service";
 import { Env } from "../src/common";
-import { ConfigService } from "../src/config";
+import { ConfigService, ConfigTestingModule } from "../src/config";
 
 describe("AppService", () => {
     let module: TestingModule;
 
     beforeEach(async () => {
         module = await Test.createTestingModule({
-            imports: [AppModule],
+            imports: [AppModule, ConfigTestingModule],
         }).compile();
     });
 

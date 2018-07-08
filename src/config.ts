@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Module, Global } from "@nestjs/common";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 
@@ -11,9 +11,18 @@ export class ConfigService {
         return new ConfigService(envConfig);
     }
 
-    private readonly envConfig: {[prop: string]: string};
+    /**
+     * In tests, an _empty_ config will be generated. Tests will have to
+     * fake the calls to various config values, just like they'd do for
+     * other dependencies.
+     */
+    public static forTesting(): ConfigService {
+        return new ConfigService({});
+    }
 
-    constructor(envConfig?: {[prop: string]: string}) {
+    private readonly envConfig: { [prop: string]: string };
+
+    constructor(envConfig?: { [prop: string]: string }) {
         this.envConfig = envConfig || {};
     }
 
@@ -28,6 +37,7 @@ export class ConfigService {
     }
 }
 
+@Global()
 @Module({
     providers: [{
         provide: ConfigService,
@@ -35,4 +45,14 @@ export class ConfigService {
     }],
     exports: [ConfigService],
 })
-export class ConfigModule {}
+export class ConfigModule { }
+
+@Global()
+@Module({
+    providers: [{
+        provide: ConfigService,
+        useValue: ConfigService.forTesting(),
+    }],
+    exports: [ConfigService],
+})
+export class ConfigTestingModule { }
