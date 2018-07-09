@@ -47,6 +47,8 @@ before_script:
 script:
 - yarn lint
 - yarn test
+- yarn serve &
+- sleep 30
 - yarn test:e2e
 
 after_success:
