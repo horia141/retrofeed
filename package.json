@@ -19,6 +19,7 @@
     "scripts": {
         "serve": "./scripts/serve.sh",
         "serve:watch": "./scripts/serve-watch.sh",
+        "ngrok": "./scripts/ngrok-expose.sh",
         "test": "./scripts/test.sh",
         "test:watch": "./scripts/test-watch.sh",
         "lint": "./scripts/lint.sh",
@@ -33,6 +34,7 @@
         "chai": "^4.1.2",
         "coveralls": "^3.0.2",
         "mocha": "^5.2.0",
+        "ngrok": "^3.0.1",
         "nyc": "^13.0.0",
         "sinon": "^6.1.0",
         "source-map-support": "^0.5.6",
