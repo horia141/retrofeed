@@ -5,5 +5,5 @@ describe("Main page", () => {
         cy.visit("/");
 
         cy.contains(`Hello World - ${Cypress.env("ENV")}`);
-    })
+    });
 });
