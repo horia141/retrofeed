@@ -1,3 +1,4 @@
+import "cypress";
 import "mocha";
 
 describe("Main page", () => {

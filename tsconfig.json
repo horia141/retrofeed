@@ -13,12 +13,11 @@
         "declaration": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "outDir": "./out"
+        "outDir": ".build"
     },
     "include": [
         "./src/**/*.ts",
-        "./test/**/*.ts",
-        "./test-e2e/**/*.ts"
+        "./test/**/*.ts"
     ],
     "exclude": [
         "./node_modules",
