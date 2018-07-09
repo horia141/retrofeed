@@ -22,6 +22,8 @@
         "ngrok": "./scripts/ngrok-expose.sh",
         "test": "./scripts/test.sh",
         "test:watch": "./scripts/test-watch.sh",
+        "test:e2e": "./scripts/test-e2e.sh",
+        "test:e2e:watch": "./scripts/test-e2e-watch.sh",
         "lint": "./scripts/lint.sh",
         "migrate": "./scripts/migrate.sh"
     },

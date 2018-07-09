@@ -17,7 +17,8 @@
     },
     "include": [
         "./src/**/*.ts",
-        "./test/**/*.ts"
+        "./test/**/*.ts",
+        "./test-e2e/**/*.ts"
     ],
     "exclude": [
         "./node_modules",
