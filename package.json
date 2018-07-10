@@ -55,18 +55,5 @@
         "rxjs": "^6.2.1",
         "ts-node": "^7.0.0",
         "typescript": "^2.9.2"
-    },
-    "nyc": {
-        "extension": [
-            ".ts",
-            ".tsx"
-        ],
-        "exclude": [
-            "**/*.d.ts"
-        ],
-        "reporter": [
-            "text"
-        ],
-        "all": true
     }
 }
