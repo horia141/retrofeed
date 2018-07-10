@@ -13,7 +13,7 @@ addons:
   postgresql: "9.6"
   hosts:
     - postgres.retrofeed
-    - retrofeed.refrofeed
+    - retrofeed.retrofeed
 
 env:
   global:
