@@ -35,7 +35,7 @@
         "@types/sinon": "^5.0.1",
         "chai": "^4.1.2",
         "coveralls": "^3.0.2",
-        "cypress": "^3.0.1",
+        "cypress": "^2.0.4",
         "mocha": "^5.2.0",
         "ngrok": "^3.0.1",
         "nyc": "^13.0.0",
