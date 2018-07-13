@@ -1,5 +1,5 @@
-import "cypress";
-import "mocha";
+//import "cypress";
+//import "mocha";
 
 describe("Main page", () => {
     it("Has main data", () => {

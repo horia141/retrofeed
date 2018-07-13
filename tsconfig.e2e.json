@@ -2,6 +2,8 @@
     "extends": "./tsconfig",
     "compilerOptions": {
         "types": ["cypress"],
+        "target": "es5",
+        "lib": ["es5", "dom"],
         "declaration": false,
         "outDir": ".build"
     },
