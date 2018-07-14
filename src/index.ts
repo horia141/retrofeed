@@ -3,11 +3,13 @@ import { NestFactory } from "@nestjs/core";
 
 import { AppModule } from "./app-module";
 import { ConfigModule, ConfigService } from "./config";
+import { StatusModule } from "./status-module";
 
 @Module({
     imports: [
         AppModule,
         ConfigModule,
+        StatusModule,
     ],
 })
 class MainModule {}

@@ -1,6 +1,3 @@
-//import "cypress";
-//import "mocha";
-
 describe("Main page", () => {
     it("Has main data", () => {
         cy.visit("/");
