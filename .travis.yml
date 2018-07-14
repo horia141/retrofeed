@@ -4,8 +4,8 @@ cache:
   yarn: true
   directories:
     - node_modules
-    - .cache
-    - "$HOME/google-cloud-sdk"
+    - ~/.cache
+    - "~/google-cloud-sdk"
 
 services:
   - postgresql
@@ -19,7 +19,7 @@ addons:
 env:
   global:
   - ENV=TEST
-  - PATH=$PATH:${HOME}/google-cloud-sdk/bin
+  - PATH=$PATH:~/google-cloud-sdk/bin
   - PGSSLMODE=require
   - GCP_STAGING_PROJECT=chmsqrt2-retrofeed-staging
   - GCP_STAGING_ZONE=europe-west1-b
@@ -29,12 +29,12 @@ env:
   - secure: "2J3dlJO+D+WltkF2pMe5PiIDBDS7lPc4bxQNNIfDaB5CwHhtj6jl/+5sQslIWBQym/S5hoTW72iyTS1QQqasET8W6JW8rpSsaQ7PiDfYiC3na0KNgjmejOc62GRobHcH8cRMCRox/ArnMkbRSnVZplTAayq5kfDHRXMkOeMFSW7D0b8G6jJ8oYUXzRTfV+mAazdzRPHcZ8kbQN6vfG14Ne7UzlV69XQRDdF9xiTmTbZM2sT+z4vi6/VpYVifVPZkApoqAeL6+FDchpT30jUC89Rf9JthEZ3ion2QuaDtchwSwjGp7jzprj5dC196Bd8csUyjnqYN+E4fub/3d9v/pbtC78OHuubnm9wO/N9XEbWW9Ppe5/0Pl8/m41NV9ElY5ElV9wOu4Z8dWUASho/IW7Lbr/sT50ASGjjHi7tYEodEoH3gzdjKARZC5OdVsMkK918mPYJxTZO8gJrqDtpOYkbE0klvfMY5qVPVuGTGJxkRZ70MJWbGeQ83zOYuLOwtAz0+DlsXVAWtFUj5btc0/ZrcmE3m1NOUHrCMDYJCIcyJidkzdBkCu6+byB+Vn+yr+00UrJL7qHAnZz7YtYwYGrK3Wr/n+A2lQl9mPusMLakRLs4FEvQDnZvpAUGmr7p9dqZVpIkvaMop6OWGHEhM3130tOaeEhgkLJI/pDrIG/U="
 
 before_install:
-- if [ ! -d ${HOME}/google-cloud-sdk/bin ]; then
-    rm -rf ${HOME}/google-cloud-sdk;
+- if [ ! -d ~/google-cloud-sdk/bin ]; then
+    rm -rf ~/google-cloud-sdk;
     curl https://sdk.cloud.google.com | bash /dev/stdin --disable-prompts;
-    ${HOME}/google-cloud-sdk/bin/gcloud -q components update kubectl;
+    ~/google-cloud-sdk/bin/gcloud -q components update kubectl;
   fi
-- source ${HOME}/google-cloud-sdk/path.bash.inc
+- source ~/google-cloud-sdk/path.bash.inc
 
 install:
 - yarn install
