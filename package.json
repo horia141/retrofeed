@@ -29,6 +29,7 @@
     },
     "devDependencies": {
         "@types/chai": "^4.1.4",
+        "@types/compression": "^0.0.36",
         "@types/dotenv": "^4.0.3",
         "@types/helmet": "^0.0.38",
         "@types/mocha": "^5.2.4",
@@ -50,6 +51,7 @@
         "@nestjs/core": "^5.0.0",
         "@nestjs/testing": "^5.1.0",
         "@types/knex": "^0.14.16",
+        "compression": "^1.7.3",
         "dotenv": "^6.0.0",
         "helmet": "^3.12.1",
         "knex": "^0.15.0",
