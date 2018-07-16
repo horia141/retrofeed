@@ -30,6 +30,7 @@
     "devDependencies": {
         "@types/chai": "^4.1.4",
         "@types/dotenv": "^4.0.3",
+        "@types/helmet": "^0.0.38",
         "@types/mocha": "^5.2.4",
         "@types/node": "^10.5.1",
         "@types/sinon": "^5.0.1",
@@ -50,6 +51,7 @@
         "@nestjs/testing": "^5.1.0",
         "@types/knex": "^0.14.16",
         "dotenv": "^6.0.0",
+        "helmet": "^3.12.1",
         "knex": "^0.15.0",
         "pg": "^7.4.3",
         "reflect-metadata": "^0.1.12",

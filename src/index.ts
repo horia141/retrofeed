@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import * as helmet from "helmet";
 
 import { AppModule } from "./app-module";
 import { Config, ConfigModule } from "./config";
@@ -19,6 +20,7 @@ class MainModule {}
 async function bootstrap() {
     const app = await NestFactory.create(MainModule);
     const config = app.get(Config);
+    app.use(helmet());
     await app.listen(config.port);
 }
 
