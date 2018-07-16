@@ -6,7 +6,7 @@ import * as sinon from "sinon";
 import { AppModule } from "../src/app-module";
 import { AppService } from "../src/app-service";
 import { Env } from "../src/common";
-import { ConfigService, ConfigTestingModule } from "../src/config";
+import { Config, ConfigTestingModule } from "../src/config";
 
 describe("AppService", () => {
     let module: TestingModule;
@@ -19,7 +19,7 @@ describe("AppService", () => {
 
     describe("root", () => {
         it("should work", () => {
-            const configService = module.get(ConfigService);
+            const configService = module.get(Config);
             const appService = module.get(AppService);
 
             sinon.replaceGetter(configService, "env", () => Env.Test);

@@ -20,7 +20,7 @@ services:
     links:
       - postgres
     env_file:
-      - ./config/env.current
+      - ./.env
     volumes:
       - ./src:/retrofeed/src
       - ./migrations:/retrofeed/migrations

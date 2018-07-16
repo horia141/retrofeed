@@ -48,6 +48,7 @@
         "@nestjs/common": "^5.0.0",
         "@nestjs/core": "^5.0.0",
         "@nestjs/testing": "^5.1.0",
+        "@types/knex": "^0.14.16",
         "dotenv": "^6.0.0",
         "knex": "^0.15.0",
         "pg": "^7.4.3",
