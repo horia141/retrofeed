@@ -6,6 +6,7 @@ import * as helmet from "helmet";
 import { AppModule } from "./app-module";
 import { Config, ConfigModule } from "./config";
 import { DbConnModule } from "./db-conn";
+import { newRequestId } from "./middleware/request-id";
 import { StatusModule } from "./status-module";
 
 @Module({
@@ -22,6 +23,7 @@ async function bootstrap() {
     const app = await NestFactory.create(MainModule);
     app.use(helmet());
     app.use(compression());
+    app.use(newRequestId());
     const config = app.get(Config);
     await app.listen(config.port);
 }

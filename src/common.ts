@@ -1,3 +1,7 @@
+export enum Headers {
+    RequestId = "X-RetroFeed-RequestId",
+}
+
 export enum Env {
     Local,
     Test,
