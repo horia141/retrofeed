@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import * as compression from "compression";
 import * as helmet from "helmet";
@@ -7,7 +7,9 @@ import { AppModule } from "./app-module";
 import { Config, ConfigModule } from "./config";
 import { DbConnModule } from "./db-conn";
 import { newRequestId } from "./middleware/request-id";
+import { SessionMiddleware } from "./middleware/session";
 import { StatusModule } from "./status-module";
+import { AppController } from "./app-controller";
 
 @Module({
     imports: [
@@ -17,7 +19,13 @@ import { StatusModule } from "./status-module";
         StatusModule,
     ],
 })
-class MainModule {}
+class MainModule implements NestModule {
+    public configure(consumer: MiddlewareConsumer): void {
+        consumer
+            .apply(SessionMiddleware)
+            .forRoutes(AppController);
+    }
+}
 
 async function bootstrap() {
     const app = await NestFactory.create(MainModule);

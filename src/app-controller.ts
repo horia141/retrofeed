@@ -1,4 +1,5 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Req } from "@nestjs/common";
+import * as express from "express";
 
 import { AppService } from "./app-service";
 
@@ -9,7 +10,7 @@ export class AppController {
     }
 
     @Get()
-    public async root(): Promise<string> {
-        return this.appService.root();
+    public async root(@Req() req: express.Request): Promise<string> {
+        return `${this.appService.root()} - ${req.sessionID}`;
     }
 }

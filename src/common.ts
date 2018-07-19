@@ -1,5 +1,6 @@
 export enum Headers {
     RequestId = "X-RetroFeed-RequestId",
+    Session = "X-RetroFeed-Session",
 }
 
 export enum Env {

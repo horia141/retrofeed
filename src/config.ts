@@ -31,6 +31,11 @@ export class Config {
         return parseEnv(this.envConfig["ENV"]);
     }
 
+    public get host(): string {
+        // tslint:disable:no-string-literal
+        return this.envConfig["HOST"];
+    }
+
     public get port(): number {
         // tslint:disable:no-string-literal
         const port = parseInt(this.envConfig["PORT"], 10);
@@ -38,6 +43,11 @@ export class Config {
             throw new Error(`Invalid port value ${this.envConfig["PORT"]}`);
         }
         return port;
+    }
+
+    public get sessionSecret(): string {
+        // tslint:disable:no-string-literal
+        return this.envConfig["SESSION_SECRET"];
     }
 
     public get postgres(): IPostgresConfig {
