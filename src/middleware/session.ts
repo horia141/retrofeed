@@ -5,6 +5,7 @@ import * as moment from "moment";
 import { Headers, isOnServer } from "../common";
 import { Config } from "../config";
 
+// tslint:disable:no-var-requires
 const KnexSessionStore = require("connect-session-knex")(session);
 
 @Injectable()
@@ -50,6 +51,6 @@ export class SessionMiddleware implements NestMiddleware {
             saveUninitialized: true,
             // Sessions are never deleted, just marked as removed.
             unset: "keep",
-        }) as any;
+        }) as MiddlewareFunction;
     }
 }
