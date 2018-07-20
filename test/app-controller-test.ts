@@ -1,5 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { expect } from "chai";
+import * as express from "express";
 import "mocha";
 import * as sinon from "sinon";
 
@@ -25,7 +26,7 @@ describe("AppController", () => {
             const fake = sinon.fake.returns("Hello World - TEST");
             sinon.replace(appService, "root", fake);
 
-            expect(await appController.root()).to.be.eql("Hello World - TEST");
+            expect(await appController.root({sessionID: "FOO"} as express.Request)).to.be.eql("Hello World - TEST - FOO");
         });
     });
 });
