@@ -1,23 +1,33 @@
-// import * as knex from "knex";
-import { Injectable, MiddlewareFunction, NestMiddleware } from "@nestjs/common";
+import { Inject, Injectable, MiddlewareFunction, NestMiddleware } from "@nestjs/common";
 import * as session from "express-session";
+import * as knex from "knex";
 import * as moment from "moment";
 import { Headers, isOnServer } from "../common";
 import { Config } from "../config";
+
+const KnexSessionStore = require("connect-session-knex")(session);
 
 @Injectable()
 export class SessionMiddleware implements NestMiddleware {
 
     private readonly config: Config;
-    // private readonly conn: knex;
+    private readonly conn: knex;
 
-    constructor(config: Config) {
+    constructor(config: Config, @Inject("DbConn") conn: knex) {
         this.config = config;
-        // this.conn = conn;
+        this.conn = conn;
     }
 
     public resolve(): MiddlewareFunction {
+        const store = new KnexSessionStore({
+            knex: this.conn,
+            tablename: "auth.sessions",
+            sidfieldname: "sid",
+            createtable: false,
+        });
+
         return session({
+            store,
             name: Headers.Session,
             secret: this.config.sessionSecret,
             cookie: {
@@ -40,6 +50,6 @@ export class SessionMiddleware implements NestMiddleware {
             saveUninitialized: true,
             // Sessions are never deleted, just marked as removed.
             unset: "keep",
-        });
+        }) as any;
     }
 }

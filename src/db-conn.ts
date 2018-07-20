@@ -1,4 +1,4 @@
-import { Module, Global } from "@nestjs/common";
+import { Global, Module } from "@nestjs/common";
 import * as knex from "knex";
 
 import { Config } from "./config";

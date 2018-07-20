@@ -3,13 +3,13 @@ import { NestFactory } from "@nestjs/core";
 import * as compression from "compression";
 import * as helmet from "helmet";
 
+import { AppController } from "./app-controller";
 import { AppModule } from "./app-module";
 import { Config, ConfigModule } from "./config";
 import { DbConnModule } from "./db-conn";
 import { newRequestId } from "./middleware/request-id";
 import { SessionMiddleware } from "./middleware/session";
 import { StatusModule } from "./status-module";
-import { AppController } from "./app-controller";
 
 @Module({
     imports: [
