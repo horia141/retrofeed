@@ -2,7 +2,8 @@ import { Inject, Injectable, MiddlewareFunction, NestMiddleware } from "@nestjs/
 import * as session from "express-session";
 import * as knex from "knex";
 import * as moment from "moment";
-import { Headers, isOnServer } from "../common";
+
+import { genUuid, Headers, isOnServer } from "../common";
 import { Config } from "../config";
 
 // tslint:disable:no-var-requires
@@ -39,6 +40,8 @@ export class SessionMiddleware implements NestMiddleware {
                 sameSite: "lax",
                 secure: isOnServer(this.config.env),
             },
+            // Our own UUID generator, cryptographically safe.
+            genid: genUuid,
             // In production, behind GCPs loadbalancer communication will be HTTP based.
             // This option will set the cookie in this case, by looking for the X-Forwarded-Proto
             // header.

@@ -1,3 +1,6 @@
+// tslint:disable:no-var-requires
+const uid = require("uid-safe").sync;
+
 export enum Headers {
     RequestId = "X-RetroFeed-RequestId",
     Session = "X-RetroFeed-Session",
@@ -56,4 +59,8 @@ export function isNotOnServer(env: Env): boolean {
 
 export function isOnServer(env: Env): boolean {
     return env === Env.Staging || env === Env.Live;
+}
+
+export function genUuid(): string {
+    return uid(24);
 }

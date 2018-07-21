@@ -36,7 +36,6 @@
         "@types/mocha": "^5.2.4",
         "@types/node": "^10.5.1",
         "@types/sinon": "^5.0.1",
-        "@types/uuid": "^3.4.3",
         "chai": "^4.1.2",
         "coveralls": "^3.0.2",
         "cypress": "^3.0.1",
@@ -65,6 +64,6 @@
         "rxjs": "^6.2.1",
         "ts-node": "^7.0.0",
         "typescript": "^2.9.2",
-        "uuid": "^3.3.2"
+        "uid-safe": "^2.1.5"
     }
 }
