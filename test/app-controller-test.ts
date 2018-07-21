@@ -1,6 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { expect } from "chai";
-import * as express from "express";
 import "mocha";
 import * as moment from "moment";
 import * as sinon from "sinon";
@@ -31,7 +30,7 @@ describe("AppController", () => {
                 sessionID: "FOO",
                 requestId: "BAR",
                 requestTime: moment.utc(),
-            } as express.Request)).to.be.eql("Hello World - TEST - FOO - BAR");
+            } as any)).to.be.eql("Hello World - TEST - FOO - BAR");
         });
     });
 });
