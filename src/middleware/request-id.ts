@@ -5,8 +5,8 @@ import { genUuid, Headers } from "../common";
 
 declare global {
     namespace Express {
-        class Request {
-            public readonly requestId: string;
+        interface Request {
+            readonly requestId: string;
         }
     }
 }

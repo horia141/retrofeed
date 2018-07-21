@@ -2,6 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { expect } from "chai";
 import * as express from "express";
 import "mocha";
+import * as moment from "moment";
 import * as sinon from "sinon";
 
 import { AppController } from "../src/app-controller";
@@ -26,8 +27,11 @@ describe("AppController", () => {
             const fake = sinon.fake.returns("Hello World - TEST");
             sinon.replace(appService, "root", fake);
 
-            expect(await appController.root({sessionID: "FOO", requestId: "BAR"} as express.Request))
-                .to.be.eql("Hello World - TEST - FOO - BAR");
+            expect(await appController.root({
+                sessionID: "FOO",
+                requestId: "BAR",
+                requestTime: moment.utc(),
+            } as express.Request)).to.be.eql("Hello World - TEST - FOO - BAR");
         });
     });
 });
