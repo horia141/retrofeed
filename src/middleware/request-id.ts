@@ -1,11 +1,26 @@
+import { Injectable, MiddlewareFunction, NestMiddleware } from "@nestjs/common";
 import * as express from "express";
 import * as uuid from "uuid";
 
 import { Headers } from "../common";
 
-export function newRequestId(): express.RequestHandler {
-    return (_: express.Request, res: express.Response, next: express.NextFunction) => {
-        res.setHeader(Headers.RequestId, uuid());
-        next();
-    };
+declare global {
+    namespace Express {
+        class Request {
+            public requestId: string;
+        }
+    }
+}
+
+@Injectable()
+export class RequestIdMiddleware implements NestMiddleware {
+
+    public resolve(): MiddlewareFunction {
+        return ((req: express.Request, res: express.Response, next: express.NextFunction) => {
+            const requestId = uuid();
+            req.requestId = requestId;
+            res.setHeader(Headers.RequestId, requestId);
+            next();
+        }) as MiddlewareFunction;
+    }
 }

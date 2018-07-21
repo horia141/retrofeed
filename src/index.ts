@@ -7,9 +7,9 @@ import { AppController } from "./app-controller";
 import { AppModule } from "./app-module";
 import { Config, ConfigModule } from "./config";
 import { DbConnModule } from "./db-conn";
-import { newRequestId } from "./middleware/request-id";
 import { SessionMiddleware } from "./middleware/session";
 import { StatusModule } from "./status-module";
+import { RequestIdMiddleware } from "./middleware/request-id";
 
 @Module({
     imports: [
@@ -22,6 +22,9 @@ import { StatusModule } from "./status-module";
 class MainModule implements NestModule {
     public configure(consumer: MiddlewareConsumer): void {
         consumer
+            .apply(RequestIdMiddleware)
+            .forRoutes("*");
+        consumer
             .apply(SessionMiddleware)
             .forRoutes(AppController);
     }
@@ -31,7 +34,6 @@ async function bootstrap() {
     const app = await NestFactory.create(MainModule);
     app.use(helmet());
     app.use(compression());
-    app.use(newRequestId());
     const config = app.get(Config);
     await app.listen(config.port);
 }
