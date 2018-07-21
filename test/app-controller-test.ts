@@ -26,8 +26,8 @@ describe("AppController", () => {
             const fake = sinon.fake.returns("Hello World - TEST");
             sinon.replace(appService, "root", fake);
 
-            expect(await appController.root({sessionID: "FOO"} as express.Request))
-                .to.be.eql("Hello World - TEST - FOO");
+            expect(await appController.root({sessionID: "FOO", requestId: "BAR"} as express.Request))
+                .to.be.eql("Hello World - TEST - FOO - BAR");
         });
     });
 });

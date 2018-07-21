@@ -11,6 +11,6 @@ export class AppController {
 
     @Get()
     public async root(@Req() req: express.Request): Promise<string> {
-        return `${this.appService.root()} - ${req.sessionID}`;
+        return `${this.appService.root()} - ${req.sessionID} - ${req.requestId}`;
     }
 }

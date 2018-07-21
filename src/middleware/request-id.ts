@@ -6,7 +6,7 @@ import { genUuid, Headers } from "../common";
 declare global {
     namespace Express {
         class Request {
-            public requestId: string;
+            public readonly requestId: string;
         }
     }
 }
@@ -17,7 +17,7 @@ export class RequestIdMiddleware implements NestMiddleware {
     public resolve(): MiddlewareFunction {
         return ((req: express.Request, res: express.Response, next: express.NextFunction) => {
             const requestId = genUuid();
-            req.requestId = requestId;
+            Object.defineProperty(req, "requestId", { get: () => requestId });
             res.setHeader(Headers.RequestId, requestId);
             next();
         }) as MiddlewareFunction;
