@@ -5,7 +5,7 @@ import { Injectable, MiddlewareFunction, NestMiddleware } from "../../node_modul
 
 declare global {
     namespace Express {
-        interface Request {
+        export interface Request {
             readonly requestTime: Moment;
         }
     }
