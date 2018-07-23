@@ -2,6 +2,7 @@ import { Controller, Get, Req, Render } from "@nestjs/common";
 import * as express from "express";
 
 import { AppService } from "./app-service";
+import { BasicViewResponse } from "./common";
 
 @Controller()
 export class AppController {
@@ -19,7 +20,6 @@ export class AppController {
     }
 }
 
-interface HomeResponse {
-    title: string;
+interface HomeResponse extends BasicViewResponse {
     content: string;
 }

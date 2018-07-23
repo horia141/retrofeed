@@ -3,7 +3,7 @@ import * as session from "express-session";
 import * as knex from "knex";
 import * as moment from "moment";
 
-import { genUuid, Headers, isOnServer } from "../common";
+import { Cookies, genUuid, isOnServer } from "../common";
 import { Config } from "../config";
 
 // tslint:disable:no-var-requires
@@ -30,7 +30,7 @@ export class SessionMiddleware implements NestMiddleware {
 
         return session({
             store,
-            name: Headers.Session,
+            name: Cookies.Session,
             secret: this.config.sessionSecret,
             cookie: {
                 domain: this.config.host,

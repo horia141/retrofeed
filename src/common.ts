@@ -3,7 +3,10 @@ const uid = require("uid-safe").sync;
 
 export enum Headers {
     RequestId = "X-RetroFeed-RequestId",
-    Session = "X-RetroFeed-Session",
+}
+
+export enum Cookies {
+    Session = "retrofeed.session",
 }
 
 export enum Env {
@@ -63,4 +66,8 @@ export function isOnServer(env: Env): boolean {
 
 export function genUuid(): string {
     return uid(24);
+}
+
+export interface BasicViewResponse {
+    title: string;
 }
