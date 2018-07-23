@@ -26,7 +26,7 @@ describe("AppController", () => {
             const fake = sinon.fake.returns("Hello World - TEST");
             sinon.replace(appService, "root", fake);
 
-            expect(await appController.root({
+            expect(await appController.home({
                 sessionID: "FOO",
                 requestId: "BAR",
                 requestTime: moment.utc(),

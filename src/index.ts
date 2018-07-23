@@ -2,6 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import * as compression from "compression";
 import * as helmet from "helmet";
+import { join } from "path";
 
 import { AppController } from "./app-controller";
 import { AppModule } from "./app-module";
@@ -38,6 +39,8 @@ class MainModule implements NestModule {
 async function bootstrap() {
     const app = await NestFactory.create(MainModule);
     const config = app.get(Config);
+    app.setBaseViewsDir(join(__dirname, "views"));
+    app.setViewEngine("hbs");
     await app.listen(config.port);
 }
 

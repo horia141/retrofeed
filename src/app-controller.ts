@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from "@nestjs/common";
+import { Controller, Get, Req, Render } from "@nestjs/common";
 import * as express from "express";
 
 import { AppService } from "./app-service";
@@ -10,7 +10,16 @@ export class AppController {
     }
 
     @Get()
-    public async root(@Req() req: express.Request): Promise<string> {
-        return `${this.appService.root()} - ${req.sessionID} - ${req.requestId}`;
+    @Render("home")
+    public async home(@Req() req: express.Request): Promise<HomeResponse> {
+        return {
+            title: "RetroFeed",
+            content: `${this.appService.root()} - ${req.sessionID} - ${req.requestId}`,
+        };
     }
+}
+
+interface HomeResponse {
+    title: string;
+    content: string;
 }
