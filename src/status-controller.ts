@@ -1,9 +1,9 @@
 import { Controller, Get } from "@nestjs/common";
 
-@Controller("status")
+@Controller("/status")
 export class StatusController {
 
-    @Get()
+    @Get("/")
     public async status(): Promise<string> {
         return "OK";
     }

@@ -4,18 +4,26 @@ import * as express from "express";
 import { AppService } from "./app-service";
 import { BasicViewResponse } from "./common";
 
-@Controller()
+@Controller("/")
 export class AppController {
 
     constructor(private readonly appService: AppService) {
     }
 
-    @Get()
+    @Get("/")
     @Render("home")
     public async home(@Req() req: express.Request): Promise<HomeResponse> {
         return {
             title: "RetroFeed",
             content: `${this.appService.root()} - ${req.sessionID} - ${req.requestId}`,
+        };
+    }
+
+    @Get("/admin")
+    @Render("admin")
+    public async admin(): Promise<BasicViewResponse> {
+        return {
+            title: "RetroFeed - Admin",
         };
     }
 }
