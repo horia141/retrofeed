@@ -21,13 +21,18 @@ export class AppController {
 
     @Get("/admin")
     @Render("admin")
-    public async admin(): Promise<BasicViewResponse> {
+    public async admin(): Promise<AdminResponse> {
         return {
             title: "RetroFeed - Admin",
+            userName: "Horia",
         };
     }
 }
 
 interface HomeResponse extends BasicViewResponse {
     content: string;
+}
+
+interface AdminResponse extends BasicViewResponse {
+    userName: string;
 }
