@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Render } from "@nestjs/common";
+import { Controller, Get, Render, Req } from "@nestjs/common";
 import * as express from "express";
 
 import { AppService } from "./app-service";
@@ -21,10 +21,10 @@ export class AppController {
 
     @Get("/admin")
     @Render("admin")
-    public async admin(): Promise<AdminResponse> {
+    public async admin(@Req() req: express.Request): Promise<AdminResponse> {
         return {
             title: "RetroFeed - Admin",
-            userName: "Horia",
+            userName: req.user.id,
         };
     }
 }

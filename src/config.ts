@@ -66,6 +66,15 @@ export class Config {
 
         return config;
     }
+
+    public get auth0(): IAuth0Config {
+        // tslint:disable:no-string-literal
+        return {
+            domain: this.envConfig["AUTH0_DOMAIN"],
+            clientId: this.envConfig["AUTH0_CLIENT_ID"],
+            clientSecret: this.envConfig["AUTH0_CLIENT_SECRET"],
+        };
+    }
 }
 
 export interface IPostgresConfig {
@@ -74,6 +83,12 @@ export interface IPostgresConfig {
     database: string;
     username: string;
     password: string;
+}
+
+export interface IAuth0Config {
+    domain: string;
+    clientId: string;
+    clientSecret: string;
 }
 
 @Global()
