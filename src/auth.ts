@@ -38,6 +38,9 @@ export class Auth0Strategy extends PassportStrategy(Strategy) {
             clientSecret: config.auth0.clientSecret,
             // TODO: better encoding for this.
             callbackURL: "/real/auth/callback",
+            audience: 'https://' + config.auth0.domain + '/userinfo',
+            responseType: 'code',
+            scope: 'openid profile',
         });
     }
 
@@ -50,17 +53,17 @@ export class Auth0Strategy extends PassportStrategy(Strategy) {
 @Injectable()
 export class Auth0Serializer extends PassportSerializer {
     public serializeUser(user: any, done: Function) {
-        done(null, user.id);
+        done(null, { user_id: user.id, displayName: user.displayName });
     }
 
-    public deserializeUser(id: string, done: Function) {
-        done(null, { id });
+    public deserializeUser(profile: string, done: Function) {
+        done(null, profile);
     }
 }
 
 export function ensureAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/real/auth/login')
+    res.redirect('/real/auth/login');
 }
 
 
@@ -68,7 +71,7 @@ export function ensureAuthenticated(req: express.Request, res: express.Response,
 class AuthLoginMiddleware implements NestMiddleware {
 
     public resolve() {
-        return passport.authenticate('auth0', {});
+        return passport.authenticate('auth0', { connection: "github" } as any);
     }
 }
 
