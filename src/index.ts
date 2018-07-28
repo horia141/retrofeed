@@ -5,8 +5,9 @@ import * as helmet from "helmet";
 import * as passport from "passport";
 import { join } from "path";
 
+import { AppController } from "./app-controller";
 import { AppModule } from "./app-module";
-import { AuthModule } from "./auth";
+import { AuthController, AuthModule, ViewAuthFailedFilter } from "./auth";
 import { Config, ConfigModule } from "./config";
 import { DbConnModule } from "./db-conn";
 import { RequestIdMiddleware } from "./middleware/request-id";
@@ -27,17 +28,10 @@ class MainModule implements NestModule {
     public configure(consumer: MiddlewareConsumer): void {
         consumer
             .apply(
-                helmet(),
-                compression(),
-                RequestIdMiddleware,
-                RequestTimeMiddleware,
                 SessionMiddleware,
                 passport.initialize(),
                 passport.session())
-            .forRoutes("*");
-        // consumer
-        //     .apply(SessionMiddleware)
-        //     .forRoutes(AppController, AuthController);
+            .forRoutes(AppController, AuthController);
     }
 }
 
@@ -46,6 +40,11 @@ async function bootstrap() {
     const config = app.get(Config);
     app.setBaseViewsDir(join(__dirname, "views"));
     app.setViewEngine("hbs");
+    app.use(helmet());
+    app.use(compression());
+    app.use(RequestIdMiddleware);
+    app.use(RequestTimeMiddleware);
+    app.useGlobalFilters(new ViewAuthFailedFilter());
     await app.listen(config.port);
 }
 

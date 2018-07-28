@@ -1,8 +1,9 @@
-import { Controller, Get, Render, Req } from "@nestjs/common";
+import { Controller, Get, Render, Req, UseGuards } from "@nestjs/common";
 import * as express from "express";
 
 import { AppService } from "./app-service";
 import { BasicViewResponse } from "./common";
+import { ViewAuthGuard } from "./auth";
 
 @Controller("/")
 export class AppController {
@@ -21,6 +22,7 @@ export class AppController {
 
     @Get("/admin")
     @Render("admin")
+    @UseGuards(ViewAuthGuard)
     public async admin(@Req() req: express.Request): Promise<AdminResponse> {
         return {
             title: "RetroFeed - Admin",

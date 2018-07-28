@@ -1,35 +1,38 @@
-import { Controller, Get, Injectable, MiddlewareConsumer, Module, NestMiddleware, NestModule, Req, Res } from "@nestjs/common";
+import { Controller, Get, Injectable, Module, Next, Req, Res, CanActivate, ExecutionContext, HttpStatus, HttpException, ExceptionFilter, ArgumentsHost, Catch } from "@nestjs/common";
 import { PassportSerializer, PassportStrategy } from "@nestjs/passport";
-import * as express from "express";
+import { NextFunction, Request, Response } from "express";
 import * as passport from "passport";
+
 import { Config } from "./config";
 
+// tslint:disable:no-var-requires
 const Strategy = require("passport-auth0");
 
 @Controller("/real/auth")
 export class AuthController {
 
-    constructor() {
-    }
-
     @Get("/login")
-    public login() {
+    public login(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction): void {
+        passport.authenticate("auth0", { connection: "github" } as any)(req, res, next);
     }
 
     @Get("/callback")
-    public callback() {
+    public callback(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction): void {
+        passport.authenticate("auth0", {
+            successRedirect: "/admin",
+            failureRedirect: "/",
+        })(req, res, next);
     }
 
     @Get("/logout")
-    public logout(@Req() req: express.Request, @Res() res: express.Response){
+    public logout(@Req() req: Request, @Res() res: Response) {
         req.logout();
         res.redirect("/");
     }
 }
 
-
 @Injectable()
-export class Auth0Strategy extends PassportStrategy(Strategy) {
+export class AuthStrategy extends PassportStrategy(Strategy) {
 
     constructor(config: Config) {
         super({
@@ -38,20 +41,20 @@ export class Auth0Strategy extends PassportStrategy(Strategy) {
             clientSecret: config.auth0.clientSecret,
             // TODO: better encoding for this.
             callbackURL: "/real/auth/callback",
-            audience: 'https://' + config.auth0.domain + '/userinfo',
-            responseType: 'code',
-            scope: 'openid profile',
+            audience: "https://" + config.auth0.domain + "/userinfo",
+            responseType: "code",
+            scope: "openid profile",
         });
     }
 
-    public async validate(_accessToken: any, _refreshToken: any, profile: any, done: Function) {
+    public async validate(_: any, __: any, profile: any, done: Function) {
         // TODO: check that this is one of our users
         return done(null, profile);
     }
 }
 
 @Injectable()
-export class Auth0Serializer extends PassportSerializer {
+export class AuthSerializer extends PassportSerializer {
     public serializeUser(user: any, done: Function) {
         done(null, { user_id: user.id, displayName: user.displayName });
     }
@@ -61,42 +64,36 @@ export class Auth0Serializer extends PassportSerializer {
     }
 }
 
-export function ensureAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/real/auth/login');
+class ViewAuthFailedException extends HttpException {
+    constructor() {
+        super('Forbidden', HttpStatus.FORBIDDEN);
+    }
 }
 
+@Catch(ViewAuthFailedException)
+export class ViewAuthFailedFilter implements ExceptionFilter {
+    public catch(_: HttpException, host: ArgumentsHost) {
+        const ctx = host.switchToHttp();
+        const response = ctx.getResponse();
 
-@Injectable()
-class AuthLoginMiddleware implements NestMiddleware {
-
-    public resolve() {
-        return passport.authenticate('auth0', { connection: "github" } as any);
+        response.redirect("/real/auth/login");
     }
 }
 
 @Injectable()
-class AuthCallbackMiddleware implements NestMiddleware {
+export class ViewAuthGuard implements CanActivate {
 
-    public resolve() {
-        return passport.authenticate('auth0', {
-            successRedirect: '/admin',
-            failureRedirect: '/'
-        });
+    public canActivate(context: ExecutionContext): boolean {
+        const request = context.switchToHttp().getRequest();
+        if (request.isAuthenticated()) {
+            return true;
+        }
+        throw new ViewAuthFailedException();
     }
 }
 
 @Module({
     controllers: [AuthController],
-    providers: [Auth0Strategy, Auth0Serializer],
+    providers: [AuthStrategy, AuthSerializer],
 })
-export class AuthModule implements NestModule {
-    public configure(consumer: MiddlewareConsumer): void {
-        consumer
-            .apply(AuthLoginMiddleware)
-            .forRoutes("/real/auth/login");
-        consumer
-            .apply(AuthCallbackMiddleware)
-            .forRoutes("/real/auth/callback");
-    }
-}
+export class AuthModule {}
