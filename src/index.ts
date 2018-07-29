@@ -12,6 +12,7 @@ import { Config, ConfigModule } from "./config";
 import { DbConnModule } from "./db-conn";
 import { RequestIdMiddleware } from "./middleware/request-id";
 import { RequestTimeMiddleware } from "./middleware/request-time";
+import { RequestVersionMiddleware } from "./middleware/request-version";
 import { SessionMiddleware } from "./middleware/session";
 import { StatusModule } from "./status-module";
 import { UserModule } from "./user-service";
@@ -29,7 +30,7 @@ import { UserModule } from "./user-service";
 class MainModule implements NestModule {
     public configure(consumer: MiddlewareConsumer): void {
         consumer
-            .apply(RequestIdMiddleware, RequestTimeMiddleware)
+            .apply(RequestIdMiddleware, RequestTimeMiddleware, RequestVersionMiddleware)
             .forRoutes("*");
         consumer
             .apply(

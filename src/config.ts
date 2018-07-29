@@ -26,6 +26,11 @@ export class Config {
         this.envConfig = envConfig || {};
     }
 
+    public get version(): string {
+        // tslint:disable:no-string-literal
+        return this.envConfig["VERSION"];
+    }
+
     public get env(): Env {
         // tslint:disable:no-string-literal
         return parseEnv(this.envConfig["ENV"]);

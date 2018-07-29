@@ -3,6 +3,7 @@ const uid = require("uid-safe").sync;
 
 export enum Headers {
     RequestId = "X-RetroFeed-RequestId",
+    Version = "X-RetroFeed-Version",
 }
 
 export enum Cookies {
