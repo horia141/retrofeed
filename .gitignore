@@ -12,3 +12,4 @@ cypress
 .env
 .DS_Store
 .nyc_output
+config/*.secrets
