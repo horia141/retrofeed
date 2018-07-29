@@ -1,12 +1,27 @@
-import { Controller, Get, Injectable, Module, Next, Req, Res, CanActivate, ExecutionContext, HttpStatus, HttpException, ExceptionFilter, ArgumentsHost, Catch } from "@nestjs/common";
+import {
+    ArgumentsHost,
+    CanActivate,
+    Catch,
+    Controller,
+    ExceptionFilter,
+    ExecutionContext,
+    Get,
+    HttpException,
+    HttpStatus,
+    Injectable,
+    Module,
+    Next,
+    Req,
+    Res,
+} from "@nestjs/common";
 import { PassportSerializer, PassportStrategy } from "@nestjs/passport";
 import { NextFunction, Request, Response } from "express";
 import * as passport from "passport";
-import { MarshalWith, Marshaller, MarshalFrom } from "raynor";
 import * as r from "raynor";
+import { MarshalFrom, Marshaller, MarshalWith } from "raynor";
 
 import { Config } from "./config";
-import { UserModule, UserService, User } from "./user-service";
+import { User, UserModule, UserService } from "./user-service";
 
 // tslint:disable:no-var-requires
 const Strategy = require("passport-auth0");
@@ -81,17 +96,18 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
         this.userService = userService;
     }
 
-    public async validate(_: any, __: any, profileRaw: any, done: Function) {
+    public async validate(_: any, __: any, profileRaw: any, done: (error: Error|null, user: User) => void) {
         const profile = this.profileMarshaller.extract(profileRaw);
         const user = await this.userService.getOrCreateUser(false, profile);
-        return done(null, user);
+        done(null, user);
     }
 }
 
 @Injectable()
 export class AuthSerializer extends PassportSerializer {
 
-    private readonly serializedProfileMarshaller: Marshaller<AuthSerializedProfile> = new (MarshalFrom(AuthSerializedProfile))();
+    private readonly serializedProfileMarshaller: Marshaller<AuthSerializedProfile>
+        = new (MarshalFrom(AuthSerializedProfile))();
     private readonly userService: UserService;
 
     constructor(userService: UserService) {
@@ -99,12 +115,12 @@ export class AuthSerializer extends PassportSerializer {
         this.userService = userService;
     }
 
-    public serializeUser(user: User, done: Function) {
+    public serializeUser(user: User, done: (error: Error|null, data: AuthSerializedProfile) => void) {
         const serializedProfile = AuthSerializedProfile.fromProviderProfile(user.profile);
         done(null, this.serializedProfileMarshaller.pack(serializedProfile));
     }
 
-    public async deserializeUser(profile: string, done: Function) {
+    public async deserializeUser(profile: string, done: (error: Error|null, user: User) => void) {
         const serializedProfile = this.serializedProfileMarshaller.extract(profile);
         const user = await this.userService.getUserByProfileId(serializedProfile.userId);
         done(null, user);
@@ -113,7 +129,7 @@ export class AuthSerializer extends PassportSerializer {
 
 class ViewAuthFailedException extends HttpException {
     constructor() {
-        super('Forbidden', HttpStatus.FORBIDDEN);
+        super("Forbidden", HttpStatus.FORBIDDEN);
     }
 }
 
