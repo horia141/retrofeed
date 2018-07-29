@@ -2,6 +2,7 @@ describe("Main page", () => {
     it("Has main data", () => {
         cy.visit("/");
 
-        cy.contains(`Hello World - ${Cypress.env("ENV")}`);
+        cy.title().should("eq", "RetroFeed");
+        cy.contains("Hello");
     });
 });
