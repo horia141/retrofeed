@@ -2,11 +2,41 @@ import { Controller, Get, Injectable, Module, Next, Req, Res, CanActivate, Execu
 import { PassportSerializer, PassportStrategy } from "@nestjs/passport";
 import { NextFunction, Request, Response } from "express";
 import * as passport from "passport";
+import { MarshalWith, Marshaller, MarshalFrom } from "raynor";
+import * as r from "raynor";
 
 import { Config } from "./config";
+import { UserModule, UserService, User } from "./user-service";
 
 // tslint:disable:no-var-requires
 const Strategy = require("passport-auth0");
+
+export class AuthProviderProfile {
+
+    @MarshalWith(r.StringMarshaller, "user_id")
+    public userId: string = "";
+
+    @MarshalWith(r.StringMarshaller)
+    public displayName: string = "";
+
+    @MarshalWith(r.StringMarshaller)
+    public nickname: string = "";
+
+    @MarshalWith(r.SecureWebUriMarshaller)
+    public picture: string = "";
+}
+
+export class AuthSerializedProfile {
+
+    public static fromProviderProfile(providerProfile: AuthProviderProfile): AuthSerializedProfile {
+        const serializedProfile = new AuthSerializedProfile();
+        serializedProfile.userId = providerProfile.userId;
+        return serializedProfile;
+    }
+
+    @MarshalWith(r.StringMarshaller)
+    public userId: string = "";
+}
 
 @Controller("/real/auth")
 export class AuthController {
@@ -34,7 +64,10 @@ export class AuthController {
 @Injectable()
 export class AuthStrategy extends PassportStrategy(Strategy) {
 
-    constructor(config: Config) {
+    private readonly profileMarshaller: Marshaller<AuthProviderProfile> = new (MarshalFrom(AuthProviderProfile))();
+    private readonly userService: UserService;
+
+    constructor(config: Config, userService: UserService) {
         super({
             domain: config.auth0.domain,
             clientID: config.auth0.clientId,
@@ -45,22 +78,36 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
             responseType: "code",
             scope: "openid profile",
         });
+        this.userService = userService;
     }
 
-    public async validate(_: any, __: any, profile: any, done: Function) {
-        // TODO: check that this is one of our users
-        return done(null, profile);
+    public async validate(_: any, __: any, profileRaw: any, done: Function) {
+        const profile = this.profileMarshaller.extract(profileRaw);
+        const user = await this.userService.getOrCreateUser(false, profile);
+        return done(null, user);
     }
 }
 
 @Injectable()
 export class AuthSerializer extends PassportSerializer {
-    public serializeUser(user: any, done: Function) {
-        done(null, { user_id: user.id, displayName: user.displayName });
+
+    private readonly serializedProfileMarshaller: Marshaller<AuthSerializedProfile> = new (MarshalFrom(AuthSerializedProfile))();
+    private readonly userService: UserService;
+
+    constructor(userService: UserService) {
+        super();
+        this.userService = userService;
     }
 
-    public deserializeUser(profile: string, done: Function) {
-        done(null, profile);
+    public serializeUser(user: User, done: Function) {
+        const serializedProfile = AuthSerializedProfile.fromProviderProfile(user.profile);
+        done(null, this.serializedProfileMarshaller.pack(serializedProfile));
+    }
+
+    public async deserializeUser(profile: string, done: Function) {
+        const serializedProfile = this.serializedProfileMarshaller.extract(profile);
+        const user = await this.userService.getUserByProfileId(serializedProfile.userId);
+        done(null, user);
     }
 }
 
@@ -95,5 +142,6 @@ export class ViewAuthGuard implements CanActivate {
 @Module({
     controllers: [AuthController],
     providers: [AuthStrategy, AuthSerializer],
+    imports: [UserModule],
 })
 export class AuthModule {}

@@ -14,6 +14,7 @@ import { RequestIdMiddleware } from "./middleware/request-id";
 import { RequestTimeMiddleware } from "./middleware/request-time";
 import { SessionMiddleware } from "./middleware/session";
 import { StatusModule } from "./status-module";
+import { UserModule } from "./user-service";
 
 @Module({
     imports: [
@@ -22,10 +23,14 @@ import { StatusModule } from "./status-module";
         ConfigModule,
         DbConnModule,
         StatusModule,
+        UserModule,
     ],
 })
 class MainModule implements NestModule {
     public configure(consumer: MiddlewareConsumer): void {
+        consumer
+            .apply(RequestIdMiddleware, RequestTimeMiddleware)
+            .forRoutes("*");
         consumer
             .apply(
                 SessionMiddleware,
@@ -42,8 +47,6 @@ async function bootstrap() {
     app.setViewEngine("hbs");
     app.use(helmet());
     app.use(compression());
-    app.use(RequestIdMiddleware);
-    app.use(RequestTimeMiddleware);
     app.useGlobalFilters(new ViewAuthFailedFilter());
     await app.listen(config.port);
 }

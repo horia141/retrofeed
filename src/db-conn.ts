@@ -7,9 +7,9 @@ import { Config } from "./config";
 @Module({
     providers: [{
         provide: "DbConn",
-        useFactory: (config: Config) => {
+        useFactory: async (config: Config) => {
             const postgresConfig = config.postgres;
-            return knex({
+            const conn = knex({
                 client: "pg",
                 connection: {
                     host: postgresConfig.host,
@@ -19,6 +19,10 @@ import { Config } from "./config";
                     password: postgresConfig.password,
                 },
             });
+
+            await conn.schema.raw("set session characteristics as transaction isolation level serializable;");
+
+            return conn;
         },
         inject: [Config],
     }],
