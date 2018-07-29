@@ -25,7 +25,8 @@
         "test:e2e": "./scripts/test-e2e.sh",
         "test:e2e:watch": "./scripts/test-e2e-watch.sh",
         "lint": "./scripts/lint.sh",
-        "migrate": "./scripts/migrate.sh"
+        "migrate": "./scripts/migrate.sh",
+        "prepare:config": "./scripts/prepare-config.sh"
     },
     "devDependencies": {
         "@types/chai": "^4.1.4",
