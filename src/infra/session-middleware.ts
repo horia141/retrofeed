@@ -3,8 +3,8 @@ import * as session from "express-session";
 import * as knex from "knex";
 import * as moment from "moment";
 
-import { Cookies, genUuid, isOnServer } from "../common";
-import { Config } from "../config";
+import { Cookies, genUuid, isOnServer } from "./common";
+import { Config } from "./config";
 
 // tslint:disable:no-var-requires
 const KnexSessionStore = require("connect-session-knex")(session);

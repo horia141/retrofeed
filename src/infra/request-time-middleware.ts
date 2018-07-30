@@ -1,7 +1,7 @@
+import { Injectable, MiddlewareFunction, NestMiddleware } from "@nestjs/common";
 import * as express from "express";
 import * as moment from "moment";
 import { Moment } from "moment";
-import { Injectable, MiddlewareFunction, NestMiddleware } from "../../node_modules/@nestjs/common";
 
 declare global {
     namespace Express {

@@ -5,17 +5,16 @@ import * as helmet from "helmet";
 import * as passport from "passport";
 import { join } from "path";
 
-import { AppController } from "./app-controller";
-import { AppModule } from "./app-module";
-import { AuthController, AuthModule, ViewAuthFailedFilter } from "./auth";
-import { Config, ConfigModule } from "./config";
-import { DbConnModule } from "./db-conn";
-import { RequestIdMiddleware } from "./middleware/request-id";
-import { RequestTimeMiddleware } from "./middleware/request-time";
-import { RequestVersionMiddleware } from "./middleware/request-version";
-import { SessionMiddleware } from "./middleware/session";
-import { StatusModule } from "./status-module";
-import { UserModule } from "./user-service";
+import { AuthController, AuthModule, ViewAuthFailedFilter } from "./auth/auth";
+import { AppController, AppModule } from "./controllers/app/app";
+import { StatusModule } from "./controllers/tech/status";
+import { Config, ConfigModule } from "./infra/config";
+import { DbConnModule } from "./infra/db-conn";
+import { RequestIdMiddleware } from "./infra/request-id-middleware";
+import { RequestTimeMiddleware } from "./infra/request-time-middleware";
+import { RequestVersionMiddleware } from "./infra/request-version-middleware";
+import { SessionMiddleware } from "./infra/session-middleware";
+import { UserModule } from "./services/user";
 
 @Module({
     imports: [
@@ -44,7 +43,7 @@ class MainModule implements NestModule {
 async function bootstrap() {
     const app = await NestFactory.create(MainModule);
     const config = app.get(Config);
-    app.setBaseViewsDir(join(__dirname, "views"));
+    app.setBaseViewsDir(join(__dirname, "controllers/app"));
     app.setViewEngine("hbs");
     app.use(helmet());
     app.use(compression());

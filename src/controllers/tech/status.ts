@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Module } from "@nestjs/common";
 
 @Controller("/status")
 export class StatusController {
@@ -8,3 +8,8 @@ export class StatusController {
         return "OK";
     }
 }
+
+@Module({
+    controllers: [StatusController],
+})
+export class StatusModule { }

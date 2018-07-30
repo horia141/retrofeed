@@ -1,8 +1,8 @@
-import { Controller, Get, Render, Req, UseGuards } from "@nestjs/common";
+import { Controller, Get, Module, Render, Req, UseGuards } from "@nestjs/common";
 import * as express from "express";
 
-import { ViewAuthGuard } from "./auth";
-import { BasicViewResponse } from "./common";
+import { ViewAuthGuard } from "../../auth/auth";
+import { BasicViewResponse } from "../../infra/common";
 
 @Controller("/")
 export class AppController {
@@ -36,3 +36,8 @@ interface AdminResponse extends BasicViewResponse {
     userName: string;
     userId: string;
 }
+
+@Module({
+    controllers: [AppController],
+})
+export class AppModule {}

@@ -3,7 +3,7 @@ import * as knex from "knex";
 import * as moment from "moment";
 import { MarshalFrom, Marshaller } from "raynor";
 
-import { AuthProviderProfile } from "./auth";
+import { AuthProviderProfile } from "../auth/auth";
 
 export enum UserState {
     Unknown = 0,

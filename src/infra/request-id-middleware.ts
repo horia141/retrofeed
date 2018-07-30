@@ -1,7 +1,7 @@
 import { Injectable, MiddlewareFunction, NestMiddleware } from "@nestjs/common";
 import * as express from "express";
 
-import { genUuid, Headers } from "../common";
+import { genUuid, Headers } from "./common";
 
 declare global {
     namespace Express {
