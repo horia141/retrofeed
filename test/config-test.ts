@@ -3,8 +3,8 @@ import * as fs from "fs";
 import "mocha";
 import * as sinon from "sinon";
 
-import { Env } from "../src/common";
-import { Config } from "../src/config";
+import { Env } from "../src/infra/common";
+import { Config } from "../src/infra/config";
 
 describe("ConfigService", () => {
     let sandbox: sinon.SinonSandbox;

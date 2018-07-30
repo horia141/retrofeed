@@ -3,9 +3,8 @@ import { expect } from "chai";
 import "mocha";
 import * as moment from "moment";
 
-import { AppController } from "../src/app-controller";
-import { AppModule } from "../src/app-module";
-import { ConfigTestingModule } from "../src/config";
+import { AppController, AppModule } from "../src/controllers/app/app";
+import { ConfigTestingModule } from "../src/infra/config";
 
 describe("AppController", () => {
     let module: TestingModule;
