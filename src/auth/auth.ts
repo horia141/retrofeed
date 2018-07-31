@@ -21,7 +21,8 @@ import * as r from "raynor";
 import { MarshalFrom, Marshaller, MarshalWith } from "raynor";
 
 import { Config } from "../infra/config";
-import { User, UserModule, UserService } from "../services/user";
+import { User } from "../services/user/entities";
+import { UserModule, UserService } from "../services/user/service";
 
 // tslint:disable:no-var-requires
 const Strategy = require("passport-auth0");

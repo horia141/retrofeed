@@ -14,7 +14,7 @@ import { RequestIdMiddleware } from "./infra/request-id-middleware";
 import { RequestTimeMiddleware } from "./infra/request-time-middleware";
 import { RequestVersionMiddleware } from "./infra/request-version-middleware";
 import { SessionMiddleware } from "./infra/session-middleware";
-import { UserModule } from "./services/user";
+import { UserModule } from "./services/user/service";
 
 @Module({
     imports: [

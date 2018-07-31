@@ -3,27 +3,9 @@ import * as knex from "knex";
 import * as moment from "moment";
 import { MarshalFrom, Marshaller } from "raynor";
 
-import { AuthProviderProfile } from "../auth/auth";
-
-export enum UserState {
-    Unknown = 0,
-    Active = 1,
-    Removed = 2,
-}
-
-export class User {
-    public id: number = -1;
-    public agreedToPolicy: boolean = false;
-    public profile: AuthProviderProfile = new AuthProviderProfile();
-}
-
-export enum UserEventType {
-    Unknown = 0,
-    Created = 1,
-    Recreated = 2,
-    Removed = 3,
-    AgreedToPolicy = 4,
-}
+import { AuthProviderProfile } from "../../auth/auth";
+import { User, UserState } from "./entities";
+import { UserEventType } from "./events";
 
 export class UserNotFoundError extends HttpException {
     constructor(message: string) {
