@@ -22,8 +22,8 @@ export class AppController {
     public async admin(@Req() req: express.Request): Promise<AdminResponse> {
         return {
             title: "RetroFeed - Admin",
-            userName: req.user.profile.displayName,
-            userId: req.user.profile.userId,
+            userName: req.user.displayName,
+            providerId: req.user.providerId,
         };
     }
 }
@@ -34,7 +34,7 @@ interface HomeResponse extends BasicViewResponse {
 
 interface AdminResponse extends BasicViewResponse {
     userName: string;
-    userId: string;
+    providerId: string;
 }
 
 @Module({

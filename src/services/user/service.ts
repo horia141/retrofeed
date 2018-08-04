@@ -96,7 +96,7 @@ export class UserService {
                     right_now: rightNow.toDate(),
                 });
 
-            if (rawResponse.length !== 1) {
+            if (rawResponse.rows.length !== 1) {
                 throw new ServiceError();
             }
 
@@ -156,9 +156,9 @@ export class UserService {
         const user = new User();
         user.id = dbUser.user_id;
         user.agreedToPolicy = dbUser.user_agreed_to_policy;
-        user.displayName = dbUser.display_name;
-        user.nickname = dbUser.nickname;
-        user.pictureUri = dbUser.picture_uri;
+        user.displayName = dbUser.user_display_name;
+        user.nickname = dbUser.user_nickname;
+        user.pictureUri = dbUser.user_picture_uri;
         user.providerId = providerId;
         return user;
     }
