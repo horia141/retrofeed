@@ -19,6 +19,7 @@
     "scripts": {
         "serve": "./scripts/serve.sh",
         "serve:watch": "./scripts/serve-watch.sh",
+        "start:infra": "./scripts/start-infra.sh",
         "ngrok": "./scripts/ngrok-expose.sh",
         "test": "./scripts/test.sh",
         "test:watch": "./scripts/test-watch.sh",
