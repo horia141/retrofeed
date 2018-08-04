@@ -1,5 +1,3 @@
-import { AuthProviderProfile } from "../../auth/auth";
-
 export enum UserState {
     Unknown = 0,
     Active = 1,
@@ -9,5 +7,8 @@ export enum UserState {
 export class User {
     public id: number = -1;
     public agreedToPolicy: boolean = false;
-    public profile: AuthProviderProfile = new AuthProviderProfile();
+    public displayName: string = "";
+    public nickname: string = "";
+    public pictureUri: string = "";
+    public providerId: string = "";
 }

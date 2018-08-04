@@ -6,8 +6,11 @@ exports.up = (knex, Promise) => knex.schema.raw(`
        -- Core properties
        state SmallInt NOT NULL,
        agreed_to_policy Boolean NOT NULL,
+       display_name Text NOT NULL,
+       nickname Text NOT NULL,
+       picture_uri Text NOT NULL,
+       -- External foreign key
        provider_user_id Varchar(128) NOT NULL,
-       provider_profile Jsonb NOT NULL,
        -- Denormalized data
        time_created Timestamp NOT NULL,
        time_last_updated Timestamp NOT NULL,

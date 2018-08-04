@@ -30,7 +30,7 @@ const Strategy = require("passport-auth0");
 export class AuthProviderProfile {
 
     @MarshalWith(r.StringMarshaller, "user_id")
-    public userId: string = "";
+    public providerId: string = "";
 
     @MarshalWith(r.StringMarshaller)
     public displayName: string = "";
@@ -38,20 +38,20 @@ export class AuthProviderProfile {
     @MarshalWith(r.StringMarshaller)
     public nickname: string = "";
 
-    @MarshalWith(r.SecureWebUriMarshaller)
-    public picture: string = "";
+    @MarshalWith(r.SecureWebUriMarshaller, "picture")
+    public pictureUri: string = "";
 }
 
 export class AuthSerializedProfile {
 
-    public static fromProviderProfile(providerProfile: AuthProviderProfile): AuthSerializedProfile {
+    public static fromUser(user: User): AuthSerializedProfile {
         const serializedProfile = new AuthSerializedProfile();
-        serializedProfile.userId = providerProfile.userId;
+        serializedProfile.providerId = user.providerId;
         return serializedProfile;
     }
 
     @MarshalWith(r.StringMarshaller)
-    public userId: string = "";
+    public providerId: string = "";
 }
 
 @Controller("/real/auth")
@@ -99,7 +99,8 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
 
     public async validate(_: any, __: any, profileRaw: any, done: (error: Error|null, user: User) => void) {
         const profile = this.profileMarshaller.extract(profileRaw);
-        const user = await this.userService.getOrCreateUser(false, profile);
+        const user = await this.userService.getOrCreateUser(
+            false, profile.displayName, profile.nickname, profile.pictureUri, profile.providerId);
         done(null, user);
     }
 }
@@ -117,13 +118,13 @@ export class AuthSerializer extends PassportSerializer {
     }
 
     public serializeUser(user: User, done: (error: Error|null, data: AuthSerializedProfile) => void) {
-        const serializedProfile = AuthSerializedProfile.fromProviderProfile(user.profile);
+        const serializedProfile = AuthSerializedProfile.fromUser(user);
         done(null, this.serializedProfileMarshaller.pack(serializedProfile));
     }
 
     public async deserializeUser(profile: string, done: (error: Error|null, user: User) => void) {
         const serializedProfile = this.serializedProfileMarshaller.extract(profile);
-        const user = await this.userService.getUserByProfileId(serializedProfile.userId);
+        const user = await this.userService.getUserByProviderId(serializedProfile.providerId);
         done(null, user);
     }
 }

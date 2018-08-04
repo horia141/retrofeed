@@ -1,4 +1,5 @@
-import * as moment from "moment";
+import * as r from "raynor";
+import { MarshalEnum, MarshalFrom, MarshalWith, OptionalOf } from "raynor";
 
 export enum UserEventType {
     Unknown = 0,
@@ -8,8 +9,27 @@ export enum UserEventType {
     AgreedToPolicy = 4,
 }
 
+export class UserCreationData {
+    @MarshalWith(r.BooleanMarshaller)
+    public agreedToPolicy: boolean = false;
+
+    @MarshalWith(r.StringMarshaller)
+    public displayName: string = "";
+
+    @MarshalWith(r.StringMarshaller)
+    public nickname: string = "";
+
+    @MarshalWith(r.SecureWebUriMarshaller)
+    public pictureUri: string = "";
+}
+
 export class UserEvent {
+    @MarshalWith(MarshalEnum(UserEventType))
     public type: UserEventType = UserEventType.Unknown;
-    public timestamp: moment.Moment = moment.utc();
-    public data: null = null;
+
+    @MarshalWith(r.DateFromTsMarshaller)
+    public timestamp: Date = new Date();
+
+    @MarshalWith(OptionalOf(MarshalFrom(UserCreationData)))
+    public data: UserCreationData|null = null;
 }
