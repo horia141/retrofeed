@@ -1,3 +1,4 @@
+import * as moment from "moment";
 import * as r from "raynor";
 import { MarshalEnum, MarshalFrom, MarshalWith, OptionalOf } from "raynor";
 
@@ -27,8 +28,8 @@ export class UserEvent {
     @MarshalWith(MarshalEnum(UserEventType))
     public type: UserEventType = UserEventType.Unknown;
 
-    @MarshalWith(r.DateFromTsMarshaller)
-    public timestamp: Date = new Date();
+    @MarshalWith(r.MomentFromTsMarshaller)
+    public timestamp: moment.Moment = moment.utc();
 
     @MarshalWith(OptionalOf(MarshalFrom(UserCreationData)))
     public data: UserCreationData|null = null;
