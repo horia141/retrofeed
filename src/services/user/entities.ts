@@ -1,7 +1,7 @@
 export enum UserState {
-    Unknown = 0,
-    Active = 1,
-    Removed = 2,
+    Unknown = "Unknown",
+    Active = "Active",
+    Removed = "Removed",
 }
 
 export class User {

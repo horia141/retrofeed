@@ -72,7 +72,7 @@ export class UserService {
                     on conflict (provider_user_id)
                     do update
                     set
-                        state = ${UserState.Active},
+                        state = '${UserState.Active}',
                         agreed_to_policy = auth.users.agreed_to_policy OR excluded.agreed_to_policy,
                         display_name = excluded.display_name,
                         nickname = excluded.nickname,

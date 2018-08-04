@@ -2,11 +2,11 @@ import * as r from "raynor";
 import { MarshalEnum, MarshalFrom, MarshalWith, OptionalOf } from "raynor";
 
 export enum UserEventType {
-    Unknown = 0,
-    Created = 1,
-    Recreated = 2,
-    Removed = 3,
-    AgreedToPolicy = 4,
+    Unknown = "Unknown",
+    Created = "Created",
+    Recreated = "Recreated",
+    Removed = "Removed",
+    AgreedToPolicy = "AgreedToPolicy",
 }
 
 export class UserCreationData {
