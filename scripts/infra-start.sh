@@ -4,4 +4,4 @@ set -e
 
 source scripts/setup-env.sh
 
-docker-compose up postgres
+docker-compose up -d
