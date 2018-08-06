@@ -8,22 +8,24 @@ import { BasicViewResponse } from "../../infra/common";
 export class AppController {
 
     @Get("/")
-    @Render("home")
+    @Render("app/home")
     public async home(@Req() req: express.Request): Promise<HomeResponse> {
         return {
             title: "RetroFeed",
             content: `Hello ${req.sessionID} - ${req.requestId}`,
+            layout: "app/layout",
         };
     }
 
     @Get("/admin")
-    @Render("admin")
+    @Render("app/admin")
     @UseGuards(ViewAuthGuard)
     public async admin(@Req() req: express.Request): Promise<AdminResponse> {
         return {
             title: "RetroFeed - Admin",
             userName: req.user.displayName,
             providerId: req.user.providerId,
+            layout: "app/layout",
         };
     }
 }

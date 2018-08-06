@@ -7,6 +7,7 @@ import { join } from "path";
 
 import { AuthController, AuthModule, ViewAuthFailedFilter } from "./auth/auth";
 import { AppController, AppModule } from "./controllers/app/app";
+import { IntegrationModule } from "./controllers/integration/integration";
 import { StatusModule } from "./controllers/tech/status";
 import { Config, ConfigModule } from "./infra/config";
 import { DbConnModule } from "./infra/db-conn";
@@ -22,6 +23,7 @@ import { UserModule } from "./services/user/service";
         AuthModule,
         ConfigModule,
         DbConnModule,
+        IntegrationModule,
         StatusModule,
         UserModule,
     ],
@@ -43,7 +45,7 @@ class MainModule implements NestModule {
 async function bootstrap() {
     const app = await NestFactory.create(MainModule);
     const config = app.get(Config);
-    app.setBaseViewsDir(join(__dirname, "controllers/app"));
+    app.setBaseViewsDir(join(__dirname, "controllers"));
     app.setViewEngine("hbs");
     app.use(helmet());
     app.use(compression());

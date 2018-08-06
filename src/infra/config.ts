@@ -50,6 +50,11 @@ export class Config {
         return port;
     }
 
+    public get externalOrigin(): string {
+        // tslint:disable:no-string-literal
+        return this.envConfig["EXTERNAL_ORIGIN"];
+    }
+
     public get sessionSecret(): string {
         // tslint:disable:no-string-literal
         return this.envConfig["SESSION_SECRET"];

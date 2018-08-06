@@ -71,4 +71,5 @@ export function genUuid(): string {
 
 export interface BasicViewResponse {
     title: string;
+    layout: string;
 }
