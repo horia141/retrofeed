@@ -55,12 +55,20 @@ export class Config {
         return this.envConfig["EXTERNAL_ORIGIN"];
     }
 
+    public get contact(): Contact {
+        // tslint:disable:no-string-literal
+        return {
+            authors: "The RetroFeed Team",
+            email: this.envConfig["CONTACT_EMAIL"],
+        };
+    }
+
     public get sessionSecret(): string {
         // tslint:disable:no-string-literal
         return this.envConfig["SESSION_SECRET"];
     }
 
-    public get postgres(): IPostgresConfig {
+    public get postgres(): PostgresConfig {
         // tslint:disable:no-string-literal
         const config = {
             host: this.envConfig["POSTGRES_HOST"],
@@ -77,7 +85,7 @@ export class Config {
         return config;
     }
 
-    public get auth0(): IAuth0Config {
+    public get auth0(): Auth0Config {
         // tslint:disable:no-string-literal
         return {
             domain: this.envConfig["AUTH0_DOMAIN"],
@@ -87,7 +95,12 @@ export class Config {
     }
 }
 
-export interface IPostgresConfig {
+export interface Contact {
+    authors: string;
+    email: string;
+}
+
+export interface PostgresConfig {
     host: string;
     port: number;
     database: string;
@@ -95,7 +108,7 @@ export interface IPostgresConfig {
     password: string;
 }
 
-export interface IAuth0Config {
+export interface Auth0Config {
     domain: string;
     clientId: string;
     clientSecret: string;

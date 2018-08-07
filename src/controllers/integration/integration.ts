@@ -18,10 +18,24 @@ export class IntegrationController {
             externalOrigin: this.config.externalOrigin
         };
     }
+
+    @Get("/humans.txt")
+    @Render("integration/humans")
+    public async humans(): Promise<HumansViewResponse> {
+        return {
+            contactAuthors: this.config.contact.authors,
+            contactEmail: this.config.contact.email
+        };
+    }
 }
 
 interface RobotsViewResponse {
     externalOrigin: string;
+}
+
+interface HumansViewResponse {
+    contactAuthors: string;
+    contactEmail: string;
 }
 
 @Module({
