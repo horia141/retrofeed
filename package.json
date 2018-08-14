@@ -1,6 +1,6 @@
 {
     "name": "retrofeed",
-    "version": "0.0.2",
+    "version": "0.0.5",
     "description": "Manage updates for your project's dependencies",
     "author": "Horia Coman horia141@gmail.com",
     "license": "MIT",
@@ -70,7 +70,7 @@
         "passport": "^0.4.0",
         "passport-auth0": "^1.0.0",
         "pg": "^7.4.3",
-        "raynor": "^0.16.0",
+        "raynor": "^0.16.1",
         "reflect-metadata": "^0.1.12",
         "rxjs": "^6.2.1",
         "ts-node": "^7.0.0",
