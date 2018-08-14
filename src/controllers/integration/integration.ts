@@ -1,4 +1,4 @@
-import { Controller, Get, Module, Render } from "@nestjs/common";
+import { Controller, Get, Header, Module, Render } from "@nestjs/common";
 
 import { Config } from "../../infra/config";
 
@@ -12,19 +12,30 @@ export class IntegrationController {
     }
 
     @Get("/robots.txt")
+    @Header("Content-Type", "text/plain; charset=utf-8")
     @Render("integration/robots")
     public async robots(): Promise<RobotsViewResponse> {
         return {
-            externalOrigin: this.config.externalOrigin
+            externalOrigin: this.config.externalOrigin,
         };
     }
 
     @Get("/humans.txt")
+    @Header("Content-Type", "text/plain; charset=utf-8")
     @Render("integration/humans")
     public async humans(): Promise<HumansViewResponse> {
         return {
             contactAuthors: this.config.contact.authors,
-            contactEmail: this.config.contact.email
+            contactEmail: this.config.contact.email,
+        };
+    }
+
+    @Get("/sitemap.xml")
+    @Header("Content-Type", "application/xml; charset=utf-8")
+    @Render("integration/sitemap")
+    public async sitemap(): Promise<SitemapViewResponse> {
+        return {
+            externalOrigin: this.config.externalOrigin,
         };
     }
 }
@@ -36,6 +47,10 @@ interface RobotsViewResponse {
 interface HumansViewResponse {
     contactAuthors: string;
     contactEmail: string;
+}
+
+interface SitemapViewResponse {
+    externalOrigin: string;
 }
 
 @Module({

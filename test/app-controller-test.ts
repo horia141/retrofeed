@@ -26,6 +26,7 @@ describe("AppController", () => {
             } as any)).to.be.eql({
                 title: "RetroFeed",
                 content: "Hello FOO - BAR",
+                layout: "app/layout",
             });
         });
     });
