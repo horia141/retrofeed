@@ -40,7 +40,7 @@ export class IntegrationController {
     }
 
     @Get("/site.webmanifest")
-    @Header("Content-Type", "application/json; charset=utf-8")
+    @Header("Content-Type", "application/manifest+json; charset=utf-8")
     @Render("integration/webmanifest")
     public async webmanifest(): Promise<WebmanifsetViewResponse> {
         return {
