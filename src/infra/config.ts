@@ -50,16 +50,40 @@ export class Config {
         return port;
     }
 
+    public get applicationName(): string {
+        // tslint:disable:no-string-literal
+        return this.envConfig["APPLICATION_NAME"];
+    }
+
     public get externalOrigin(): string {
         // tslint:disable:no-string-literal
         return this.envConfig["EXTERNAL_ORIGIN"];
     }
 
-    public get contact(): Contact {
+    public get contact(): ContactConfig {
         // tslint:disable:no-string-literal
         return {
             authors: "The RetroFeed Team",
             email: this.envConfig["CONTACT_EMAIL"],
+        };
+    }
+
+    public get defaultLanguage(): string {
+        // tslint:disable:no-string-literal
+        return this.envConfig["DEFAULT_LANGUAGE"];
+    }
+
+    public get seo(): SeoConfig {
+        return {
+            keywords: ["retrofeed", "feed", "developer"],
+        };
+    }
+
+    public get style(): StyleConfig {
+        return {
+            primaryColor: "#FE5D44",
+            webmanifestBackgroundColor: "#FAFAFA",
+            browserconfigTileColor: "#DA532C",
         };
     }
 
@@ -95,9 +119,19 @@ export class Config {
     }
 }
 
-export interface Contact {
+export interface ContactConfig {
     authors: string;
     email: string;
+}
+
+export interface SeoConfig {
+    keywords: string[];
+}
+
+export interface StyleConfig {
+    primaryColor: string;
+    webmanifestBackgroundColor: string;
+    browserconfigTileColor: string;
 }
 
 export interface PostgresConfig {

@@ -3,15 +3,26 @@ import * as express from "express";
 
 import { ViewAuthGuard } from "../../auth/auth";
 import { BasicViewResponse } from "../../infra/common";
+import { Config } from "../../infra/config";
 
 @Controller("/")
 export class AppController {
+
+    private readonly config: Config;
+
+    constructor(config: Config) {
+        this.config = config;
+    }
 
     @Get("/")
     @Render("app/home")
     public async home(@Req() req: express.Request): Promise<HomeResponse> {
         return {
-            title: "RetroFeed",
+            title: this.config.applicationName,
+            language: this.config.defaultLanguage,
+            seoKeywords: this.config.seo.keywords,
+            contactAuthors: this.config.contact.authors,
+            style: this.config.style,
             content: `Hello ${req.sessionID} - ${req.requestId}`,
             layout: "app/layout",
         };
@@ -22,7 +33,11 @@ export class AppController {
     @UseGuards(ViewAuthGuard)
     public async admin(@Req() req: express.Request): Promise<AdminResponse> {
         return {
-            title: "RetroFeed - Admin",
+            title: `${this.config.applicationName} - Admin`,
+            language: this.config.defaultLanguage,
+            seoKeywords: this.config.seo.keywords,
+            contactAuthors: this.config.contact.authors,
+            style: this.config.style,
             userName: req.user.displayName,
             providerId: req.user.providerId,
             layout: "app/layout",

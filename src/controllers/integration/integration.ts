@@ -38,6 +38,27 @@ export class IntegrationController {
             externalOrigin: this.config.externalOrigin,
         };
     }
+
+    @Get("/site.webmanifest")
+    @Header("Content-Type", "application/json; charset=utf-8")
+    @Render("integration/webmanifest")
+    public async webmanifest(): Promise<WebmanifsetViewResponse> {
+        return {
+            title: this.config.applicationName,
+            primaryColor: this.config.style.primaryColor,
+            backgroundColor: this.config.style.webmanifestBackgroundColor,
+            externalOrigin: this.config.externalOrigin,
+        };
+    }
+
+    @Get("/browserconfig.xml")
+    @Header("Content-Type", "application/xml; charset=utf-8")
+    @Render("integration/browserconfig")
+    public async browserconfig(): Promise<BrowserconfigViewResponse> {
+        return {
+            tileColor: this.config.style.browserconfigTileColor,
+        };
+    }
 }
 
 interface RobotsViewResponse {
@@ -51,6 +72,17 @@ interface HumansViewResponse {
 
 interface SitemapViewResponse {
     externalOrigin: string;
+}
+
+interface WebmanifsetViewResponse {
+    title: string;
+    primaryColor: string;
+    backgroundColor: string;
+    externalOrigin: string;
+}
+
+interface BrowserconfigViewResponse {
+    tileColor: string;
 }
 
 @Module({

@@ -1,0 +1,14 @@
+Test with Chrome, Safari, Firefox on Desktop/Android/iOs
+
+* Start application and see that it works
+* Go through the sign-up flow and see that it works
+* Go through login flow and see that it works
+* Web integration:
+  * Appropriate favicon is shown
+  * Application can be saved to home screen on Android and it has nice icon, title and loading screen
+  * Application can be pinned in Chrome and it has the nice icons
+  * Application can be pinned in Safari and it has the nice icons (colored when active, red-whiteish when hovering, gray when inactive)
+  * Favicons are validated by https://realfavicongenerator.net/favicon_checker
+  * Robots.txt is validated by https://technicalseo.com/seo-tools/robots-txt/
+  * Humans.txt is properly rendered
+  * Sitemap.xml is validated by https://www.xml-sitemaps.com/validate-xml-sitemap.html

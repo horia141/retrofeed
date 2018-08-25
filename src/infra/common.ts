@@ -1,3 +1,5 @@
+import { StyleConfig } from "./config";
+
 // tslint:disable:no-var-requires
 const uid = require("uid-safe").sync;
 
@@ -70,6 +72,10 @@ export function genUuid(): string {
 }
 
 export interface BasicViewResponse {
+    language: string;
     title: string;
+    seoKeywords: string[];
+    contactAuthors: string;
+    style: StyleConfig;
     layout: string;
 }

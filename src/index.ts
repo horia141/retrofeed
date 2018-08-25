@@ -4,6 +4,8 @@ import * as compression from "compression";
 import * as helmet from "helmet";
 import * as passport from "passport";
 import { join } from "path";
+import * as express from "express";
+import * as serveStatic from "serve-static";
 
 import { AuthController, AuthModule, ViewAuthFailedFilter } from "./auth/auth";
 import { AppController, AppModule } from "./controllers/app/app";
@@ -43,7 +45,9 @@ class MainModule implements NestModule {
 }
 
 async function bootstrap() {
-    const app = await NestFactory.create(MainModule);
+    const expressApp = express();
+    expressApp.use("/real/client", serveStatic(join(__dirname, "assets"), { index: false }));
+    const app = await NestFactory.create(MainModule, expressApp);
     const config = app.get(Config);
     app.setBaseViewsDir(join(__dirname, "controllers"));
     app.setViewEngine("hbs");
