@@ -1,10 +1,10 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import * as compression from "compression";
+import * as express from "express";
 import * as helmet from "helmet";
 import * as passport from "passport";
 import { join } from "path";
-import * as express from "express";
 import * as serveStatic from "serve-static";
 
 import { AuthController, AuthModule, ViewAuthFailedFilter } from "./auth/auth";
