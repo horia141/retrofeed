@@ -1,9 +1,17 @@
+import { expect } from "chai";
 import * as HttpStatus from "http-status";
+
+// TODO: handle logged in pages here
+const PUBLIC_PAGES = [{
+    title: "RetroFeed",
+    path: "/",
+    description: "Stay up to date with the latest changes in your project's dependencies"
+}];
 
 describe("Large scale SEO & Web integration", () => {
     describe("Favicons", () => {
         it("should reference favicons", () => {
-            cy.visit("/");
+            cy.visit(PUBLIC_PAGES[0].path);
             cy.get("head > link[rel=apple-touch-icon]")
                 .should("have.attr", "sizes", "180x180")
                 .should("have.attr", "href", "/real/client/apple-touch-icon.png");
@@ -88,7 +96,7 @@ Contact: contact@retrofeed.io
     });
 
     describe("browserconfig.xml", () => {
-        it.only("Should exist", () => {
+        it("Should exist", () => {
             cy.request("/browserconfig.xml").then(resp => {
                 expect(resp.status).to.eq(HttpStatus.OK);
                 expect(resp.headers["content-type"]).to.eq("application/xml; charset=utf-8");
@@ -134,5 +142,44 @@ Contact: contact@retrofeed.io
 `);
             });
         });
+    });
+
+    describe("Page-level machine information", () => {
+        for (const { path, title, description } of PUBLIC_PAGES) {
+            it(`${path}`, () => {
+                cy.visit(path);
+
+                // Language
+                cy.get("html").should("have.attr", "lang", "en");
+
+                // Page specific generic web configuration
+                cy.title().should("equal", title);
+                cy.get("head > meta[name=description]").should("have.attr", "content", description);
+                cy.get("head > link[rel=canonical]").should("have.attr", "href", `https://retrofeed.io${path}`);
+
+                // Common generic web configuration
+                cy.get("head > meta[name=keywords]").should("have.attr", "content", "retrofeed,feed,developer");
+                cy.get("head > meta[name=author]").should("have.attr", "content", "The RetroFeed Team");
+                cy.get("head > link[rel=author]").should("have.attr", "href", "/humans.txt");
+
+                // // Microdata for organization
+
+                // cy.get("head > script[type='application/ld+json']").first().should("exist");
+                // cy.get("head > script[type='application/ld+json']").first().then($script => {
+                //     const organization = JSON.parse($script.text());
+                //     const target = {
+                //         "@context": "http://schema.org",
+                //         "@type": "Organization",
+                //         "name": "RetroFeed",
+                //         "url": "https://retrofeed.io",
+                //         "logo": "https://retrofeed.io/real/client/android-chrome-192x192.png",
+                //         "sameAs": [
+                //             "https://twitter.com/@retrofeed",
+                //         ],
+                //     };
+                //     expect(organization).to.eql(target);
+                // });
+            });
+        }
     });
 });

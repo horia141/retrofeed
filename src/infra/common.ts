@@ -74,6 +74,9 @@ export function genUuid(): string {
 export interface BasicViewResponse {
     language: string;
     title: string;
+    description: string;
+    externalOrigin: string;
+    canonicalPath: string;
     seoKeywords: string[];
     contactAuthors: string;
     style: StyleConfig;

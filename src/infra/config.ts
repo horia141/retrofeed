@@ -52,7 +52,11 @@ export class Config {
 
     public get applicationName(): string {
         // tslint:disable:no-string-literal
-        return this.envConfig["APPLICATION_NAME"];
+        return "RetroFeed";
+    }
+
+    public get applicationDescription(): string {
+        return "Stay up to date with the latest changes in your project's dependencies";
     }
 
     public get externalOrigin(): string {
@@ -64,7 +68,7 @@ export class Config {
         // tslint:disable:no-string-literal
         return {
             authors: "The RetroFeed Team",
-            email: this.envConfig["CONTACT_EMAIL"],
+            email: "contact@retrofeed.io",
         };
     }
 
