@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+@import '../../node_modules/normalize.css/normalize.css';
+
+/* Reset and global setup */
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+@media all and (min-width: 800px) {
+    body {
+        width: 800px;
+    }
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5rem;
+    min-width: 0rem;
+    color: #111;
+    background-color: #fdfdfd;
+    margin: auto;
+}
+
+h1, h2, h3, h4, h5, h6, dl, dd, ol, ul, p {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}

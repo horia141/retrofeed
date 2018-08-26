@@ -1,4 +1,5 @@
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     mode: process.env.ENV === "LOCAL" ? "development" : "production",
@@ -15,21 +16,33 @@ module.exports = {
     module: {
         rules: [{
             test: /\.(tsx?)$/,
-            include: [
-                path.resolve(__dirname, "src", "client")
-            ],
+            include: [path.resolve(__dirname, "src", "client")],
             loader: "ts-loader",
             options: {
                 configFile: "tsconfig.client.json",
                 silent: true
             }
+        }, {
+            test: /\.(less|css)$/,
+            include: [path.resolve(__dirname, "src", "client")],
+            use: [
+                { loader: MiniCssExtractPlugin.loader },
+                "css-loader",
+                "less-loader"
+            ]
         }]
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: "[id].chunk.css"
+        }),
+    ],
     resolve: {
-        extensions: ['.js', '.ts', '.tsx', '.css', '.less'],
+        extensions: [".js", ".ts", ".tsx", ".css", ".less"],
         modules: [
-            path.resolve(__dirname, 'src', 'client'),
-            path.resolve(__dirname, 'node_modules')
+            path.resolve(__dirname, "src", "client"),
+            path.resolve(__dirname, "node_modules")
         ]
     },
     devtool: process.env.ENV !== "LOCAL" ? "source-map" : "eval-cheap-module-source-map"
