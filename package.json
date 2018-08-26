@@ -23,6 +23,7 @@
         "infra:reset": "./scripts/infra-reset.sh",
         "infra:psql": "./scripts/infra-psql.sh",
         "ngrok": "./scripts/ngrok-expose.sh",
+        "test:all": "yarn test:unit && yarn test:e2e",
         "test:unit": "./scripts/test-unit.sh",
         "test:unit:watch": "./scripts/test-unit-watch.sh",
         "test:e2e": "./scripts/test-e2e.sh",
