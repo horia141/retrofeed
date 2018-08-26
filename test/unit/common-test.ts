@@ -9,7 +9,7 @@ import {
     isNotOnServer,
     isOnServer,
     parseEnv,
-} from "../src/infra/common";
+} from "../../src/infra/common";
 
 describe("Env", () => {
     describe("parseEnv", () => {
