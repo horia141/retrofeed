@@ -14,18 +14,18 @@ describe("Large scale SEO & Web integration", () => {
             cy.visit(PUBLIC_PAGES[0].path);
             cy.get("head > link[rel=apple-touch-icon]")
                 .should("have.attr", "sizes", "180x180")
-                .should("have.attr", "href", "/real/client/apple-touch-icon.png");
+                .should("have.attr", "href", "/real/client/assets/apple-touch-icon.png");
             cy.get("head > link[rel=icon][sizes=32x32]")
                 .should("have.attr", "type", "image/png")
-                .should("have.attr", "href", "/real/client/favicon-32x32.png");
+                .should("have.attr", "href", "/real/client/assets/favicon-32x32.png");
             cy.get("head > link[rel=icon][sizes=16x16]")
                 .should("have.attr", "type", "image/png")
-                .should("have.attr", "href", "/real/client/favicon-16x16.png");
+                .should("have.attr", "href", "/real/client/assets/favicon-16x16.png");
             cy.get("head > link[rel=mask-icon]")
-                .should("have.attr", "href", "/real/client/safari-pinned-tab.svg")
+                .should("have.attr", "href", "/real/client/assets/safari-pinned-tab.svg")
                 .should("have.attr", "color", "#FE5D44");
             cy.get("head > link[rel=\"shortcut icon\"]")
-                .should("have.attr", "href", "/real/client/favicon.ico");
+                .should("have.attr", "href", "/real/client/assets/favicon.ico");
             cy.get("head > meta[name=msapplication-TileColor]")
                 .should("have.attr", "content", "#FE5D44");
             cy.get("head > meta[name=theme-color]")
@@ -37,15 +37,17 @@ describe("Large scale SEO & Web integration", () => {
         });
 
         it("Should exist", () => {
-            cy.request("/real/client/android-chrome-192x192.png");
-            cy.request("/real/client/android-chrome-512x512.png");
-            cy.request("/real/client/apple-touch-icon.png");
-            cy.request("/real/client/mstile-150x150.png");
-            cy.request("/real/client/mstile-310x310.png");
-            cy.request("/real/client/favicon-32x32.png");
-            cy.request("/real/client/favicon-16x16.png");
-            cy.request("/real/client/safari-pinned-tab.svg");
-            cy.request("/real/client/favicon.ico");
+            cy.request("/real/client/assets/android-chrome-192x192.png");
+            cy.request("/real/client/assets/android-chrome-512x512.png");
+            cy.request("/real/client/assets/apple-touch-icon.png");
+            cy.request("/real/client/assets/mstile-70x70.png");
+            cy.request("/real/client/assets/mstile-150x150.png");
+            cy.request("/real/client/assets/mstile-310x310.png");
+            cy.request("/real/client/assets/mstile-310x150.png");
+            cy.request("/real/client/assets/favicon-32x32.png");
+            cy.request("/real/client/assets/favicon-16x16.png");
+            cy.request("/real/client/assets/safari-pinned-tab.svg");
+            cy.request("/real/client/assets/favicon.ico");
         });
     });
 
@@ -104,10 +106,10 @@ Contact: contact@retrofeed.io
 <browserconfig>
     <msapplication>
         <tile>
-            <square70x70logo src="/real/client/mstile-70x70.png"/>
-            <square150x150logo src="/real/client/mstile-150x150.png"/>
-            <square310x310logo src="/real/client/mstile-310x310.png"/>
-            <wide310x150logo src="/real/client/mstile-310x150.png"/>
+            <square70x70logo src="/real/client/assets/mstile-70x70.png"/>
+            <square150x150logo src="/real/client/assets/mstile-150x150.png"/>
+            <square310x310logo src="/real/client/assets/mstile-310x310.png"/>
+            <wide310x150logo src="/real/client/assets/mstile-310x150.png"/>
             <TileColor>#DA532C</TileColor>
         </tile>
     </msapplication>
@@ -126,11 +128,11 @@ Contact: contact@retrofeed.io
     "name": "RetroFeed",
     "short_name": "RetroFeed",
     "icons": [{
-        "src": "/real/client/android-chrome-192x192.png",
+        "src": "/real/client/assets/android-chrome-192x192.png",
         "sizes": "192x192",
         "type": "image/png"
     }, {
-        "src": "/real/client/android-chrome-512x512.png",
+        "src": "/real/client/assets/android-chrome-512x512.png",
         "sizes": "512x512",
         "type": "image/png"
     }],
@@ -172,7 +174,7 @@ Contact: contact@retrofeed.io
                 //         "@type": "Organization",
                 //         "name": "RetroFeed",
                 //         "url": "https://retrofeed.io",
-                //         "logo": "https://retrofeed.io/real/client/android-chrome-192x192.png",
+                //         "logo": "https://retrofeed.io/real/client/assets/android-chrome-192x192.png",
                 //         "sameAs": [
                 //             "https://twitter.com/@retrofeed",
                 //         ],
