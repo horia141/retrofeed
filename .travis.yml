@@ -46,6 +46,7 @@ before_script:
 - openssl aes-256-cbc -K $encrypted_29fa2914873b_key -iv $encrypted_29fa2914873b_iv -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
 - yarn migrate
+- yarn client:compile
 
 script:
 - yarn lint

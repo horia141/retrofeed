@@ -47,6 +47,8 @@ class MainModule implements NestModule {
 async function bootstrap() {
     const expressApp = express();
     expressApp.use("/real/client/assets", serveStatic(join(__dirname, "assets"), { index: false }));
+    expressApp.use("/real/client", serveStatic(join(__dirname, "..", ".build", "client"), { index: false }));
+
     const app = await NestFactory.create(MainModule, expressApp);
     const config = app.get(Config);
     app.setBaseViewsDir(join(__dirname, "controllers"));

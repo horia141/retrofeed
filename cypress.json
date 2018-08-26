@@ -1,5 +1,5 @@
 {
-  "integrationFolder": ".build",
+  "integrationFolder": ".build/test/e2e",
   "sourceType": "module",
   "projectId": "a4ib2i"
 }

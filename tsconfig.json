@@ -12,8 +12,7 @@
         "skipLibCheck": true,
         "declaration": true,
         "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "outDir": ".build"
+        "experimentalDecorators": true
     },
     "include": [
         "./src/**/*.ts"
