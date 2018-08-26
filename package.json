@@ -1,6 +1,6 @@
 {
     "name": "retrofeed",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Manage updates for your project's dependencies",
     "author": "Horia Coman horia141@gmail.com",
     "license": "MIT",
