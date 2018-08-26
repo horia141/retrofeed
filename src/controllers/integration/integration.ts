@@ -16,7 +16,7 @@ export class IntegrationController {
     @Render("integration/robots")
     public async robots(): Promise<RobotsViewResponse> {
         return {
-            externalOrigin: this.config.externalOrigin,
+            externalOrigin: this.config.application.externalOrigin,
         };
     }
 
@@ -25,8 +25,8 @@ export class IntegrationController {
     @Render("integration/humans")
     public async humans(): Promise<HumansViewResponse> {
         return {
-            contactAuthors: this.config.contact.authors,
-            contactEmail: this.config.contact.email,
+            contactAuthors: this.config.application.authors,
+            contactEmail: this.config.application.contactEmail,
         };
     }
 
@@ -35,7 +35,7 @@ export class IntegrationController {
     @Render("integration/sitemap")
     public async sitemap(): Promise<SitemapViewResponse> {
         return {
-            externalOrigin: this.config.externalOrigin,
+            externalOrigin: this.config.application.externalOrigin,
         };
     }
 
@@ -44,10 +44,10 @@ export class IntegrationController {
     @Render("integration/webmanifest")
     public async webmanifest(): Promise<WebmanifsetViewResponse> {
         return {
-            title: this.config.applicationName,
-            primaryColor: this.config.style.primaryColor,
-            backgroundColor: this.config.style.webmanifestBackgroundColor,
-            externalOrigin: this.config.externalOrigin,
+            title: this.config.application.name,
+            primaryColor: this.config.application.style.primaryColor,
+            backgroundColor: this.config.application.style.webmanifestBackgroundColor,
+            externalOrigin: this.config.application.externalOrigin,
         };
     }
 
@@ -56,7 +56,7 @@ export class IntegrationController {
     @Render("integration/browserconfig")
     public async browserconfig(): Promise<BrowserconfigViewResponse> {
         return {
-            tileColor: this.config.style.browserconfigTileColor,
+            tileColor: this.config.application.style.browserconfigTileColor,
         };
     }
 }

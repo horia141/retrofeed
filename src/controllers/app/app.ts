@@ -18,14 +18,10 @@ export class AppController {
     @Render("app/home")
     public async home(@Req() req: express.Request): Promise<HomeResponse> {
         return {
+            applicationConfig: this.config.application,
             canonicalPath: "/",
-            language: this.config.defaultLanguage,
-            title: this.config.applicationName,
-            description: this.config.applicationDescription,
-            externalOrigin: this.config.externalOrigin,
-            seoKeywords: this.config.seo.keywords,
-            contactAuthors: this.config.contact.authors,
-            style: this.config.style,
+            title: this.config.application.name,
+            language: this.config.application.defaultLanguage,
             content: `Hello ${req.sessionID} - ${req.requestId}`,
             layout: "app/layout",
         };
@@ -36,14 +32,10 @@ export class AppController {
     @UseGuards(ViewAuthGuard)
     public async admin(@Req() req: express.Request): Promise<AdminResponse> {
         return {
+            applicationConfig: this.config.application,
             canonicalPath: "/admin",
-            language: this.config.defaultLanguage,
-            title: `${this.config.applicationName} - Admin`,
-            description: this.config.applicationDescription,
-            externalOrigin: this.config.externalOrigin,
-            seoKeywords: this.config.seo.keywords,
-            contactAuthors: this.config.contact.authors,
-            style: this.config.style,
+            title: `${this.config.application.name} - Admin`,
+            language: this.config.application.defaultLanguage,
             userName: req.user.displayName,
             providerId: req.user.providerId,
             layout: "app/layout",

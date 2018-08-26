@@ -1,4 +1,4 @@
-import { StyleConfig } from "./config";
+import { ApplicationConfig } from "./config";
 
 // tslint:disable:no-var-requires
 const uid = require("uid-safe").sync;
@@ -72,13 +72,9 @@ export function genUuid(): string {
 }
 
 export interface BasicViewResponse {
-    language: string;
-    title: string;
-    description: string;
-    externalOrigin: string;
+    applicationConfig: ApplicationConfig;
     canonicalPath: string;
-    seoKeywords: string[];
-    contactAuthors: string;
-    style: StyleConfig;
+    title: string;
+    language: string;
     layout: string;
 }

@@ -26,6 +26,24 @@ export class Config {
         this.envConfig = envConfig || {};
     }
 
+    public get application(): ApplicationConfig {
+        // TODO: some of these will need to be localized.
+        return {
+            name: "RetroFeed",
+            description: "Stay up to date with the latest changes in your project's dependencies",
+            externalOrigin: "https://retrofeed.io",
+            authors: "The RetroFeed Team",
+            contactEmail: "contact@retrofeed.io",
+            defaultLanguage: "en",
+            seoKeywords: ["retrofeed", "feed", "developer"],
+            style: {
+                primaryColor: "#FE5D44",
+                webmanifestBackgroundColor: "#FAFAFA",
+                browserconfigTileColor: "#DA532C",
+            },
+        };
+    }
+
     public get version(): string {
         // tslint:disable:no-string-literal
         return this.envConfig["VERSION"];
@@ -48,47 +66,6 @@ export class Config {
             throw new Error(`Invalid port value ${this.envConfig["PORT"]}`);
         }
         return port;
-    }
-
-    public get applicationName(): string {
-        // tslint:disable:no-string-literal
-        return "RetroFeed";
-    }
-
-    public get applicationDescription(): string {
-        return "Stay up to date with the latest changes in your project's dependencies";
-    }
-
-    public get externalOrigin(): string {
-        // tslint:disable:no-string-literal
-        return this.envConfig["EXTERNAL_ORIGIN"];
-    }
-
-    public get contact(): ContactConfig {
-        // tslint:disable:no-string-literal
-        return {
-            authors: "The RetroFeed Team",
-            email: "contact@retrofeed.io",
-        };
-    }
-
-    public get defaultLanguage(): string {
-        // tslint:disable:no-string-literal
-        return this.envConfig["DEFAULT_LANGUAGE"];
-    }
-
-    public get seo(): SeoConfig {
-        return {
-            keywords: ["retrofeed", "feed", "developer"],
-        };
-    }
-
-    public get style(): StyleConfig {
-        return {
-            primaryColor: "#FE5D44",
-            webmanifestBackgroundColor: "#FAFAFA",
-            browserconfigTileColor: "#DA532C",
-        };
     }
 
     public get sessionSecret(): string {
@@ -123,13 +100,15 @@ export class Config {
     }
 }
 
-export interface ContactConfig {
+export interface ApplicationConfig {
+    name: string;
+    description: string;
+    externalOrigin: string;
     authors: string;
-    email: string;
-}
-
-export interface SeoConfig {
-    keywords: string[];
+    contactEmail: string;
+    defaultLanguage: string;
+    seoKeywords: string[];
+    style: StyleConfig;
 }
 
 export interface StyleConfig {

@@ -5,10 +5,10 @@
 
         <!-- Page specific generic web configuration  -->
         <title>{{title}}</title>
-        <meta name="description" content="{{description}}" />
-        <link rel="canonical" href="{{externalOrigin}}/{{path}}" />
-        <meta name="keywords" content="{{seoKeywords}}" />
-        <meta name="author" content="{{contactAuthors}}" />
+        <meta name="description" content="{{applicationConfig.description}}" />
+        <link rel="canonical" href="{{applicationConfig.externalOrigin}}/{{path}}" />
+        <meta name="keywords" content="{{applicationConfig.seoKeywords}}" />
+        <meta name="author" content="{{applicationConfig.authors}}" />
         <link rel="author" href="/humans.txt" />
 
         <!-- TODO: page microdata -->
@@ -20,10 +20,10 @@
         <link rel="apple-touch-icon" sizes="180x180" href="/real/client/assets/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/real/client/assets/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/real/client/assets/favicon-16x16.png">
-        <link rel="mask-icon" href="/real/client/assets/safari-pinned-tab.svg" color="{{style.primaryColor}}">
+        <link rel="mask-icon" href="/real/client/assets/safari-pinned-tab.svg" color="{{applicationConfig.style.primaryColor}}">
         <link rel="shortcut icon" href="/real/client/assets/favicon.ico">
-        <meta name="msapplication-TileColor" content="{{style.primaryColor}}">
-        <meta name="theme-color" content="{{style.primaryColor}}">
+        <meta name="msapplication-TileColor" content="{{applicationConfig.style.primaryColor}}">
+        <meta name="theme-color" content="{{applicationConfig.style.primaryColor}}">
         <link rel="manifest" href="/site.webmanifest">
         <meta name="msapplication-config" content="/browserconfig.xml">
 
