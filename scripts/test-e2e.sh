@@ -6,7 +6,7 @@ source scripts/setup-env.sh
 
 rm -rf .build
 
-npx tsc --project tsconfig.e2e.json --outDir .build
+npx tsc --project tsconfig.test.e2e.json --outDir .build
 
 export CYPRESS_BASE_URL=http://${HOST}:${PORT}
 
