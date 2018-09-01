@@ -35,9 +35,25 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: "[name].css",
-            chunkFilename: "[id].chunk.css"
+            chunkFilename: "[name].chunk.css"
         }),
     ],
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendors: {
+                    test: /node_modules/,
+                    name: "vendors",
+                    enforce: true,
+                    chunks: "all",
+                    priority: 10
+                }
+            }
+        },
+        runtimeChunk: {
+            name: "manifest"
+        }
+    },
     resolve: {
         extensions: [".js", ".ts", ".tsx", ".css", ".less"],
         modules: [

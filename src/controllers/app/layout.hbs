@@ -29,7 +29,8 @@
 
         <!-- Essential resource loading -->
 
-        <link rel="stylesheet" href="/real/client/app.css" media="screen">
+        <link rel="stylesheet" href="/real/client/app.chunk.css" media="screen">
+        <link rel="stylesheet" href="/real/client/vendors.chunk.css" media="screen">
     </head>
 
     <body>
@@ -41,6 +42,8 @@
 
         <!-- Important resource loading -->
 
-        <script src="/real/client/app.js"></script>
+        <script src="/real/client/manifest.js"></script>
+        <script src="/real/client/vendors.chunk.js"></script>
+        <script src="/real/client/app.chunk.js"></script>
     </body>
 </html>
