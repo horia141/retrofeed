@@ -26,9 +26,17 @@ module.exports = {
             test: /\.(less|css)$/,
             include: [path.resolve(__dirname, "src", "client")],
             use: [
-                { loader: MiniCssExtractPlugin.loader },
+                {
+                    loader: MiniCssExtractPlugin.loader
+                },
                 "css-loader",
-                "less-loader"
+                "less-loader",
+                {
+                    loader: "postcss-loader",
+                    options: {
+                        plugins: () => [require("autoprefixer")()]
+                    }
+                }
             ]
         }]
     },
