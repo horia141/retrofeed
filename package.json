@@ -67,6 +67,7 @@
         "style-loader": "^0.22.1",
         "stylelint": "^9.5.0",
         "stylelint-config-recommended": "^2.1.0",
+        "stylelint-no-unsupported-browser-features": "^3.0.1",
         "ts-loader": "^4.5.0",
         "ts-node-dev": "^1.0.0-pre.26",
         "tslint": "^5.10.0",
