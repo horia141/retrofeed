@@ -4,4 +4,6 @@ set -e
 
 source scripts/setup-env.sh
 
-npx tslint --project tsconfig.json
+
+npx stylelint --config lint.style.json 'src/client/**/*.less'
+npx tslint --config lint.ts.json --project tsconfig.json

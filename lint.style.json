@@ -1,0 +1,4 @@
+{
+    "defaultServerity": "error",
+    "extends": "stylelint-config-recommended"
+}
