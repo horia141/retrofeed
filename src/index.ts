@@ -1,16 +1,18 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import * as compression from "compression";
-import * as express from "express";
 import * as helmet from "helmet";
 import * as passport from "passport";
 import { join } from "path";
 import * as serveStatic from "serve-static";
+import * as webpack from "webpack";
+import * as theWebpackDevMiddleware from "webpack-dev-middleware";
 
 import { AuthController, AuthModule, ViewAuthFailedFilter } from "./auth/auth";
 import { AppController, AppModule } from "./controllers/app/app";
 import { IntegrationModule } from "./controllers/integration/integration";
 import { StatusModule } from "./controllers/tech/status";
+import { isLocal } from "./infra/common";
 import { Config, ConfigModule } from "./infra/config";
 import { DbConnModule } from "./infra/db-conn";
 import { RequestIdMiddleware } from "./infra/request-id-middleware";
@@ -45,14 +47,23 @@ class MainModule implements NestModule {
 }
 
 async function bootstrap() {
-    const expressApp = express();
-    expressApp.use("/real/client/assets", serveStatic(join(__dirname, "assets"), { index: false }));
-    expressApp.use("/real/client", serveStatic(join(__dirname, "..", ".build", "client"), { index: false }));
-
-    const app = await NestFactory.create(MainModule, expressApp);
+    const app = await NestFactory.create(MainModule);
     const config = app.get(Config);
     app.setBaseViewsDir(join(__dirname, "controllers"));
     app.setViewEngine("hbs");
+    app.use("/real/client/assets", serveStatic(join(__dirname, "assets"), { index: false }));
+    if (isLocal(config.env)) {
+        const webpackConfig = require("../webpack.config.js"); // TODO: get from config
+        const webpackCompiler = webpack(webpackConfig);
+        const webpackDevMiddleware = theWebpackDevMiddleware(webpackCompiler, {
+            publicPath: "/",
+            serverSideRender: false,
+        });
+        app.use("/real/client", webpackDevMiddleware);
+    } else {
+        app.use("/real/client", serveStatic(join(__dirname, "..", ".build", "client"), { index: false }));
+    }
+
     app.use(helmet());
     app.use(compression());
     app.useGlobalFilters(new ViewAuthFailedFilter());
