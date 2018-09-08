@@ -98,6 +98,10 @@ export class Config {
             clientSecret: this.envConfig["AUTH0_CLIENT_SECRET"],
         };
     }
+
+    public get webpackConfigPath(): string {
+        return "../webpack.config.js";
+    }
 }
 
 export interface ApplicationConfig {

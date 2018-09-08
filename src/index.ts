@@ -53,7 +53,7 @@ async function bootstrap() {
     app.setViewEngine("hbs");
     app.use("/real/client/assets", serveStatic(join(__dirname, "assets"), { index: false }));
     if (isLocal(config.env)) {
-        const webpackConfig = require("../webpack.config.js"); // TODO: get from config
+        const webpackConfig = require(config.webpackConfigPath);
         const webpackCompiler = webpack(webpackConfig);
         const webpackDevMiddleware = theWebpackDevMiddleware(webpackCompiler, {
             publicPath: "/",
