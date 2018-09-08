@@ -22,8 +22,11 @@ export class ClientConfig {
     @MarshalWith(r.SecureWebUriMarshaller)
     externalOrigin: string = "";
 
-    @MarshalWith(r.WebUriMarshaller)
+    @MarshalWith(r.AbsolutePathMarshaller)
     public loginUri: string = "";
+
+    @MarshalWith(r.AbsolutePathMarshaller)
+    public logoutUri: string = "";
 }
 
 export class ClientState {

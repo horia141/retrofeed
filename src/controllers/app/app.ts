@@ -46,7 +46,8 @@ export class AppController {
         clientConfig.name = this.config.application.name;
         clientConfig.description = this.config.application.description;
         clientConfig.externalOrigin = this.config.application.externalOrigin;
-        clientConfig.loginUri = `http://${this.config.host}:${this.config.port}/real/auth/login`;
+        clientConfig.loginUri = "/real/auth/login";
+        clientConfig.logoutUri = "/real/auth/logout";
         const clientConfigRaw = AppController.clientConfigMarshaller.pack(clientConfig);
         return serializeJavascript(clientConfigRaw);
     }

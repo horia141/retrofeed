@@ -4,8 +4,8 @@ import { Helmet } from "react-helmet";
 
 import { HomePage } from "./home-page";
 import { AdminFrame } from "./admin-frame";
-// import { NotFoundPage } from "./not-found-page";
 import { CLIENT_STATE } from "./bootstrap";
+import { LogoutButton } from "./logout-button";
 
 export interface Props {
 }
@@ -25,6 +25,7 @@ export class AppFrame extends React.Component<Props, State> {
                     <div>
                         <Link to={HomePage.FULL_PATH}>Home</Link>
                         <Link to={AdminFrame.PATH_PREFIX}>Admin</Link>
+                        <LogoutButton />
                     </div>
                     <Switch>
                         <Route exact path={HomePage.FULL_PATH} component={HomePage} />
