@@ -11,6 +11,8 @@ export interface State {
 
 export class AdminFrame extends React.Component<Props, State> {
 
+    public static readonly PATH_PREFIX = "/admin";
+
     componentDidMount() {
         if (CLIENT_STATE.user === null) {
             window.location.assign(CLIENT_CONFIG.loginUri);
@@ -26,7 +28,7 @@ export class AdminFrame extends React.Component<Props, State> {
             <div>
                 <Helmet>
                     <title>The Admin</title>
-                    <link rel="canonical" href={`${CLIENT_CONFIG.externalOrigin}/admin`} />
+                    <link rel="canonical" href={`${CLIENT_CONFIG.externalOrigin}${AdminFrame.PATH_PREFIX}`} />
                 </Helmet>
                 Hello
             </div>

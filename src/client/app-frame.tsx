@@ -23,12 +23,12 @@ export class AppFrame extends React.Component<Props, State> {
                 </Helmet>
                 <main>
                     <div>
-                        <Link to="/">Home</Link>
-                        <Link to="/admin">Admin</Link>
+                        <Link to={HomePage.FULL_PATH}>Home</Link>
+                        <Link to={AdminFrame.PATH_PREFIX}>Admin</Link>
                     </div>
                     <Switch>
-                        <Route exact path="/" component={HomePage} />
-                        <Route path="/admin" component={AdminFrame} />
+                        <Route exact path={HomePage.FULL_PATH} component={HomePage} />
+                        <Route path={AdminFrame.PATH_PREFIX} component={AdminFrame} />
                     </Switch>
                 </main>
             </div>
