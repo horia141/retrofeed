@@ -14,7 +14,7 @@ export class AppController {
         this.config = config;
     }
 
-    @Get("/")
+    @Get("/|/foo")
     @Render("app/home")
     public async home(@Req() req: express.Request): Promise<HomeResponse> {
         return {
