@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="{{language}}">
+<html>
     <head>
         <meta charset="utf-8">
 
         <!-- Page specific generic web configuration  -->
-        <title>{{applicationConfig.name}}</title>
+        <!-- <title>PROVIDED BY CLIENT CODE</title> -->
         <meta name="description" content="{{applicationConfig.description}}" />
-        <link rel="canonical" href="{{applicationConfig.externalOrigin}}/{{path}}" />
+        <!-- <link rel="canonical" href="PROVIDED BY CLIENT CODE" /> -->
         <meta name="keywords" content="{{applicationConfig.seoKeywords}}" />
         <meta name="author" content="{{applicationConfig.authors}}" />
         <link rel="author" href="/humans.txt" />
@@ -29,8 +29,8 @@
 
         <!-- Essential resource loading -->
 
-        <link rel="stylesheet" href="/real/client/app.chunk.css" media="screen">
         <link rel="stylesheet" href="/real/client/vendors.chunk.css" media="screen">
+        <link rel="stylesheet" href="/real/client/app.chunk.css" media="screen">
     </head>
 
     <body>
@@ -40,6 +40,10 @@
 
         <!-- Important resource loading -->
 
+        <script>
+          window.__RETROFEED_CLIENT_CONFIG = {{{ clientConfigSer }}};
+          window.__RETROFEED_CLIENT_STATE = {{{ clientStateSer }}};
+        </script>
         <script src="/real/client/manifest.js"></script>
         <script src="/real/client/vendors.chunk.js"></script>
         <script src="/real/client/app.chunk.js"></script>
