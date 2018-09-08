@@ -1,5 +1,3 @@
-import { ApplicationConfig } from "./config";
-
 // tslint:disable:no-var-requires
 const uid = require("uid-safe").sync;
 
@@ -69,11 +67,4 @@ export function isOnServer(env: Env): boolean {
 
 export function genUuid(): string {
     return uid(24);
-}
-
-export interface BasicViewResponse {
-    applicationConfig: ApplicationConfig;
-    canonicalPath: string;
-    language: string;
-    layout: string;
 }

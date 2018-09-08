@@ -1,9 +1,7 @@
-import { Controller, Get, Module, Render, Req, UseGuards } from "@nestjs/common";
-import * as express from "express";
+import { Controller, Get, Module, Render, UseGuards } from "@nestjs/common";
 
 import { ViewAuthGuard } from "../../auth/auth";
-import { BasicViewResponse } from "../../infra/common";
-import { Config } from "../../infra/config";
+import { Config, ApplicationConfig } from "../../infra/config";
 
 @Controller("/")
 export class AppController {
@@ -15,39 +13,31 @@ export class AppController {
     }
 
     @Get("/|/foo")
-    @Render("app/home")
-    public async home(@Req() req: express.Request): Promise<HomeResponse> {
+    @Render("app/app")
+    public async home(): Promise<BasicViewResponse> {
         return {
             applicationConfig: this.config.application,
             canonicalPath: "/",
-            language: this.config.application.defaultLanguage,
-            content: `Hello ${req.sessionID} - ${req.requestId}`,
-            layout: "app/layout",
+            language: this.config.application.defaultLanguage
         };
     }
 
     @Get("/admin")
-    @Render("app/admin")
+    @Render("app/app")
     @UseGuards(ViewAuthGuard)
-    public async admin(@Req() req: express.Request): Promise<AdminResponse> {
+    public async admin(): Promise<BasicViewResponse> {
         return {
             applicationConfig: this.config.application,
             canonicalPath: "/admin",
-            language: this.config.application.defaultLanguage,
-            userName: req.user.displayName,
-            providerId: req.user.providerId,
-            layout: "app/layout",
+            language: this.config.application.defaultLanguage
         };
     }
 }
 
-interface HomeResponse extends BasicViewResponse {
-    content: string;
-}
-
-interface AdminResponse extends BasicViewResponse {
-    userName: string;
-    providerId: string;
+export interface BasicViewResponse {
+    applicationConfig: ApplicationConfig;
+    canonicalPath: string;
+    language: string;
 }
 
 @Module({
