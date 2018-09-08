@@ -44,6 +44,15 @@ export class Config {
         };
     }
 
+    public get wellKnownPaths(): WellKnownPathsConfig {
+        return {
+            homePath: "/",
+            adminPrefix: "/admin",
+            loginPath: "/real/auth/login",
+            logoutPath: "/real/auth/logout"
+        };
+    }
+
     public get version(): string {
         // tslint:disable:no-string-literal
         return this.envConfig["VERSION"];
@@ -113,6 +122,13 @@ export interface ApplicationConfig {
     defaultLanguage: string;
     seoKeywords: string[];
     style: StyleConfig;
+}
+
+export interface WellKnownPathsConfig {
+    homePath: string;
+    adminPrefix: string;
+    loginPath: string;
+    logoutPath: string;
 }
 
 export interface StyleConfig {

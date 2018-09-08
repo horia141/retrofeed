@@ -57,6 +57,12 @@ export class AuthSerializedProfile {
 @Controller("/real/auth")
 export class AuthController {
 
+    private readonly config: Config;
+
+    constructor(config: Config) {
+        this.config = config;
+    }
+
     @Get("/login")
     public login(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction): void {
         passport.authenticate("auth0", { connection: "github" } as any)(req, res, next);
@@ -65,15 +71,15 @@ export class AuthController {
     @Get("/callback")
     public callback(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction): void {
         passport.authenticate("auth0", {
-            successRedirect: "/admin",
-            failureRedirect: "/",
+            successRedirect: this.config.wellKnownPaths.adminPrefix,
+            failureRedirect: this.config.wellKnownPaths.homePath,
         })(req, res, next);
     }
 
     @Get("/logout")
     public logout(@Req() req: Request, @Res() res: Response) {
         req.logout();
-        res.redirect("/");
+        res.redirect(this.config.wellKnownPaths.homePath);
     }
 }
 
@@ -97,7 +103,7 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
         this.userService = userService;
     }
 
-    public async validate(_: any, __: any, profileRaw: any, done: (error: Error|null, user: User) => void) {
+    public async validate(_: any, __: any, profileRaw: any, done: (error: Error | null, user: User) => void) {
         const profile = this.profileMarshaller.extract(profileRaw);
         const user = await this.userService.getOrCreateUser(
             false, profile.displayName, profile.nickname, profile.pictureUri, profile.providerId);
@@ -117,12 +123,12 @@ export class AuthSerializer extends PassportSerializer {
         this.userService = userService;
     }
 
-    public serializeUser(user: User, done: (error: Error|null, data: AuthSerializedProfile) => void) {
+    public serializeUser(user: User, done: (error: Error | null, data: AuthSerializedProfile) => void) {
         const serializedProfile = AuthSerializedProfile.fromUser(user);
         done(null, this.serializedProfileMarshaller.pack(serializedProfile));
     }
 
-    public async deserializeUser(profile: string, done: (error: Error|null, user: User) => void) {
+    public async deserializeUser(profile: string, done: (error: Error | null, user: User) => void) {
         const serializedProfile = this.serializedProfileMarshaller.extract(profile);
         const user = await this.userService.getUserByProviderId(serializedProfile.providerId);
         done(null, user);
@@ -137,11 +143,18 @@ class ViewAuthFailedException extends HttpException {
 
 @Catch(ViewAuthFailedException)
 export class ViewAuthFailedFilter implements ExceptionFilter {
+
+    private readonly config: Config;
+
+    constructor(config: Config) {
+        this.config = config;
+    }
+
     public catch(_: HttpException, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
 
-        response.redirect("/real/auth/login");
+        response.redirect(this.config.wellKnownPaths.loginPath);
     }
 }
 
@@ -162,4 +175,4 @@ export class ViewAuthGuard implements CanActivate {
     providers: [AuthStrategy, AuthSerializer],
     imports: [UserModule],
 })
-export class AuthModule {}
+export class AuthModule { }

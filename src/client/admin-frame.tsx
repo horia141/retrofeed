@@ -15,7 +15,7 @@ export class AdminFrame extends React.Component<Props, State> {
 
     componentDidMount() {
         if (CLIENT_STATE.user === null) {
-            window.location.assign(CLIENT_CONFIG.loginUri);
+            window.location.assign(CLIENT_CONFIG.loginPath);
         }
     }
 

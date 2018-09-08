@@ -3,13 +3,13 @@ import * as r from "raynor";
 
 export class User {
     @MarshalWith(r.BooleanMarshaller)
-    public agreedToPolicy: boolean = false;
+    agreedToPolicy: boolean = false;
 
     @MarshalWith(r.StringMarshaller)
-    public displayName: string = "";
+    displayName: string = "";
 
     @MarshalWith(r.SecureWebUriMarshaller)
-    public pictureUri: string = "";
+    pictureUri: string = "";
 }
 
 export class ClientConfig {
@@ -23,10 +23,10 @@ export class ClientConfig {
     externalOrigin: string = "";
 
     @MarshalWith(r.AbsolutePathMarshaller)
-    public loginUri: string = "";
+    loginPath: string = "";
 
     @MarshalWith(r.AbsolutePathMarshaller)
-    public logoutUri: string = "";
+    logoutPath: string = "";
 }
 
 export class ClientState {
