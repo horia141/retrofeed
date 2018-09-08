@@ -20,7 +20,6 @@ export class AppController {
         return {
             applicationConfig: this.config.application,
             canonicalPath: "/",
-            title: this.config.application.name,
             language: this.config.application.defaultLanguage,
             content: `Hello ${req.sessionID} - ${req.requestId}`,
             layout: "app/layout",
@@ -34,7 +33,6 @@ export class AppController {
         return {
             applicationConfig: this.config.application,
             canonicalPath: "/admin",
-            title: `${this.config.application.name} - Admin`,
             language: this.config.application.defaultLanguage,
             userName: req.user.displayName,
             providerId: req.user.providerId,
@@ -55,4 +53,4 @@ interface AdminResponse extends BasicViewResponse {
 @Module({
     controllers: [AppController],
 })
-export class AppModule {}
+export class AppModule { }

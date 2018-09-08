@@ -74,7 +74,6 @@ export function genUuid(): string {
 export interface BasicViewResponse {
     applicationConfig: ApplicationConfig;
     canonicalPath: string;
-    title: string;
     language: string;
     layout: string;
 }
