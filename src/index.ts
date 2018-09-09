@@ -66,7 +66,7 @@ async function bootstrap() {
 
     app.use(helmet());
     app.use(compression());
-    app.useGlobalFilters(new ViewAuthFailedFilter());
+    app.useGlobalFilters(new ViewAuthFailedFilter(config));
     await app.listen(config.port);
 }
 
