@@ -48,6 +48,9 @@ export class AppController {
         clientConfig.externalOrigin = this.config.application.externalOrigin;
         clientConfig.loginPath = this.config.wellKnownPaths.loginPath;
         clientConfig.logoutPath = this.config.wellKnownPaths.logoutPath;
+        clientConfig.logoUri = `${this.config.application.externalOrigin}${this.config.application.style.logoPath}`;
+        clientConfig.facebookAppId = this.config.application.facebookAppId;
+        clientConfig.twitterHandle = this.config.application.twitterHandle;
         const clientConfigRaw = AppController.clientConfigMarshaller.pack(clientConfig);
         return serializeJavascript(clientConfigRaw);
     }

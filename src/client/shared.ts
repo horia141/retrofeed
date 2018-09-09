@@ -27,6 +27,15 @@ export class ClientConfig {
 
     @MarshalWith(r.AbsolutePathMarshaller)
     logoutPath: string = "";
+
+    @MarshalWith(r.SecureWebUriMarshaller)
+    logoUri: string = "";
+
+    @MarshalWith(r.StringMarshaller)
+    facebookAppId: string = "";
+
+    @MarshalWith(r.StringMarshaller)
+    twitterHandle: string = "";
 }
 
 export class ClientState {

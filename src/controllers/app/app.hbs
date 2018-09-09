@@ -1,9 +1,10 @@
 <!doctype html>
-<html>
+<html lang="PROVIDED BY CLIENT CODE">
     <head>
         <meta charset="utf-8">
 
         <!-- Page specific generic web configuration  -->
+
         <!-- <title>PROVIDED BY CLIENT CODE</title> -->
         <meta name="description" content="{{applicationConfig.description}}" />
         <!-- <link rel="canonical" href="PROVIDED BY CLIENT CODE" /> -->
@@ -11,7 +12,26 @@
         <meta name="author" content="{{applicationConfig.authors}}" />
         <link rel="author" href="/humans.txt" />
 
-        <!-- TODO: page microdata -->
+        <!-- Page annotations -->
+
+        <!-- Organization microdata -->
+
+        <script type="application/ld+json">
+         {
+             "@context": "http://schema.org",
+             "@type": "Organization",
+             "name": "{{applicationConfig.name}}",
+             "url": "{{applicationConfig.externalOrigin}}",
+             "logo": "{{applicationConfig.externalOrigin}}{{applicationConfig.logoPath}}",
+             "sameAs": [
+                 "https://facebook.com/{{applicationConfig.facebookAppId}}",
+                 "https://twitter.com/{{applicationConfig.twitterHandle}}"
+             ]
+         }
+        </script>
+
+        <!-- OpenGraph PROVIDED BY CLIENT CODE -->
+        <!-- Twitter Card PROVIDED BY CLIENT CODE -->
 
         <!-- Common configuration -->
 

@@ -40,7 +40,10 @@ export class Config {
                 primaryColor: "#FE5D44",
                 webmanifestBackgroundColor: "#FAFAFA",
                 browserconfigTileColor: "#DA532C",
+                logoPath: "/real/client/assets/android-chrome-512x512.png"
             },
+            facebookAppId: "NULL",
+            twitterHandle: "NULL"
         };
     }
 
@@ -122,6 +125,8 @@ export interface ApplicationConfig {
     defaultLanguage: string;
     seoKeywords: string[];
     style: StyleConfig;
+    facebookAppId: string;
+    twitterHandle: string;
 }
 
 export interface WellKnownPathsConfig {
@@ -135,6 +140,7 @@ export interface StyleConfig {
     primaryColor: string;
     webmanifestBackgroundColor: string;
     browserconfigTileColor: string;
+    logoPath: string;
 }
 
 export interface PostgresConfig {

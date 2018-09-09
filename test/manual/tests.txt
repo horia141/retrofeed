@@ -12,3 +12,6 @@ Test with Chrome, Safari, Firefox on Desktop/Android/iOs
   * Robots.txt is validated by https://technicalseo.com/seo-tools/robots-txt/
   * Humans.txt is properly rendered
   * Sitemap.xml is validated by https://www.xml-sitemaps.com/validate-xml-sitemap.html
+  * Facebook OpenGraph metadata is validated as OK
+  * Twitter card metadata is validated as OK
+  * Organization microdata is validated as OK
