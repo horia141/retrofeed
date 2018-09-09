@@ -3,7 +3,7 @@ import * as HttpStatus from "http-status";
 
 // TODO: handle logged in pages here
 const PUBLIC_PAGES = [{
-    title: "RetroFeed",
+    title: "Home Man",
     path: "/",
     description: "Stay up to date with the latest changes in your project's dependencies"
 }];

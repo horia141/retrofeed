@@ -1,47 +1,47 @@
-import { MarshalWith, MarshalFrom, OptionalOf } from "raynor";
 import * as r from "raynor";
+import { MarshalFrom, MarshalWith, OptionalOf } from "raynor";
 
 export class User {
     @MarshalWith(r.BooleanMarshaller)
-    agreedToPolicy: boolean = false;
+    public agreedToPolicy: boolean = false;
 
     @MarshalWith(r.StringMarshaller)
-    displayName: string = "";
+    public displayName: string = "";
 
     @MarshalWith(r.SecureWebUriMarshaller)
-    pictureUri: string = "";
+    public pictureUri: string = "";
 }
 
 export class ClientConfig {
     @MarshalWith(r.StringMarshaller)
-    name: string = "";
+    public name: string = "";
 
     @MarshalWith(r.StringMarshaller)
-    description: string = "";
+    public description: string = "";
 
     @MarshalWith(r.SecureWebUriMarshaller)
-    externalOrigin: string = "";
+    public externalOrigin: string = "";
 
     @MarshalWith(r.AbsolutePathMarshaller)
-    loginPath: string = "";
+    public loginPath: string = "";
 
     @MarshalWith(r.AbsolutePathMarshaller)
-    logoutPath: string = "";
+    public logoutPath: string = "";
 
     @MarshalWith(r.SecureWebUriMarshaller)
-    logoUri: string = "";
+    public logoUri: string = "";
 
     @MarshalWith(r.StringMarshaller)
-    facebookAppId: string = "";
+    public facebookAppId: string = "";
 
     @MarshalWith(r.StringMarshaller)
-    twitterHandle: string = "";
+    public twitterHandle: string = "";
 }
 
 export class ClientState {
     @MarshalWith(r.StringMarshaller)
-    language: string = "";
+    public language: string = "";
 
     @MarshalWith(OptionalOf(MarshalFrom(User)))
-    user: User | null = null;
+    public user: User | null = null;
 }

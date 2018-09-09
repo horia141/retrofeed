@@ -40,10 +40,10 @@ export class Config {
                 primaryColor: "#FE5D44",
                 webmanifestBackgroundColor: "#FAFAFA",
                 browserconfigTileColor: "#DA532C",
-                logoPath: "/real/client/assets/android-chrome-512x512.png"
+                logoPath: "/real/client/assets/android-chrome-512x512.png",
             },
             facebookAppId: "NULL",
-            twitterHandle: "NULL"
+            twitterHandle: "NULL",
         };
     }
 
@@ -52,7 +52,7 @@ export class Config {
             homePath: "/",
             adminPrefix: "/admin",
             loginPath: "/real/auth/login",
-            logoutPath: "/real/auth/logout"
+            logoutPath: "/real/auth/logout",
         };
     }
 

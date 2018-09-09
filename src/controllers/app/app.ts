@@ -1,11 +1,11 @@
 import { Controller, Get, Module, Render, Req, UseGuards } from "@nestjs/common";
-import * as serializeJavascript from "serialize-javascript";
 import * as express from "express";
+import * as serializeJavascript from "serialize-javascript";
 
-import { ViewAuthGuard } from "../../auth/auth";
-import { Config, ApplicationConfig } from "../../infra/config";
 import { MarshalFrom } from "../../../node_modules/raynor";
+import { ViewAuthGuard } from "../../auth/auth";
 import { ClientConfig, ClientState, User as ClientUser } from "../../client/shared";
+import { ApplicationConfig, Config } from "../../infra/config";
 import { User } from "../../services/user/entities";
 
 @Controller("/")
@@ -26,7 +26,7 @@ export class AppController {
         return {
             applicationConfig: this.config.application,
             clientConfigSer: this.prepareClientConfigSer(),
-            clientStateSer: this.prepareClientStateSer(req.user ? (req.user as User) : null)
+            clientStateSer: this.prepareClientStateSer(req.user ? (req.user as User) : null),
         };
     }
 
@@ -37,7 +37,7 @@ export class AppController {
         return {
             applicationConfig: this.config.application,
             clientConfigSer: this.prepareClientConfigSer(),
-            clientStateSer: this.prepareClientStateSer(req.user as User)
+            clientStateSer: this.prepareClientStateSer(req.user as User),
         };
     }
 
