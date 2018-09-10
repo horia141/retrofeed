@@ -15,17 +15,17 @@ export class AdminFrame extends React.Component<Props, State> {
     public static readonly PATH_PREFIX = "/admin";
 
     componentDidMount() {
-        if (CLIENT_STATE.user === null) {
-            window.location.assign(CLIENT_CONFIG.loginPath);
+        if (CLIENT_STATE().user === null) {
+            window.location.assign(CLIENT_CONFIG().loginPath);
         }
     }
 
     public render(): JSX.Element {
-        if (CLIENT_STATE.user === null) {
+        if (CLIENT_STATE().user === null) {
             return <div>Should be logged in</div>;
         }
 
-        const realLink = `${CLIENT_CONFIG.externalOrigin}${AdminFrame.PATH_PREFIX}`;
+        const realLink = `${CLIENT_CONFIG().externalOrigin}${AdminFrame.PATH_PREFIX}`;
 
         return (
             <div>

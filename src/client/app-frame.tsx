@@ -19,7 +19,7 @@ export class AppFrame extends React.Component<Props, State> {
         return (
             <div>
                 <Helmet>
-                    <html lang={CLIENT_STATE.language} />
+                    <html lang={CLIENT_STATE().language} />
                 </Helmet>
                 <main>
                     <div>

@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
 module.exports = {
     mode: process.env.ENV === "LOCAL" ? "development" : "production",
@@ -48,6 +49,10 @@ module.exports = {
             filename: "[name].css",
             chunkFilename: "[name].chunk.css"
         }),
+        new webpack.NormalModuleReplacementPlugin(
+            /cls-hooked/,
+            "./cls-hooked-mock.ts" // Just a random file, no dependencies
+        )
     ],
     optimization: {
         splitChunks: {

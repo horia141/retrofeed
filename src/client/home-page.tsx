@@ -15,7 +15,7 @@ export class HomePage extends React.Component<Props, State> {
     public static readonly FULL_PATH: string = "/";
 
     public render(): JSX.Element {
-        const realLink = `${CLIENT_CONFIG.externalOrigin}${HomePage.FULL_PATH}`;
+        const realLink = `${CLIENT_CONFIG().externalOrigin}${HomePage.FULL_PATH}`;
         return (
             <div>
                 <Helmet>

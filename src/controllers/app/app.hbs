@@ -1,20 +1,17 @@
 <!doctype html>
-<html lang="PROVIDED BY CLIENT CODE">
+<html {{{ssr.htmlAttributes}}}>
     <head>
         <meta charset="utf-8">
 
         <!-- Page specific generic web configuration  -->
 
-        <!-- <title>PROVIDED BY CLIENT CODE</title> -->
+        {{{ssr.title}}}
+        {{{ssr.meta}}}
         <meta name="description" content="{{applicationConfig.description}}" />
-        <!-- <link rel="canonical" href="PROVIDED BY CLIENT CODE" /> -->
         <meta name="keywords" content="{{applicationConfig.seoKeywords}}" />
         <meta name="author" content="{{applicationConfig.authors}}" />
+        {{{ssr.link}}}
         <link rel="author" href="/humans.txt" />
-
-        <!-- Page annotations -->
-
-        <!-- Organization microdata -->
 
         <script type="application/ld+json">
          {
@@ -29,9 +26,6 @@
              ]
          }
         </script>
-
-        <!-- OpenGraph PROVIDED BY CLIENT CODE -->
-        <!-- Twitter Card PROVIDED BY CLIENT CODE -->
 
         <!-- Common configuration -->
 
@@ -56,7 +50,7 @@
     <body>
         <!-- Application mount point -->
 
-        <div id="app"></div>
+        <div id="app">{{{ssr.appHtml}}}</div>
 
         <!-- Important resource loading -->
 

@@ -17,10 +17,10 @@ export function FacebookOpenGraph(props: FacebookOpenGraphProps) {
             <meta property="og:url" content={props.realLink} />
             <meta property="og:title" content={props.title} />
             <meta property="og:description" content={props.description} />
-            <meta property="og:site_name" content={CLIENT_CONFIG.name} />
-            <meta property="og:image" content={CLIENT_CONFIG.logoUri} />
+            <meta property="og:site_name" content={CLIENT_CONFIG().name} />
+            <meta property="og:image" content={CLIENT_CONFIG().logoUri} />
             <meta property="og:image:alt" content={props.description} />
-            <meta property="fb:app_id" content={CLIENT_CONFIG.facebookAppId} />
+            <meta property="fb:app_id" content={CLIENT_CONFIG().facebookAppId} />
         </Helmet>
     );
 }
@@ -36,9 +36,9 @@ export function TwitterCard(props: TwitterCardProps) {
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:title" content={props.title} />
             <meta name="twitter:description" content={props.description} />
-            <meta name="twitter:creator" content={CLIENT_CONFIG.twitterHandle} />
-            <meta name="twitter:site" content={CLIENT_CONFIG.twitterHandle} />
-            <meta name="twitter:image" content={CLIENT_CONFIG.logoUri} />
+            <meta name="twitter:creator" content={CLIENT_CONFIG().twitterHandle} />
+            <meta name="twitter:site" content={CLIENT_CONFIG().twitterHandle} />
+            <meta name="twitter:image" content={CLIENT_CONFIG().logoUri} />
         </Helmet>
     );
 }

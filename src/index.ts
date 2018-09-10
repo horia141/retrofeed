@@ -20,6 +20,7 @@ import { RequestTimeMiddleware } from "./infra/request-time-middleware";
 import { RequestVersionMiddleware } from "./infra/request-version-middleware";
 import { SessionMiddleware } from "./infra/session-middleware";
 import { UserModule } from "./services/user/service";
+import { NamespaceModule } from "./infra/namespace";
 
 @Module({
     imports: [
@@ -29,10 +30,12 @@ import { UserModule } from "./services/user/service";
         DbConnModule,
         IntegrationModule,
         StatusModule,
+        NamespaceModule,
         UserModule,
     ],
 })
 class MainModule implements NestModule {
+
     public configure(consumer: MiddlewareConsumer): void {
         consumer
             .apply(RequestIdMiddleware, RequestTimeMiddleware, RequestVersionMiddleware)
