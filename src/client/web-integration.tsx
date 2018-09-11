@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet";
 
 import { CLIENT_CONFIG } from "./bootstrap";
 
-
 interface FacebookOpenGraphProps {
     realLink: string;
     title: string;

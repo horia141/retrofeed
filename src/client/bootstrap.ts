@@ -1,6 +1,5 @@
-import { MarshalFrom } from "raynor";
 import { getNamespace } from "cls-hooked";
-
+import { MarshalFrom } from "raynor";
 import { ClientConfig, ClientState } from "./shared";
 
 const clientConfigMarshaller = new (MarshalFrom(ClientConfig))();
@@ -31,5 +30,5 @@ if (typeof window !== "undefined") {
     CLIENT_STATE = () => {
         const theNamespace = getNamespace("retrofeed");
         return clientStateMarshaller.extract(theNamespace.get("__RETROFEED_CLIENT_STATE"));
-    }
+    };
 }

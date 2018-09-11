@@ -4,13 +4,7 @@ import { Helmet } from "react-helmet";
 import { CLIENT_CONFIG } from "./bootstrap";
 import { FacebookOpenGraph, TwitterCard } from "./web-integration";
 
-export interface Props {
-}
-
-export interface State {
-}
-
-export class HomePage extends React.Component<Props, State> {
+export class HomePage extends React.Component<{}, {}> {
 
     public static readonly FULL_PATH: string = "/";
 

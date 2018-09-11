@@ -15,12 +15,12 @@ import { StatusModule } from "./controllers/tech/status";
 import { isLocal } from "./infra/common";
 import { Config, ConfigModule } from "./infra/config";
 import { DbConnModule } from "./infra/db-conn";
+import { NamespaceModule } from "./infra/namespace";
 import { RequestIdMiddleware } from "./infra/request-id-middleware";
 import { RequestTimeMiddleware } from "./infra/request-time-middleware";
 import { RequestVersionMiddleware } from "./infra/request-version-middleware";
 import { SessionMiddleware } from "./infra/session-middleware";
 import { UserModule } from "./services/user/service";
-import { NamespaceModule } from "./infra/namespace";
 
 @Module({
     imports: [

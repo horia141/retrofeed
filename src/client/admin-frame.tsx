@@ -4,17 +4,11 @@ import { Helmet } from "react-helmet";
 import { CLIENT_CONFIG, CLIENT_STATE } from "./bootstrap";
 import { FacebookOpenGraph, TwitterCard } from "./web-integration";
 
-export interface Props {
-}
-
-export interface State {
-}
-
-export class AdminFrame extends React.Component<Props, State> {
+export class AdminFrame extends React.Component<{}, {}> {
 
     public static readonly PATH_PREFIX = "/admin";
 
-    componentDidMount() {
+    public componentDidMount() {
         if (CLIENT_STATE().user === null) {
             window.location.assign(CLIENT_CONFIG().loginPath);
         }

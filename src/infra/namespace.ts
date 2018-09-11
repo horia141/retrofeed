@@ -6,8 +6,8 @@ import { createNamespace } from "cls-hooked";
         provide: "Namespace",
         useFactory: () => {
             return createNamespace("retrofeed");
-        }
+        },
     }],
-    exports: ["Namespace"]
+    exports: ["Namespace"],
 })
 export class NamespaceModule { }

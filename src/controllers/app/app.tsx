@@ -1,20 +1,20 @@
-import { Controller, Get, Module, Render, Req, UseGuards, NestModule, MiddlewareConsumer } from "@nestjs/common";
+import { Controller, Get, MiddlewareConsumer, Module, NestModule, Render, Req, UseGuards } from "@nestjs/common";
+import { getNamespace } from "cls-hooked";
 import * as express from "express";
-import * as serializeJavascript from "serialize-javascript";
 import * as React from "react";
-import { StaticRouter } from "react-router-dom";
 import * as ReactDOMServer from "react-dom/server";
 import { Helmet } from "react-helmet";
-import { getNamespace } from "cls-hooked";
+import { StaticRouter } from "react-router-dom";
+import * as serializeJavascript from "serialize-javascript";
 
 import { MarshalFrom } from "../../../node_modules/raynor";
 import { ViewAuthGuard } from "../../auth/auth";
-import { ClientConfig, ClientState, User as ClientUser } from "../../client/shared";
 import { AppFrame } from "../../client/app-frame";
+import { ClientConfig, ClientState, User as ClientUser } from "../../client/shared";
 import { ApplicationConfig, Config } from "../../infra/config";
-import { User } from "../../services/user/entities";
 import { NamespaceModule } from "../../infra/namespace";
 import { NamespaceMiddleware } from "../../infra/namespace-middleware";
+import { User } from "../../services/user/entities";
 
 @Controller("/")
 export class AppController {
@@ -44,7 +44,7 @@ export class AppController {
         const appHtml = ReactDOMServer.renderToString(
             <StaticRouter location="/" context={staticContext} >
                 <AppFrame />
-            </StaticRouter>
+            </StaticRouter>,
         );
         const helmetData = Helmet.renderStatic();
 
@@ -53,12 +53,12 @@ export class AppController {
             clientConfigSer: serializeJavascript(clientConfig),
             clientStateSer: serializeJavascript(clientState),
             ssr: {
-                appHtml: appHtml,
+                appHtml,
                 title: helmetData.title.toString(),
                 meta: helmetData.meta.toString(),
                 link: helmetData.link.toString(),
-                htmlAttributes: helmetData.htmlAttributes.toString()
-            }
+                htmlAttributes: helmetData.htmlAttributes.toString(),
+            },
         };
     }
 
@@ -79,7 +79,7 @@ export class AppController {
         const appHtml = ReactDOMServer.renderToString(
             <StaticRouter location="/" context={staticContext} >
                 <AppFrame />
-            </StaticRouter>
+            </StaticRouter>,
         );
         const helmetData = Helmet.renderStatic();
 
@@ -88,12 +88,12 @@ export class AppController {
             clientConfigSer: serializeJavascript(clientConfig),
             clientStateSer: serializeJavascript(clientState),
             ssr: {
-                appHtml: appHtml,
+                appHtml,
                 title: helmetData.title.toString(),
                 meta: helmetData.meta.toString(),
                 link: helmetData.link.toString(),
-                htmlAttributes: helmetData.htmlAttributes.toString()
-            }
+                htmlAttributes: helmetData.htmlAttributes.toString(),
+            },
         };
     }
 
@@ -135,12 +135,12 @@ export interface BasicViewResponse {
         meta: string;
         link: string;
         htmlAttributes: string;
-    }
+    };
 }
 
 @Module({
     controllers: [AppController],
-    imports: [NamespaceModule]
+    imports: [NamespaceModule],
 })
 export class AppModule implements NestModule {
 

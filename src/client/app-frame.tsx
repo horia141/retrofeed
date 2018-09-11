@@ -1,19 +1,13 @@
 import * as React from "react";
-import { Route, Switch, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { Link, Route, Switch } from "react-router-dom";
 
-import { HomePage } from "./home-page";
 import { AdminFrame } from "./admin-frame";
 import { CLIENT_STATE } from "./bootstrap";
+import { HomePage } from "./home-page";
 import { LogoutButton } from "./logout-button";
 
-export interface Props {
-}
-
-export interface State {
-}
-
-export class AppFrame extends React.Component<Props, State> {
+export class AppFrame extends React.Component<{}, {}> {
 
     public render(): JSX.Element {
         return (

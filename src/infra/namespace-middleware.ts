@@ -1,4 +1,4 @@
-import { Injectable, MiddlewareFunction, NestMiddleware, Inject } from "@nestjs/common";
+import { Inject, Injectable, MiddlewareFunction, NestMiddleware } from "@nestjs/common";
 import { Namespace } from "cls-hooked";
 import * as express from "express";
 
