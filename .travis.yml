@@ -47,12 +47,12 @@ before_script:
 - tar xvf secrets.tar
 - yarn migrate
 - yarn client:compile
+- yarn serve &
+- sleep 30
 
 script:
 - yarn lint
-- yarn test
-- yarn serve &
-- sleep 30
+- yarn test:unit
 - yarn test:e2e
 
 after_success:
