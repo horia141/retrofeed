@@ -18,6 +18,7 @@
     ],
     "scripts": {
         "client:compile": "./scripts/client-compile.sh",
+        "client:compile:stats": "./scripts/client-compile-stats.sh",
         "serve": "./scripts/serve.sh",
         "serve:watch": "./scripts/serve-watch.sh",
         "infra:start": "./scripts/infra-start.sh",

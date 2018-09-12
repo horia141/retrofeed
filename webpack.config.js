@@ -49,6 +49,8 @@ module.exports = {
             filename: "[name].css",
             chunkFilename: "[name].chunk.css"
         }),
+        // As we add more languages, we'll select more locales here.
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ro/),
         new webpack.NormalModuleReplacementPlugin(
             /cls-hooked/,
             "./cls-hooked-mock.ts" // Just a random file, no dependencies
@@ -70,6 +72,11 @@ module.exports = {
             name: "manifest"
         }
     },
+    performance: process.env.ENV !== "LOCAL" ? {
+        hints: "warning", // "error" or false are valid too
+        maxEntrypointSize: 128 * 1024, // in bytes, default 250k
+        maxAssetSize: 512 * 1024, // in bytes
+    } : {},
     resolve: {
         extensions: [".js", ".ts", ".tsx", ".css", ".less"],
         modules: [
