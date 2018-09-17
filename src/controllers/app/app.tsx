@@ -31,7 +31,23 @@ export class AppController {
     @Get("/")
     @Render("app/app")
     public async home(@Req() req: express.Request): Promise<BasicViewResponse> {
+        return this.serverRender("/", req);
+    }
 
+    @Get("/not-found")
+    @Render("app/app")
+    public async notFound(@Req() req: express.Request): Promise<BasicViewResponse> {
+        return this.serverRender("/not-found", req);
+    }
+
+    @Get("/admin")
+    @Render("app/app")
+    @UseGuards(ViewAuthGuard)
+    public async admin(@Req() req: express.Request): Promise<BasicViewResponse> {
+        return this.serverRender("/admin", req);
+    }
+
+    private serverRender(path: string, req: express.Request): BasicViewResponse {
         const clientConfig = this.prepareClientConfig();
         const clientState = this.prepareClientState(req.user ? (req.user as User) : null);
 
@@ -42,42 +58,7 @@ export class AppController {
 
         const staticContext: any = {};
         const appHtml = ReactDOMServer.renderToString(
-            <StaticRouter location="/" context={staticContext} >
-                <AppFrame />
-            </StaticRouter>,
-        );
-        const helmetData = Helmet.renderStatic();
-
-        return {
-            applicationConfig: this.config.application,
-            clientConfigSer: serializeJavascript(clientConfig),
-            clientStateSer: serializeJavascript(clientState),
-            ssr: {
-                appHtml,
-                title: helmetData.title.toString(),
-                meta: helmetData.meta.toString(),
-                link: helmetData.link.toString(),
-                htmlAttributes: helmetData.htmlAttributes.toString(),
-            },
-        };
-    }
-
-    @Get("/admin")
-    @Render("app/app")
-    @UseGuards(ViewAuthGuard)
-    public async admin(@Req() req: express.Request): Promise<BasicViewResponse> {
-
-        const clientConfig = this.prepareClientConfig();
-        const clientState = this.prepareClientState(req.user as User);
-
-        const theNamespace = getNamespace("retrofeed");
-
-        theNamespace.set("__RETROFEED_CLIENT_CONFIG", clientConfig);
-        theNamespace.set("__RETROFEED_CLIENT_STATE", clientState);
-
-        const staticContext: any = {};
-        const appHtml = ReactDOMServer.renderToString(
-            <StaticRouter location="/" context={staticContext} >
+            <StaticRouter location={path} context={staticContext} >
                 <AppFrame />
             </StaticRouter>,
         );
@@ -102,8 +83,8 @@ export class AppController {
         clientConfig.name = this.config.application.name;
         clientConfig.description = this.config.application.description;
         clientConfig.externalOrigin = this.config.application.externalOrigin;
-        clientConfig.loginPath = this.config.wellKnownPaths.loginPath;
-        clientConfig.logoutPath = this.config.wellKnownPaths.logoutPath;
+        clientConfig.loginPath = this.config.wellKnownPaths.specialPages.loginPath;
+        clientConfig.logoutPath = this.config.wellKnownPaths.specialPages.logoutPath;
         clientConfig.logoUri = `${this.config.application.externalOrigin}${this.config.application.style.logoPath}`;
         clientConfig.facebookAppId = this.config.application.facebookAppId;
         clientConfig.twitterHandle = this.config.application.twitterHandle;

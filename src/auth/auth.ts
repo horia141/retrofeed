@@ -71,15 +71,15 @@ export class AuthController {
     @Get("/callback")
     public callback(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction): void {
         passport.authenticate("auth0", {
-            successRedirect: this.config.wellKnownPaths.adminPrefix,
-            failureRedirect: this.config.wellKnownPaths.homePath,
+            successRedirect: this.config.wellKnownPaths.specialPages.adminPrefix,
+            failureRedirect: this.config.wellKnownPaths.specialPages.home,
         })(req, res, next);
     }
 
     @Get("/logout")
     public logout(@Req() req: Request, @Res() res: Response) {
         req.logout();
-        res.redirect(this.config.wellKnownPaths.homePath);
+        res.redirect(this.config.wellKnownPaths.specialPages.home);
     }
 }
 
@@ -154,7 +154,7 @@ export class ViewAuthFailedFilter implements ExceptionFilter {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
 
-        response.redirect(this.config.wellKnownPaths.loginPath);
+        response.redirect(this.config.wellKnownPaths.specialPages.loginPath);
     }
 }
 

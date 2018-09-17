@@ -39,7 +39,7 @@ export class IntegrationController {
         };
     }
 
-    @Get("/site.webmanifest")
+    @Get("/real/site.webmanifest")
     @Header("Content-Type", "application/manifest+json; charset=utf-8")
     @Render("integration/webmanifest")
     public async webmanifest(): Promise<WebmanifsetViewResponse> {
@@ -51,7 +51,7 @@ export class IntegrationController {
         };
     }
 
-    @Get("/browserconfig.xml")
+    @Get("/real/browserconfig.xml")
     @Header("Content-Type", "application/xml; charset=utf-8")
     @Render("integration/browserconfig")
     public async browserconfig(): Promise<BrowserconfigViewResponse> {
@@ -88,4 +88,4 @@ interface BrowserconfigViewResponse {
 @Module({
     controllers: [IntegrationController],
 })
-export class IntegrationModule {}
+export class IntegrationModule { }

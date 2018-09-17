@@ -6,6 +6,7 @@ import { AdminFrame } from "./admin-frame";
 import { CLIENT_STATE } from "./bootstrap";
 import { HomePage } from "./home-page";
 import { LogoutButton } from "./logout-button";
+import { NotFoundPage } from "./not-found-page";
 
 export class AppFrame extends React.Component<{}, {}> {
 
@@ -24,6 +25,8 @@ export class AppFrame extends React.Component<{}, {}> {
                     <Switch>
                         <Route exact path={HomePage.FULL_PATH} component={HomePage} />
                         <Route path={AdminFrame.PATH_PREFIX} component={AdminFrame} />
+                        <Route path={NotFoundPage.FULL_PATH} component={NotFoundPage} />
+                        <Route path="*" component={NotFoundPage} />
                     </Switch>
                 </main>
             </div>

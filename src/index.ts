@@ -9,12 +9,14 @@ import * as webpack from "webpack";
 import * as theWebpackDevMiddleware from "webpack-dev-middleware";
 
 import { AuthController, AuthModule, ViewAuthFailedFilter } from "./auth/auth";
+import { ApiModule } from "./controllers/api/api";
 import { AppController, AppModule } from "./controllers/app/app";
 import { IntegrationModule } from "./controllers/integration/integration";
 import { StatusModule } from "./controllers/tech/status";
 import { isLocal } from "./infra/common";
 import { Config, ConfigModule } from "./infra/config";
 import { DbConnModule } from "./infra/db-conn";
+import { NotFoundExceptionFilter } from "./infra/exception-filters";
 import { NamespaceModule } from "./infra/namespace";
 import { RequestIdMiddleware } from "./infra/request-id-middleware";
 import { RequestTimeMiddleware } from "./infra/request-time-middleware";
@@ -24,6 +26,7 @@ import { UserModule } from "./services/user/service";
 
 @Module({
     imports: [
+        ApiModule,
         AppModule,
         AuthModule,
         ConfigModule,
@@ -70,6 +73,7 @@ async function bootstrap() {
     app.use(helmet());
     app.use(compression());
     app.useGlobalFilters(new ViewAuthFailedFilter(config));
+    app.useGlobalFilters(new NotFoundExceptionFilter(config));
     await app.listen(config.port);
 }
 

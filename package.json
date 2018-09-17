@@ -95,6 +95,7 @@
         "hbs": "^4.0.1",
         "helmet": "^3.13.0",
         "http-status": "^1.2.0",
+        "http-status-codes": "^1.3.0",
         "knex": "^0.15.0",
         "moment": "^2.22.2",
         "normalize.css": "^8.0.0",

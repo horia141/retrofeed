@@ -49,10 +49,19 @@ export class Config {
 
     public get wellKnownPaths(): WellKnownPathsConfig {
         return {
-            homePath: "/",
-            adminPrefix: "/admin",
-            loginPath: "/real/auth/login",
-            logoutPath: "/real/auth/logout",
+            sectionPrefixes: {
+                tech: "/real/tech",
+                clientResources: "/real/client",
+                auth: "/real/auth",
+                api: "/real/api",
+            },
+            specialPages: {
+                notFound: "/not-found",
+                loginPath: "/real/auth/login",
+                logoutPath: "/real/auth/logout",
+                home: "/",
+                adminPrefix: "/admin",
+            },
         };
     }
 
@@ -130,10 +139,19 @@ export interface ApplicationConfig {
 }
 
 export interface WellKnownPathsConfig {
-    homePath: string;
-    adminPrefix: string;
-    loginPath: string;
-    logoutPath: string;
+    sectionPrefixes: {
+        tech: string;
+        clientResources: string;
+        auth: string;
+        api: string;
+    },
+    specialPages: {
+        notFound: string;
+        loginPath: string;
+        logoutPath: string;
+        home: string;
+        adminPrefix: string;
+    }
 }
 
 export interface StyleConfig {

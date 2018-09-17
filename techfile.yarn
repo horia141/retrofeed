@@ -4,3 +4,4 @@ yarn: ^1.6
 terraform: ^4
 pgcli: ^1.10
 travis: ^1.8
+httpie: ^1
