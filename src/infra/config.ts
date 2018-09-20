@@ -42,8 +42,8 @@ export class Config {
                 browserconfigTileColor: "#DA532C",
                 logoPath: "/real/client/assets/android-chrome-512x512.png",
             },
-            facebookAppId: "NULL",
-            twitterHandle: "NULL",
+            facebookAppId: "247218689231145",
+            twitterHandle: "retro_feed",
         };
     }
 
