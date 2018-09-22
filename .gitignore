@@ -13,3 +13,4 @@ cypress
 .DS_Store
 .nyc_output
 config/*.secrets
+.terraform
