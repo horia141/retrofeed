@@ -105,7 +105,9 @@ resource "google_project_services" "common-services" {
     "servicemanagement.googleapis.com",
     "geocoding-backend.googleapis.com",
     "replicapoolupdater.googleapis.com",
-    "cloudbuild.googleapis.com"
+    "cloudbuild.googleapis.com",
+    "oslogin.googleapis.com",
+    "serviceusage.googleapis.com"
   ]
 }
 
