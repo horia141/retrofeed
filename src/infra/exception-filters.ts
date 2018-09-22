@@ -1,4 +1,4 @@
-import { Catch, NotFoundException, ExceptionFilter, ArgumentsHost } from "@nestjs/common";
+import { ArgumentsHost, Catch, ExceptionFilter, NotFoundException } from "@nestjs/common";
 import * as express from "express";
 import * as HttpStatusCodes from "http-status-codes";
 
@@ -13,7 +13,7 @@ export class NotFoundExceptionFilter implements ExceptionFilter {
         this.config = config;
     }
 
-    catch(_exception: NotFoundException, host: ArgumentsHost) {
+    public catch(_: NotFoundException, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
         const request = ctx.getRequest() as express.Request;
         const response = ctx.getResponse();

@@ -1,10 +1,8 @@
-import { Controller, Module, Get, Req } from "@nestjs/common";
+import { Controller, Get, Module, Req } from "@nestjs/common";
 import * as express from "express";
 
 @Controller("/real/api")
 export class ApiController {
-
-    constructor() { }
 
     @Get("/")
     public async home(@Req() req: express.Request): Promise<{ id: string }> {
@@ -13,7 +11,7 @@ export class ApiController {
 }
 
 @Module({
-    controllers: [ApiController]
+    controllers: [ApiController],
 })
 export class ApiModule {
 }

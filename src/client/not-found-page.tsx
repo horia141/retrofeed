@@ -14,6 +14,6 @@ export class NotFoundPage extends React.Component<{}, {}> {
                 </Helmet>
                 <h1>Not Found</h1>
             </div>
-        )
+        );
     }
 }

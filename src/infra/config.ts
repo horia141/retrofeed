@@ -144,14 +144,14 @@ export interface WellKnownPathsConfig {
         clientResources: string;
         auth: string;
         api: string;
-    },
+    };
     specialPages: {
         notFound: string;
         loginPath: string;
         logoutPath: string;
         home: string;
         adminPrefix: string;
-    }
+    };
 }
 
 export interface StyleConfig {
