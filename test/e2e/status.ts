@@ -1,6 +1,6 @@
 describe("Status page", () => {
     it("Has OK result", () => {
-        cy.visit("/status");
+        cy.visit("/tech/status");
 
         cy.contains("OK");
     });
