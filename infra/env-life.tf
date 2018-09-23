@@ -152,7 +152,48 @@ resource "google_sql_database" "live-sqldb-main-database" {
   ]
 }
 
-# Compute - VMs
+# Compute - Machines
+
+resource "google_compute_instance" "live-core-1" {
+  project = "${google_project.live.id}"
+
+  name = "chm-sqrt2-retrofeed-live-compute-core-1"
+  description = "Machine of the core cluster"
+  zone = "${var.live_region_and_zone}"
+
+  machine_type = "n1-standard-1"
+
+  metadata_startup_script = "echo hi > /test.txt"
+
+  boot_disk {
+    initialize_params {
+      image = "cos-cloud/cos-stable"
+      type = "pd-standard"
+    }
+  }
+
+  network_interface {
+    subnetwork = "${google_compute_subnetwork.live-subnetwork.id}"
+    subnetwork_project = "${google_project.live.id}"
+  }
+
+  scheduling {
+    preemptible = false
+    on_host_maintenance = "MIGRATE"
+    automatic_restart = true
+  }
+
+  service_account {
+    email = "${google_service_account.live-service-core.email}"
+    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
+  }
+
+  allow_stopping_for_update = false
+  can_ip_forward = false
+  deletion_protection = "true"
+
+  depends_on = [ "google_sql_database_instance.live-sqldb-main" ]
+}
 
 # Ingress - Loadbalancer
 
