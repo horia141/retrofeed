@@ -173,7 +173,7 @@ resource "google_compute_instance" "live-core-1" {
   }
 
   network_interface {
-    subnetwork = "${google_compute_subnetwork.live-subnetwork.id}"
+    subnetwork = "${google_compute_subnetwork.live-subnetwork.self_link}"
     subnetwork_project = "${google_project.live.id}"
   }
 
@@ -188,6 +188,10 @@ resource "google_compute_instance" "live-core-1" {
     scopes = ["userinfo-email", "compute-ro", "storage-ro"]
   }
 
+  metadata {
+    serial-port-enable = "1"
+  }
+
   allow_stopping_for_update = false
   can_ip_forward = false
   deletion_protection = "true"
@@ -195,6 +199,123 @@ resource "google_compute_instance" "live-core-1" {
   depends_on = [ "google_sql_database_instance.live-sqldb-main" ]
 }
 
+resource "google_compute_instance_group" "live-core" {
+  project = "${google_project.live.id}"
+
+  name = "chm-sqrt2-retrofeed-live-compute-core"
+  description = "Group of machines from the core cluster"
+  zone = "${var.live_region_and_zone}"
+
+  network = "${google_compute_network.live-network.self_link}"
+
+  instances = [
+    "${google_compute_instance.live-core-1.self_link}"
+  ]
+
+  named_port {
+    name = "http"
+    port = "${var.core_http_port}"
+  }
+}
+
 # Ingress - Loadbalancer
 
+resource "google_compute_global_address" "live" {
+  project = "${google_project.live.id}"
+
+  name = "chm-sqrt2-retrofeed-live-loadbalancer-address"
+  ip_version = "IPV4"
+}
+
+resource "google_compute_health_check" "live-core-healthcheck" {
+  project = "${google_project.live.id}"
+
+  name = "chm-sqrt2-retrofeed-live-healthcheck-core"
+  description = "The healthcheck for the core machines instances"
+
+  check_interval_sec = 5
+  timeout_sec = 1
+  healthy_threshold = 2
+  unhealthy_threshold = 2
+
+  http_health_check {
+    host = "" # Will set the Host header to the public IP on behalf of which the check is made
+    proxy_header = "NONE"
+    request_path = "${var.core_health_check_path}"
+    port = "${var.core_http_port}"
+  }
+}
+
+resource "google_compute_backend_service" "live-core" {
+  project = "${google_project.live.id}"
+
+  name = "chm-sqrt2-retrofeed-live-backend-core"
+  description = "The backend for the live core machines"
+
+  port_name = "http"
+  protocol = "HTTP"
+  timeout_sec = 10
+  connection_draining_timeout_sec = 300
+  enable_cdn = false
+  session_affinity = "NONE"
+
+  backend {
+    description = "The backend for the core machines"
+    group = "${google_compute_instance_group.live-core.self_link}"
+    balancing_mode = "UTILIZATION"
+    capacity_scaler = 1.0
+  }
+
+  health_checks = ["${google_compute_health_check.live-core-healthcheck.self_link}"]
+}
+
+resource "google_compute_url_map" "live" {
+  project = "${google_project.live.id}"
+
+  name = "chm-sqrt2-retrofeed-live-urlmap"
+  description = "The URL map for the live machines"
+
+  default_service = "${google_compute_backend_service.live-core.self_link}"
+
+  host_rule {
+    hosts = [ "${var.live_external_host}" ]
+    path_matcher = "allpaths"
+  }
+
+  path_matcher {
+    name = "allpaths"
+    default_service = "${google_compute_backend_service.live-core.self_link}"
+  }
+}
+
+resource "google_compute_target_http_proxy" "live" {
+  project = "${google_project.live.id}"
+
+  name = "chm-sqrt2-retrofeed-live-httpproxy"
+  description = "The HTTP proxy for the live machines"
+
+  url_map = "${google_compute_url_map.live.self_link}"
+}
+
+# TODO(horia141): https proxy
+
+resource "google_compute_global_forwarding_rule" "live-http" {
+  project = "${google_project.live.id}"
+
+  name = "chm-sqrt2-retrofeed-live-globalfwdrule"
+  description = "The global forwarding rule for HTTP traffic to te live core cluster"
+  target = "${google_compute_target_http_proxy.live.self_link}"
+
+  ip_address = "${google_compute_global_address.live.address}"
+  ip_protocol = "TCP"
+  port_range = "80"
+}
+
 # Ingress - DNS
+
+# resource "google_compute_global_address" "live-loadbalancer-address" {
+#   project = "${google_project.live.id}"
+
+#   name = "chm-sqrt2-retrofeed-live-loadbalancer-address"
+#   ip_version = "IPV4"
+# }
