@@ -8,7 +8,7 @@ const PUBLIC_PAGES = [{
     description: "Stay up to date with the latest changes in your project's dependencies"
 }];
 
-describe("Large scale SEO & Web integration", () => {
+describe.skip("Large scale SEO & Web integration", () => {
     describe("Favicons", () => {
         it("should reference favicons", () => {
             cy.visit(PUBLIC_PAGES[0].path);
