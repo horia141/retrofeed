@@ -1,0 +1,5 @@
+#cloud-config
+
+users:
+- name: service_core
+  uid: 2000

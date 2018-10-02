@@ -154,6 +154,17 @@ resource "google_sql_database" "live-sqldb-main-database" {
 
 # Compute - Machines
 
+resource "google_compute_address" "live-ssh" {
+  project = "${google_project.live.id}"
+  region = "${var.live_region}"
+
+  name = "chm-sqrt2-retrofeed-live-ssh-address"
+  description = "Address bound to machines for SSH purposes"
+
+  address_type = "EXTERNAL"
+  network_tier = "PREMIUM"
+}
+
 resource "google_compute_instance" "live-core-1" {
   project = "${google_project.live.id}"
 
@@ -163,7 +174,9 @@ resource "google_compute_instance" "live-core-1" {
 
   machine_type = "n1-standard-1"
 
-  metadata_startup_script = "echo hi > /test.txt"
+  metadata {
+    "user-data" = "${file("cloud-init")}"
+  }
 
   boot_disk {
     initialize_params {
@@ -175,6 +188,11 @@ resource "google_compute_instance" "live-core-1" {
   network_interface {
     subnetwork = "${google_compute_subnetwork.live-subnetwork.self_link}"
     subnetwork_project = "${google_project.live.id}"
+
+    access_config {
+      nat_ip = "${google_compute_address.live-ssh.address}"
+      network_tier = "${google_compute_address.live-ssh.network_tier}"
+    }
   }
 
   scheduling {
