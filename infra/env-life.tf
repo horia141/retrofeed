@@ -313,9 +313,56 @@ resource "google_compute_global_forwarding_rule" "live-http" {
 
 # Ingress - DNS
 
-# resource "google_compute_global_address" "live-loadbalancer-address" {
-#   project = "${google_project.live.id}"
+resource "google_dns_managed_zone" "live-retrofeed-io" {
+  project = "${google_project.live.id}"
 
-#   name = "chm-sqrt2-retrofeed-live-loadbalancer-address"
-#   ip_version = "IPV4"
-# }
+  name = "chm-sqrt2-retrofeed-live-retrofeed-io"
+  description = "Main domain"
+
+  dns_name = "retrofeed.io."
+}
+
+resource "google_dns_record_set" "live-retrofeed-io-a-res" {
+  project = "${google_project.live.id}"
+  managed_zone = "${google_dns_managed_zone.live-retrofeed-io.name}"
+
+  name = "${google_dns_managed_zone.live-retrofeed-io.dns_name}"
+  type = "A"
+  ttl = "300"
+  rrdatas = [ "${google_compute_global_address.live.address}" ]
+}
+
+resource "google_dns_record_set" "live-retrofeed-io-mx-res" {
+  project = "${google_project.live.id}"
+  managed_zone = "${google_dns_managed_zone.live-retrofeed-io.name}"
+
+  name = "${google_dns_managed_zone.live-retrofeed-io.dns_name}"
+  type = "MX"
+  ttl = "3600"
+  rrdatas = [
+    "1 aspmx.l.google.com.",
+    "5 alt1.aspmx.l.google.com.",
+    "5 alt2.aspmx.l.google.com.",
+    "10 alt3.aspmx.l.google.com.",
+    "10 alt4.aspmx.l.google.com."
+  ]
+}
+
+resource "google_dns_managed_zone" "live-retrofeed-chm-sqrt2-io" {
+  project = "${google_project.live.id}"
+
+  name = "chm-sqrt2-retrofeed-live-retrofeed-chm-sqrt2-io"
+  description = "Main technical domain"
+
+  dns_name = "retrofeed.chm-sqrt2.io."
+}
+
+resource "google_dns_record_set" "live-core-retrofeed-chm-sqrt2-io-a-res" {
+  project = "${google_project.live.id}"
+  managed_zone = "${google_dns_managed_zone.live-retrofeed-chm-sqrt2-io.name}"
+
+  name = "core.live.${google_dns_managed_zone.live-retrofeed-chm-sqrt2-io.dns_name}"
+  type = "A"
+  ttl = "300"
+  rrdatas = [ "${google_compute_global_address.live.address}" ]
+}
