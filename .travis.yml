@@ -39,11 +39,11 @@ before_install:
 # install:
 # - yarn install
 
-# before_script:
+before_script:
 # - psql -c "create database retrofeed;" -U postgres
 # - psql -c "create user service_core with password 'Mvuph9hLL7iCbpKZBEWYlLEaJJhBju2GBmxfpZom';" -U postgres
 # - psql -c "grant all on database retrofeed to service_core;" -U postgres
-# - openssl aes-256-cbc -K $encrypted_29fa2914873b_key -iv $encrypted_29fa2914873b_iv -in secrets.tar.enc -out secrets.tar -d
+- openssl aes-256-cbc -K $encrypted_29fa2914873b_key -iv $encrypted_29fa2914873b_iv -in secrets.tar.enc -out secrets.tar -d
 # - tar xvf secrets.tar
 # - yarn migrate
 # - yarn client:compile
