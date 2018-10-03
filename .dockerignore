@@ -12,9 +12,6 @@ Dockerfile
 .build
 cypress
 
-# NPM packages.
-/node_modules/
-
 # Hidden stuff.
 .env
 .DS_Store

@@ -36,27 +36,28 @@ before_install:
   fi
 - source ~/google-cloud-sdk/path.bash.inc
 
-install:
-- yarn install
+# install:
+# - yarn install
 
-before_script:
-- psql -c "create database retrofeed;" -U postgres
-- psql -c "create user service_core with password 'Mvuph9hLL7iCbpKZBEWYlLEaJJhBju2GBmxfpZom';" -U postgres
-- psql -c "grant all on database retrofeed to service_core;" -U postgres
-- openssl aes-256-cbc -K $encrypted_29fa2914873b_key -iv $encrypted_29fa2914873b_iv -in secrets.tar.enc -out secrets.tar -d
-- tar xvf secrets.tar
-- yarn migrate
-- yarn client:compile
-- yarn serve &
-- sleep 30
+# before_script:
+# - psql -c "create database retrofeed;" -U postgres
+# - psql -c "create user service_core with password 'Mvuph9hLL7iCbpKZBEWYlLEaJJhBju2GBmxfpZom';" -U postgres
+# - psql -c "grant all on database retrofeed to service_core;" -U postgres
+# - openssl aes-256-cbc -K $encrypted_29fa2914873b_key -iv $encrypted_29fa2914873b_iv -in secrets.tar.enc -out secrets.tar -d
+# - tar xvf secrets.tar
+# - yarn migrate
+# - yarn client:compile
+# - yarn serve &
+# - sleep 30
 
 script:
-- yarn lint
-- yarn test:unit
-- yarn test:e2e
+- true
+# - yarn lint
+# - yarn test:unit
+# - yarn test:e2e
 
-after_success:
-- ./scripts/send-coverage.sh
+# after_success:
+# - ./scripts/send-coverage.sh
 
 deploy:
   - provider: npm
@@ -65,3 +66,11 @@ deploy:
     - secure: "xgG+S45t6IXMIp7/kjPFjJaqgQkak1ap1qgfMK9uEY+pPAhQlXWTDoDGISor4Py4N0ABDy17ssPVCRRonwpi78lb68Dj4a6FNHjxC5p+yxjd4HaxHGpf3KqsiBfP38h/uw3uicdnOhgqQuB5kJJMp9OkhQHwcZRh2co2Qvp2vBqOqN7ERHT2TFZ/XqrsZuTrlgZLfd0G9ns6uuV2rqh3Wor8uqSe5acuRPE5q8K+NYZR6JvA4i1G3PMwpkFnVMYgALSwidWfxFoqSHZrH1DZTBlyR+3AN4wAMMHse4Yn0aMNDj8/esNRIMO3lfBwUsFuuf3FufIm8EFn8dhvhSjr4eGTjp5I/iCaglVYuoo9PM9wobxbvvupO39eXge11F6VI9PWxrDCb4pVI9a6/InqDwMGkMhFMpHFwg45RmNF8mdFSToHpCXsrZhNakV7WSS3qe6Uxjp6MhTI+ZQyHO8NAiEvDfuYiqRlI7HHbA+3Ow+Mj19EncyNokxbAnilDr+Ax3tmgXsVGlecfU9xLMw1MpbEEHRAEqpLcxuu2lb7FyKlUqR/xzFZlNzeTXtiwMFFbHMEXO2tx89uRvXt2lmb1RDZMWSyMcZbNw/xI9625wZbPQWqz1bZQZwuMimvP3f88RnzuRstfYy/X3LzZx5auPNHMj4yvzqdNhd1QO7UDfA="
     on:
       tags: true
+- provider: script
+  skip_cleanup: true
+  script:
+    cat ${GOOGLE_APPLICATION_CREDENTIALS} | docker login --username _json_key --password-stdin https://eu.gcr.io;
+    docker build --tag eu.gcr.io/chm-sqrt2-retrofeed-common/core:$TRAVIS_TAG .;
+    docker push eu.gcr.io/chm-sqrt2-retrofeed-common/core:$TRAVIS_TAG;
+    docker build --tag eu.gcr.io/chm-sqrt2-retrofeed-common/core:latest .;
+    docker push eu.gcr.io/chm-sqrt2-retrofeed-common/core:latest
