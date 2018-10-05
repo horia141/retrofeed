@@ -111,18 +111,10 @@ resource "google_project_services" "common-services" {
   ]
 }
 
-# This is automatically created by the container registry.
-# resource "google_storage_bucket" "container-registry-backing" {
-#   name = "eu.artifacts.chm-sqrt2-retrofeed-common.appspot.com"
-#   project = "${google_project.common.id}"
-#   storage_class = "MULTI_REGIONAL"
-#   location = "eu"
-# }
-
-# resource "google_storage_bucket_iam_binding" "container-registry-backing" {
-#   bucket = "eu.artifacts.chm-sqrt2-retrofeed-common.appspot.com"
-#   role = "roles/iam.roleAdmin"
-#   members = [
-#       "serviceAccount:${google_service_account.ci-terraformer.email}"
-#   ]
-# }
+// This is automatically created by the container registry.
+resource "google_storage_bucket" "container-registry-backing" {
+  name = "eu.artifacts.chm-sqrt2-retrofeed-common.appspot.com"
+  project = "${google_project.common.id}"
+  storage_class = "STANDARD"
+  location = "eu"
+}

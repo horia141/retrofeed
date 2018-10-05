@@ -178,6 +178,8 @@ resource "google_compute_instance" "live-core-1" {
     "user-data" = "${file("cloud-init")}"
   }
 
+  metadata_startup_script = "echo hi > /test.txt"
+
   boot_disk {
     initialize_params {
       image = "cos-cloud/cos-stable"

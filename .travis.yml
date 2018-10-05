@@ -69,8 +69,4 @@ deploy:
 - provider: script
   skip_cleanup: true
   script:
-    cat ${GOOGLE_APPLICATION_CREDENTIALS} | docker login --username _json_key --password-stdin https://eu.gcr.io;
-    docker build --tag eu.gcr.io/chm-sqrt2-retrofeed-common/core:$TRAVIS_TAG .;
-    docker push eu.gcr.io/chm-sqrt2-retrofeed-common/core:$TRAVIS_TAG;
-    docker build --tag eu.gcr.io/chm-sqrt2-retrofeed-common/core:latest .;
-    docker push eu.gcr.io/chm-sqrt2-retrofeed-common/core:latest
+    ./scripts/push-to-registry.sh ${GOOGLE_APPLICATION_CREDENTIALS} ${TRAVIS_TAG}
