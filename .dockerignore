@@ -16,3 +16,6 @@ cypress
 .env
 .DS_Store
 .nyc_output
+
+# Temp stuff
+scripts/terraform
