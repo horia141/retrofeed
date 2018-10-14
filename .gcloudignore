@@ -2,15 +2,24 @@
 *~
 
 # Build process output files.
-.build
 cypress
 
+# NPM packages.
+/node_modules/
+
 # Hidden stuff.
+.git
 .env
 .DS_Store
 .nyc_output
 config/*.json
 .terraform
+
+# Source files which aren't needed
+test/
+infra/
+src/
+migrations/
 
 # Temp stuff
 scripts/terraform

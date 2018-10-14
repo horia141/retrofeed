@@ -1,13 +1,13 @@
 import { Controller, Get, MiddlewareConsumer, Module, NestModule, Render, Req, UseGuards } from "@nestjs/common";
 import { getNamespace } from "cls-hooked";
 import * as express from "express";
+import { MarshalFrom } from "raynor";
 import * as React from "react";
 import * as ReactDOMServer from "react-dom/server";
 import { Helmet } from "react-helmet";
 import { StaticRouter } from "react-router-dom";
 import * as serializeJavascript from "serialize-javascript";
 
-import { MarshalFrom } from "../../../node_modules/raynor";
 import { ViewAuthGuard } from "../../auth/auth";
 import { AppFrame } from "../../client/app-frame";
 import { ClientConfig, ClientState, User as ClientUser } from "../../client/shared";

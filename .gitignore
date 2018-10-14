@@ -2,7 +2,7 @@
 *~
 
 # Build process output files.
-.build
+build
 cypress
 
 # NPM packages.

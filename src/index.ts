@@ -67,7 +67,7 @@ async function bootstrap() {
         });
         app.use("/real/client", webpackDevMiddleware);
     } else {
-        app.use("/real/client", serveStatic(join(__dirname, "..", ".build", "client"), { index: false }));
+        app.use("/real/client", serveStatic(join(__dirname, "..", "client"), { index: false }));
     }
 
     app.use(helmet());
