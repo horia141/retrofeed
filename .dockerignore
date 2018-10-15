@@ -10,6 +10,7 @@ Dockerfile
 
 # Build process output files.
 .build
+compile
 cypress
 
 # Hidden stuff.

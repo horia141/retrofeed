@@ -9,11 +9,20 @@ npx tsc --project tsconfig.server.json
 
 # Copying the files necessary for a build which tsc won't
 
-cp webpack.config.js build/
-rm -r build/server/assets
-cp -r src/assets build/server/assets
+rm -rf compile
+mkdir -p compile
+
+cp -r .build/client compile/client
+cp -r .build/server compile/server
+cp -r src/assets compile/assets
+cp .env compile/.env
+cp app.yaml compile/app.yaml
+cp scripts/serve-appengine.sh compile/serve-appengine.sh
+cp package.json compile/package.json
+cp yarn.lock compile/yarn.lock
+cp .gcloudignore compile/.gcloudignore
 
 for templatePath in $(tree -fi src/controllers/ | grep hbs | sed 's|src/0*||')
 do
-    cp src/$templatePath build/server/$templatePath
+    cp src/$templatePath compile/server/$templatePath
 done

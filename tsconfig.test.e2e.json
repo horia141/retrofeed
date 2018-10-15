@@ -5,7 +5,7 @@
         "target": "es5",
         "lib": ["es5", "dom"],
         "declaration": false,
-        "outDir": "build/test/e2e"
+        "outDir": ".build/test/e2e"
     },
     "include": [
         "./test/e2e/**/*.ts"

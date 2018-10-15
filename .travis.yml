@@ -36,8 +36,8 @@ before_install:
   fi
 - source ~/google-cloud-sdk/path.bash.inc
 
-# install:
-# - yarn install
+install:
+- yarn install
 
 before_script:
 - psql -c "create database retrofeed;" -U postgres
@@ -51,22 +51,27 @@ before_script:
 # - sleep 30
 
 script:
-- true
-# - yarn lint
-# - yarn test:unit
-# - yarn test:e2e
+- yarn lint
+- yarn test:unit
+- yarn test:e2e
 
-# after_success:
-# - ./scripts/send-coverage.sh
+after_success:
+- ./scripts/send-coverage.sh
 
 deploy:
   - provider: npm
     email: horia141@gmail.com
     api_key:
-    - secure: "xgG+S45t6IXMIp7/kjPFjJaqgQkak1ap1qgfMK9uEY+pPAhQlXWTDoDGISor4Py4N0ABDy17ssPVCRRonwpi78lb68Dj4a6FNHjxC5p+yxjd4HaxHGpf3KqsiBfP38h/uw3uicdnOhgqQuB5kJJMp9OkhQHwcZRh2co2Qvp2vBqOqN7ERHT2TFZ/XqrsZuTrlgZLfd0G9ns6uuV2rqh3Wor8uqSe5acuRPE5q8K+NYZR6JvA4i1G3PMwpkFnVMYgALSwidWfxFoqSHZrH1DZTBlyR+3AN4wAMMHse4Yn0aMNDj8/esNRIMO3lfBwUsFuuf3FufIm8EFn8dhvhSjr4eGTjp5I/iCaglVYuoo9PM9wobxbvvupO39eXge11F6VI9PWxrDCb4pVI9a6/InqDwMGkMhFMpHFwg45RmNF8mdFSToHpCXsrZhNakV7WSS3qe6Uxjp6MhTI+ZQyHO8NAiEvDfuYiqRlI7HHbA+3Ow+Mj19EncyNokxbAnilDr+Ax3tmgXsVGlecfU9xLMw1MpbEEHRAEqpLcxuu2lb7FyKlUqR/xzFZlNzeTXtiwMFFbHMEXO2tx89uRvXt2lmb1RDZMWSyMcZbNw/xI9625wZbPQWqz1bZQZwuMimvP3f88RnzuRstfYy/X3LzZx5auPNHMj4yvzqdNhd1QO7UDfA="
+      secure: "xgG+S45t6IXMIp7/kjPFjJaqgQkak1ap1qgfMK9uEY+pPAhQlXWTDoDGISor4Py4N0ABDy17ssPVCRRonwpi78lb68Dj4a6FNHjxC5p+yxjd4HaxHGpf3KqsiBfP38h/uw3uicdnOhgqQuB5kJJMp9OkhQHwcZRh2co2Qvp2vBqOqN7ERHT2TFZ/XqrsZuTrlgZLfd0G9ns6uuV2rqh3Wor8uqSe5acuRPE5q8K+NYZR6JvA4i1G3PMwpkFnVMYgALSwidWfxFoqSHZrH1DZTBlyR+3AN4wAMMHse4Yn0aMNDj8/esNRIMO3lfBwUsFuuf3FufIm8EFn8dhvhSjr4eGTjp5I/iCaglVYuoo9PM9wobxbvvupO39eXge11F6VI9PWxrDCb4pVI9a6/InqDwMGkMhFMpHFwg45RmNF8mdFSToHpCXsrZhNakV7WSS3qe6Uxjp6MhTI+ZQyHO8NAiEvDfuYiqRlI7HHbA+3Ow+Mj19EncyNokxbAnilDr+Ax3tmgXsVGlecfU9xLMw1MpbEEHRAEqpLcxuu2lb7FyKlUqR/xzFZlNzeTXtiwMFFbHMEXO2tx89uRvXt2lmb1RDZMWSyMcZbNw/xI9625wZbPQWqz1bZQZwuMimvP3f88RnzuRstfYy/X3LzZx5auPNHMj4yvzqdNhd1QO7UDfA="
     on:
       tags: true
-- provider: script
-  skip_cleanup: true
-  script:
-    ./scripts/push-to-registry.sh ${GOOGLE_APPLICATION_CREDENTIALS} ${TRAVIS_TAG}
+  - provider: script
+    skip_cleanup: true
+    script: ./scripts/push-to-registry.sh ${GOOGLE_APPLICATION_CREDENTIALS} ${TRAVIS_TAG}
+    on:
+      tags: true
+  - provider: script
+    skip_cleanup: true
+    script: ./scripts/deploy-prelive.sh ${TRAVIS_TAG}
+    on:
+      tags: true

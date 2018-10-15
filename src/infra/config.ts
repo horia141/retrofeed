@@ -2,7 +2,7 @@ import { Global, Module } from "@nestjs/common";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 
-import { Env, parseEnv } from "./common";
+import { Env, isOnServer, parseEnv } from "./common";
 
 export class Config {
 
@@ -82,10 +82,21 @@ export class Config {
 
     public get port(): number {
         // tslint:disable:no-string-literal
-        const port = parseInt(this.envConfig["PORT"], 10);
+        let portStr;
+        if (isOnServer(this.env)) {
+            if (typeof process.env.PORT === "undefined") {
+                throw new Error('Port is undefined');
+            }
+            portStr = process.env.PORT;
+        } else {
+            portStr = this.envConfig["PORT"];
+        }
+
+        const port = parseInt(portStr, 10);
         if (!Number.isSafeInteger(port)) {
             throw new Error(`Invalid port value ${this.envConfig["PORT"]}`);
         }
+
         return port;
     }
 
@@ -122,6 +133,18 @@ export class Config {
 
     public get webpackConfigPath(): string {
         return "../webpack.config.js";
+    }
+
+    public get sourceAssetsPath(): string {
+        return "src/assets";
+    }
+
+    public get compiledClientPath(): string {
+        return "client";
+    }
+
+    public get compiledAssetsPath(): string {
+        return "assets";
     }
 }
 

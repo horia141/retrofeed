@@ -35,7 +35,7 @@
         "lint": "./scripts/lint.sh",
         "migrate": "./scripts/migrate.sh",
         "prepare:config": "./scripts/prepare-config.sh",
-        "start": "./scripts/serve-appengine.sh"
+        "start": "./serve-appengine.sh"
     },
     "devDependencies": {
         "@types/chai": "^4.1.4",

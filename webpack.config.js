@@ -9,7 +9,7 @@ module.exports = {
         app: "./src/client/index.tsx",
     },
     output: {
-        path: path.resolve(__dirname, "build/client"),
+        path: path.resolve(__dirname, ".build/client"),
         filename: "[name].js",
         chunkFilename: "[name].chunk.js",
         publicPath: "/real/client"
