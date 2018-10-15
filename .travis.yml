@@ -49,6 +49,7 @@ before_script:
 - yarn compile
 - cd compile; yarn start &
 - sleep 30
+- cd ..
 
 script:
 - yarn lint
