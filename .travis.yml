@@ -47,7 +47,7 @@ before_script:
 - tar xvf secrets.tar
 - yarn migrate
 - yarn compile
-- cd compile; yarn start &
+- cd compile; ls -lah; ls -lah server/controllers; ls -lah server/controllers/app; yarn start &
 - sleep 30
 - cd ..
 
