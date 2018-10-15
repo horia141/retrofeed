@@ -22,6 +22,8 @@ cp package.json compile/package.json
 cp yarn.lock compile/yarn.lock
 cp .gcloudignore compile/.gcloudignore
 
+echo $(tree -fi src/controllers/ | grep hbs | sed 's|src/0*||')
+
 for templatePath in $(tree -fi src/controllers/ | grep hbs | sed 's|src/0*||')
 do
     cp src/$templatePath compile/server/$templatePath

@@ -55,7 +55,6 @@ class MainModule implements NestModule {
 async function bootstrap() {
     const app = await NestFactory.create(MainModule);
     const config = app.get(Config);
-    console.log(join(__dirname, "controllers"));
     app.setBaseViewsDir(join(__dirname, "controllers"));
     app.setViewEngine("hbs");
     if (isLocal(config.env)) {
