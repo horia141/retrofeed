@@ -45,10 +45,10 @@ before_script:
 - psql -c "grant all on database retrofeed to service_core;" -U postgres
 - openssl aes-256-cbc -K $encrypted_29fa2914873b_key -iv $encrypted_29fa2914873b_iv -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
-# - yarn migrate
-# - yarn client:compile
-# - yarn serve &
-# - sleep 30
+- yarn migrate
+- yarn compile
+- cd compile; yarn start &
+- sleep 30
 
 script:
 - yarn lint

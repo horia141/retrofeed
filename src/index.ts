@@ -5,8 +5,8 @@ import * as helmet from "helmet";
 import * as passport from "passport";
 import { join } from "path";
 import * as serveStatic from "serve-static";
-// import * as webpack from "webpack";
-// import * as theWebpackDevMiddleware from "webpack-dev-middleware";
+import * as webpack from "webpack";
+import * as theWebpackDevMiddleware from "webpack-dev-middleware";
 
 import { AuthController, AuthModule, ViewAuthFailedFilter } from "./auth/auth";
 import { ApiModule } from "./controllers/api/api";
@@ -57,15 +57,15 @@ async function bootstrap() {
     const config = app.get(Config);
     app.setBaseViewsDir(join(__dirname, "controllers"));
     app.setViewEngine("hbs");
-    if (isLocal(config.env) && false) {
-        // const webpackConfig = require(config.webpackConfigPath);
-        // const webpackCompiler = webpack(webpackConfig);
-        // const webpackDevMiddleware = theWebpackDevMiddleware(webpackCompiler, {
-        //     publicPath: "/",
-        //     serverSideRender: false,
-        // });
-        // app.use("/real/client/assets", serveStatic(config.sourceAssetsPath, { index: false }));
-        // app.use("/real/client", webpackDevMiddleware);
+    if (isLocal(config.env)) {
+        const webpackConfig = require(config.webpackConfigPath);
+        const webpackCompiler = webpack(webpackConfig);
+        const webpackDevMiddleware = theWebpackDevMiddleware(webpackCompiler, {
+            publicPath: "/",
+            serverSideRender: false,
+        });
+        app.use("/real/client/assets", serveStatic(config.sourceAssetsPath, { index: false }));
+        app.use("/real/client", webpackDevMiddleware);
     } else {
         app.use("/real/client/assets", serveStatic(config.compiledAssetsPath, { index: false }));
         app.use("/real/client", serveStatic(config.compiledClientPath, { index: false }));

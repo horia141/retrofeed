@@ -17,9 +17,8 @@
         "package"
     ],
     "scripts": {
-        "compile:client": "./scripts/compile-client.sh",
+        "compile": "./scripts/compile.sh",
         "compile:client:stats": "./scripts/compile-client-stats.sh",
-        "compile:server": "./scripts/compile-server.sh",
         "serve": "./scripts/serve.sh",
         "serve:watch": "./scripts/serve-watch.sh",
         "infra:start": "./scripts/infra-start.sh",

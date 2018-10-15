@@ -85,7 +85,7 @@ export class Config {
         let portStr;
         if (isOnServer(this.env)) {
             if (typeof process.env.PORT === "undefined") {
-                throw new Error('Port is undefined');
+                throw new Error("Port is undefined");
             }
             portStr = process.env.PORT;
         } else {
