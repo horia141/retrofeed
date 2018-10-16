@@ -1,3 +1,18 @@
+variable "prelive_region" {
+  type = "string"
+  default = "europe-west3"
+}
+variable "prelive_region_and_zone" {
+  type = "string"
+  default = "europe-west3-a"
+}
+variable "prelive_sqldb_main_user_core_password" {
+  type = "string"
+}
+variable "prelive_external_host" {
+  type = "string"
+  default = "prelive.retrofeed.chm-sqrt2.io"
+}
 variable "live_region" {
   type = "string"
   default = "europe-west3"

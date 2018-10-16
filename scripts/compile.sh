@@ -7,7 +7,7 @@ source scripts/setup-env.sh
 npx webpack --config=webpack.config.js
 npx tsc --project tsconfig.server.json
 
-# Copying the files necessary for a build which tsc won't
+# Copying the files necessary for a build
 
 rm -rf compile
 mkdir -p compile
