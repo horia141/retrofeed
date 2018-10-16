@@ -15,6 +15,9 @@ addons:
   hosts:
     - postgres.retrofeed
     - retrofeed.retrofeed
+  apt:
+    packages:
+      - tree
 
 env:
   global:
@@ -47,7 +50,7 @@ before_script:
 - tar xvf secrets.tar
 - yarn migrate
 - yarn compile
-- cd compile; ls -lah; ls -lah server/controllers; ls -lah server/controllers/app; yarn start &
+- cd compile; yarn start &
 - sleep 30
 - cd ..
 
