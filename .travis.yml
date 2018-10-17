@@ -76,6 +76,6 @@ deploy:
       tags: true
   - provider: script
     skip_cleanup: true
-    script: ./scripts/deploy-prelive.sh ${TRAVIS_TAG}
+    script: ./scripts/deploy-appengine.sh STAGING ${TRAVIS_TAG}
     on:
       tags: true

@@ -158,6 +158,39 @@ resource "google_sql_database" "live-sqldb-main-database" {
   ]
 }
 
+# Storage - AppEngine buckets (auto created)
+
+resource "google_storage_bucket" "live-appengine-default" {
+  name = "chm-sqrt2-retrofeed-live.appspot.com"
+  project = "${google_project.live.id}"
+  storage_class = "STANDARD"
+  location = "${var.live_region}"
+}
+
+resource "google_storage_bucket" "live-appengine-artifacts" {
+  name = "eu.artifacts.chm-sqrt2-retrofeed-live.appspot.com"
+  project = "${google_project.live.id}"
+  storage_class = "STANDARD"
+  location = "eu"
+}
+
+resource "google_storage_bucket" "live-appengine-staging" {
+  name = "staging.chm-sqrt2-retrofeed-live.appspot.com"
+  project = "${google_project.live.id}"
+  storage_class = "STANDARD"
+  location = "${var.live_region}"
+
+  lifecycle_rule {
+    action {
+      type = "Delete"
+    }
+
+    condition {
+      age = "15"
+    }
+  }
+}
+
 # Ingress - DNS
 
 resource "google_dns_managed_zone" "live-retrofeed-io" {

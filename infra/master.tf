@@ -6,7 +6,7 @@
 
 provider "google" {
   # NOTE: Only uncomment when importing the domain.
-  # project = "chm-sqrt2-shared"
+  # project = "chm-sqrt2-retrofeed-staging"
   # No credentials here. Needs to run as horia@ with default credentials
   # from "gcloud auth application-default login"
 }
