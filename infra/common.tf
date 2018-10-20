@@ -79,6 +79,7 @@ resource "google_project_services" "common-services" {
 
     # Enabled via UI
     "bigquery-json.googleapis.com",
+    "appengine.googleapis.com",
     "clouddebugger.googleapis.com",
     "datastore.googleapis.com",
     "storage-component.googleapis.com",

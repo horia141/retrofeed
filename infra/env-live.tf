@@ -15,6 +15,7 @@ resource "google_project_services" "live-services" {
   project = "${google_project.live.id}"
 
   services = [
+    "appengine.googleapis.com",
     "compute.googleapis.com",
     "dns.googleapis.com",
     "maps-embed-backend.googleapis.com",
@@ -50,6 +51,38 @@ resource "google_project_iam_binding" "live-cloudsql-clients" {
   role = "roles/cloudsql.client"
   members = [
     "serviceAccount:${google_service_account.live-service-core.email}",
+  ]
+}
+
+resource "google_project_iam_binding" "live-appengine-admin" {
+  project = "${google_project.live.id}"
+  role = "roles/appengine.appAdmin"
+  members = [
+    "serviceAccount:${google_service_account.ci-builder.email}"
+  ]
+}
+
+resource "google_project_iam_binding" "live-appengine-cloud-build-editor" {
+  project = "${google_project.live.id}"
+  role = "roles/cloudbuild.builds.editor"
+  members = [
+    "serviceAccount:${google_service_account.ci-builder.email}"
+  ]
+}
+
+resource "google_storage_bucket_iam_binding" "live-appengine-artifacts" {
+  bucket = "${google_storage_bucket.live-appengine-artifacts.name}"
+  role = "roles/storage.objectAdmin"
+  members = [
+    "serviceAccount:${google_service_account.ci-builder.email}"
+  ]
+}
+
+resource "google_storage_bucket_iam_binding" "live-appengine-staging" {
+  bucket = "${google_storage_bucket.live-appengine-staging.name}"
+  role = "roles/storage.objectAdmin"
+  members = [
+    "serviceAccount:${google_service_account.ci-builder.email}"
   ]
 }
 
