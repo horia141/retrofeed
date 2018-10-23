@@ -3,6 +3,7 @@ Test with Chrome, Safari, Firefox on Desktop/Android/iOs
 * Start application and see that it works
 * Go through the sign-up flow and see that it works
 * Go through login flow and see that it works
+* Login shows proper images etc
 * Web integration:
   * Appropriate favicon is shown
   * Application can be saved to home screen on Android and it has nice icon, title and loading screen
@@ -15,3 +16,9 @@ Test with Chrome, Safari, Firefox on Desktop/Android/iOs
   * Facebook OpenGraph metadata is validated as OK
   * Twitter card metadata is validated as OK
   * Organization microdata is validated as OK
+* On the live Internet:
+  * Going to retrofeed.io works and shows the initial page
+  * Going to retrofeed.io redirects to https://retrofeed.io
+  * Going to www.retrofeed.io redirects to https://retrofeed.io
+* Email:
+  * Sending an email to contact@retrofeed.io works and ends up in my inbox

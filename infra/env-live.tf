@@ -235,15 +235,46 @@ resource "google_dns_managed_zone" "live-retrofeed-io" {
   dns_name = "retrofeed.io."
 }
 
-# resource "google_dns_record_set" "live-retrofeed-io-a-res" {
-#   project = "${google_project.live.id}"
-#   managed_zone = "${google_dns_managed_zone.live-retrofeed-io.name}"
+resource "google_dns_record_set" "live-retrofeed-io-a-res" {
+  project = "${google_project.live.id}"
+  managed_zone = "${google_dns_managed_zone.live-retrofeed-io.name}"
 
-#   name = "${google_dns_managed_zone.live-retrofeed-io.dns_name}"
-#   type = "CNAME"
-#   ttl = "300"
-#   rrdatas = [ "chm-sqrt2-retrofeed-live.appspot.com." ]
-# }
+  name = "${google_dns_managed_zone.live-retrofeed-io.dns_name}"
+  type = "A"
+  ttl = "300"
+  rrdatas = [ "216.239.32.21", "216.239.34.21", "216.239.36.21", "216.239.38.21" ]
+}
+
+resource "google_dns_record_set" "live-retrofeed-io-aaaa-res" {
+  project = "${google_project.live.id}"
+  managed_zone = "${google_dns_managed_zone.live-retrofeed-io.name}"
+
+  name = "${google_dns_managed_zone.live-retrofeed-io.dns_name}"
+  type = "AAAA"
+  ttl = "300"
+  rrdatas = [ "2001:4860:4802:32::15", "2001:4860:4802:34::15", "2001:4860:4802:36::15", "2001:4860:4802:38::15" ]
+}
+
+resource "google_dns_record_set" "live-retrofeed-io-txt-res" {
+  project = "${google_project.live.id}"
+  managed_zone = "${google_dns_managed_zone.live-retrofeed-io.name}"
+
+  name = "${google_dns_managed_zone.live-retrofeed-io.dns_name}"
+  type = "TXT"
+  ttl = "300"
+  rrdatas = [ "google-site-verification=lWwzTXDBrp2SJz3VD32PR5SymeNy2Tj75uNPWwRODJo" ]
+}
+
+
+resource "google_dns_record_set" "live-retrofeed-io-cname-res" {
+  project = "${google_project.live.id}"
+  managed_zone = "${google_dns_managed_zone.live-retrofeed-io.name}"
+
+  name = "www.${google_dns_managed_zone.live-retrofeed-io.dns_name}"
+  type = "CNAME"
+  ttl = "300"
+  rrdatas = [ "ghs.googlehosted.com." ]
+}
 
 resource "google_dns_record_set" "live-retrofeed-io-mx-res" {
   project = "${google_project.live.id}"

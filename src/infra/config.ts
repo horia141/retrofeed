@@ -100,6 +100,11 @@ export class Config {
         return port;
     }
 
+    public get externalHost(): string {
+        // tslint:disable:no-string-literal
+        return this.envConfig["EXTERNAL_HOST"];
+    }
+
     public get sessionSecret(): string {
         // tslint:disable:no-string-literal
         return this.envConfig["SESSION_SECRET"];

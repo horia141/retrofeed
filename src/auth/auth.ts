@@ -95,7 +95,7 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
             clientID: config.auth0.clientId,
             clientSecret: config.auth0.clientSecret,
             // TODO: better encoding for this.
-            callbackURL: "/real/auth/callback",
+            callbackURL: `${config.externalHost}/real/auth/callback`,
             audience: "https://" + config.auth0.domain + "/userinfo",
             responseType: "code",
             scope: "openid profile",

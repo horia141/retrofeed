@@ -24,7 +24,7 @@
         "infra:start": "./scripts/infra-start.sh",
         "infra:reset": "./scripts/infra-reset.sh",
         "infra:psql": "./scripts/infra-psql.sh",
-        "infra:psql:live": "./scripts/infra-psql-live.sh",
+        "infra:psql:prod": "./scripts/infra-psql-prod.sh",
         "ngrok": "./scripts/ngrok-expose.sh",
         "test:all": "yarn test:unit && yarn test:e2e",
         "test:unit": "./scripts/test-unit.sh",
