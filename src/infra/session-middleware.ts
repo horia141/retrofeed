@@ -33,7 +33,7 @@ export class SessionMiddleware implements NestMiddleware {
             name: Cookies.Session,
             secret: this.config.sessionSecret,
             cookie: {
-                domain: this.config.host,
+                domain: this.config.externalDomain,
                 httpOnly: true,
                 maxAge: moment.duration(42, "years").asMilliseconds(),
                 path: "/",

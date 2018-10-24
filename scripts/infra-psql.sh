@@ -6,4 +6,4 @@ source scripts/setup-env.sh
 
 export PGPASSWORD=${POSTGRES_PASSWORD}
 
-pgcli --host=${POSTGRES_HOST} --port=${POSTGRES_PORT} --dbname=${POSTGRES_PASSWORD} --username=${POSTGRES_USERNAME}
+pgcli --host=${POSTGRES_HOST} --port=${POSTGRES_PORT} --dbname=${POSTGRES_DATABASE} --username=${POSTGRES_USERNAME}

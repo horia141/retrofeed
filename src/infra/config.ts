@@ -100,9 +100,18 @@ export class Config {
         return port;
     }
 
+    public get externalDomain(): string {
+        // tslint:disable:no-string-literal
+        return this.envConfig["EXTERNAL_DOMAIN"];
+    }
+
     public get externalHost(): string {
         // tslint:disable:no-string-literal
-        return this.envConfig["EXTERNAL_HOST"];
+        if (isOnServer(this.env)) {
+            return `https://${this.envConfig["EXTERNAL_DOMAIN"]}`;
+        } else {
+            return `http://${this.envConfig["EXTERNAL_DOMAIN"]}`;
+        }
     }
 
     public get sessionSecret(): string {
