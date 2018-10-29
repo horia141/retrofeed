@@ -291,22 +291,3 @@ resource "google_dns_record_set" "live-retrofeed-io-mx-res" {
     "10 alt4.aspmx.l.google.com."
   ]
 }
-
-resource "google_dns_managed_zone" "live-retrofeed-chm-sqrt2-io" {
-  project = "${google_project.live.id}"
-
-  name = "chm-sqrt2-retrofeed-live-retrofeed-chm-sqrt2-io"
-  description = "Main technical domain"
-
-  dns_name = "retrofeed.chm-sqrt2.io."
-}
-
-# resource "google_dns_record_set" "live-core-retrofeed-chm-sqrt2-io-a-res" {
-#   project = "${google_project.live.id}"
-#   managed_zone = "${google_dns_managed_zone.live-retrofeed-chm-sqrt2-io.name}"
-
-#   name = "core.live.${google_dns_managed_zone.live-retrofeed-chm-sqrt2-io.dns_name}"
-#   type = "CNAME"
-#   ttl = "300"
-#   rrdatas = [ "chm-sqrt2-retrofeed-live.appspot.com." ]
-# }
