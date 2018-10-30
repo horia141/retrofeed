@@ -1,6 +1,6 @@
 {
     "name": "retrofeed",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "description": "Manage updates for your project's dependencies",
     "author": "Horia Coman horia141@gmail.com",
     "license": "MIT",
@@ -16,6 +16,9 @@
         "dependency",
         "package"
     ],
+    "engines": {
+        "node": ">=8"
+    },
     "scripts": {
         "compile": "./scripts/compile.sh",
         "compile:client:stats": "./scripts/compile-client-stats.sh",
